@@ -1,0 +1,2 @@
+# The ICIJ CSV extracts are large (175 MB total); keep them out of git history.
+*.csv filter=lfs diff=lfs merge=lfs -text
