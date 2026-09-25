@@ -4,20 +4,14 @@ A progressive tutorial built on the graph loaded by [`cypher/`](cypher/). Each
 scenario states an investigative question, the query that answers it, what you
 should get back, and the Cypher idea it teaches.
 
-The scenarios follow the investigation in Neo4j's
-[Analyzing the Panama Papers](https://neo4j.com/blog/cypher-and-gql/analyzing-panama-papers-neo4j/),
-but every query here is rewritten for the **real ICIJ dump in `raw/`** rather than
-the small hand-built sample in that post. The model differs accordingly:
+Version: 0.2
+Last updated: 2026-09-25
 
-| Blog post sample | This dataset |
-|---|---|
-| `:Company` | `:Entity` |
-| `:Client` + `REGISTERED` | `:Intermediary` + `INTERMEDIARY_OF` |
-| `IOO_SHAREHOLDER`, `IOO_BENEFICIARY`, `IOO_PROTECTOR`, `IOO_BSD` | one `:OFFICER_OF` type, with the role in `r.link` |
-| `HAS_SIMILIAR_NAME`, `:Person`, `IDENTITY` | not in the source — you derive them in Part 4 |
 
-Run these one at a time in Neo4j Browser. Expected counts are from this extract,
-so you can check your own results as you go.
+References: 
+
+- Neo4j's
+[Analyzing the Panama Papers](https://neo4j.com/blog/cypher-and-gql/analyzing-panama-papers-neo4j/)
 
 ---
 
@@ -41,7 +35,7 @@ MATCH ()-[r]->() RETURN type(r) AS relationship, count(*) AS rels ORDER BY rels 
 
 Expect `OFFICER_OF 309,363`, `INTERMEDIARY_OF 213,634`, `REGISTERED_ADDRESS 151,105`.
 
-**Teaches:** `count(*)` aggregation, and that a non-aggregating expression in
+**Hints:** `count(*)` aggregation, and that a non-aggregating expression in
 `RETURN` becomes the grouping key. Every node carries the shared `:Node` label,
 which is why one query can count all four types.
 
@@ -66,7 +60,7 @@ RETURN [l IN labels(node) WHERE l <> 'Node'][0] AS type, node.name, score
 ORDER BY score DESC LIMIT 10;
 ```
 
-**Teaches:** the difference between an indexed exact lookup and a full-text
+**Hints:** the difference between an indexed exact lookup and a full-text
 search. Reach for `db.index.fulltext.queryNodes` instead of
 `WHERE n.name CONTAINS '…'` — `CONTAINS` on 238k officers cannot use a range
 index and scans every node. Add `~` for fuzzy matching (`'exaltaton~'` still hits).
@@ -75,7 +69,6 @@ index and scans every node. Add `~` for fuzzy matching (`'exaltaton~'` still hit
 
 ## Part 2 — The Aliyev case
 
-This is the investigation from the blog post, reproduced against the real data.
 
 ### Scenario 3: Find people by surname — and meet the noise problem
 
@@ -86,12 +79,10 @@ RETURN o.node_id, o.name, o.countries
 ORDER BY o.name;
 ```
 
-Expect **28 rows** — and notice most are irrelevant: `AMIR UALIYEV`,
+Notice most are irrelevant: `AMIR UALIYEV`,
 `Mr. Ernest Galiyev`, `MR. MUHAMMAD MAMADALIYEV`, `YELTINZHAL TURGANALIYEV`.
 Substring matching does not respect word boundaries.
 
-**Teaches:** why naive substring search is a poor first filter, and the habit of
-looking at what a query *wrongly* includes, not just what it finds.
 
 ---
 
@@ -114,17 +105,8 @@ Six rows for what are really **two people**:
 | ARZU ILHAM QIZI ALIYEVA | shareholder of |
 | LEYLA ILHAM QIZI ALIYEVA | shareholder of |
 
-The blog post models these roles as separate relationship types (`IOO_SHAREHOLDER`,
-`IOO_BENEFICIARY`). In the real data there is **one** `OFFICER_OF` type and the
-role lives in `r.link`, so you filter on a property instead of a type:
 
-```cypher
-MATCH (o:Officer)-[r:OFFICER_OF]->(e:Entity)
-WHERE r.link = 'shareholder of' AND e.name = 'Exaltation Limited'
-RETURN o.name;
-```
-
-**Teaches:** relationship properties, and reading direction — `OFFICER_OF` always
+**Hints:** relationship properties, and reading direction — `OFFICER_OF` always
 points *from* the officer *to* the entity.
 
 Widen it to the whole company profile:
@@ -142,7 +124,7 @@ RETURN e.name, e.jurisdiction_description,
 
 The intermediary is **CHILD & CHILD**, a London law firm.
 
-**Teaches:** `OPTIONAL MATCH` (a missing address must not delete the whole row)
+**Hints:** `OPTIONAL MATCH` (a missing address must not delete the whole row)
 and `collect(DISTINCT …)` to fold many rows into one.
 
 ---
@@ -179,13 +161,7 @@ ownership belongs to whoever physically holds the certificate — not a person n
 Bearer. There are 22,020 duplicate groups in total, and the head of that list is
 almost entirely placeholders and nominee firms.
 
-**Teaches:** `split`, negative list indexing (`parts[-1]`), `collect` with a slice
-(`[..5]`), and the analytical lesson that the biggest cluster in a real dataset is
-usually an artefact. Always exclude placeholders before drawing conclusions:
-
-```cypher
-… WHERE n > 1 AND NOT normalised IN ['the bearer', 'el portador', 'bearer'] …
-```
+**Hints:** `split`, negative list indexing (`parts[-1]` refers to the last item in the list).
 
 ---
 
@@ -202,7 +178,7 @@ RETURN a.address, a.countries, collect(o.name) AS officers, count(*) AS n;
 All four share **`7 S. Vurgun Street; Baku AZ1 001; Azerbaijan`**. Different
 spellings, one household.
 
-Turn that into a general technique — who else sits at an address, given a person:
+Who else sits at an address, given a person:
 
 ```cypher
 MATCH (start:Officer {name: 'LEYLA ILHAM QIZI ALIYEVA'})
@@ -211,15 +187,13 @@ WHERE other <> start
 RETURN a.address, [l IN labels(other) WHERE l <> 'Node'][0] AS type, other.name;
 ```
 
-**Teaches:** the two-hop "shared neighbour" pattern `(x)-->(hub)<--(y)`, the
-workhorse of link analysis, and `other <> start` to drop the trivial self-match.
+**Hints:** the two-hop "shared neighbour" pattern `(x)-->(hub)<--(y)`, and `other <> start` to drop the trivial self-match.
 
 ---
 
 ### Scenario 7: Which people co-own multiple companies?
 
-The blog's co-occurrence query. Run naively this is dangerous: one company here has
-1,006 officers, which alone generates ~506,000 pairs. Bound it first.
+
 
 ```cypher
 MATCH (e:Entity)<-[:OFFICER_OF]-(o:Officer)
@@ -235,10 +209,8 @@ RETURN first, second, shared, companies
 ORDER BY shared DESC LIMIT 20;
 ```
 
-9,233 pairs qualify. The top of the list is *not* a family — it is
-`BOS NOMINEES (JERSEY) LIMITED` + `BOS SECRETARIES (JERSEY) LIMITED` sharing 318
-companies, then `TENBY NOMINEES` + `BROCK NOMINEES` with 186. These are corporate
-service infrastructure appearing on thousands of filings.
+From results, there are `BOS NOMINEES (JERSEY) LIMITED` + `BOS SECRETARIES (JERSEY) LIMITED` sharing 362 
+companies. These are corporate service infrastructure appearing on thousands of filings.
 
 Scope it to the family and the signal appears:
 
@@ -253,9 +225,7 @@ RETURN first, second, size(companies) AS shared, companies ORDER BY shared DESC;
 `Leyla Aliyeva` and `Arzu Aliyeva` share **three**: Exaltation Limited,
 KINGSVIEW DEVELOPMENTS LIMITED, and UF UNIVERSE FOUNDATION.
 
-**Teaches:** `o1.node_id < o2.node_id` to emit each unordered pair once, why
-`UNWIND` of a collected list beats a self-join, and — most importantly — that
-degree hubs dominate co-occurrence rankings unless you filter them out.
+**Hints:** `o1.node_id < o2.node_id` to emit each unordered pair once to avoid double-counting.
 
 ---
 
@@ -270,10 +240,18 @@ RETURN [n IN nodes(p) | coalesce(n.name, n.address)] AS hops, length(p);
 They meet at UF UNIVERSE FOUNDATION — Mehriban is its *protector*, Leyla a
 beneficiary, shareholder and director.
 
-**Teaches:** `shortestPath`, undirected traversal (`-[*..6]-`, no arrow, because a
+**Hints:** `shortestPath`, undirected and bounded traversal (`-[*..6]-`, no arrow, because a
 connection can run either way), and `coalesce` to print whichever name property a
-node happens to have. **Always bound the hop count** — an unbounded `[*]` on a
-graph with 1,000-officer hubs will not come back.
+node happens to have. 
+
+To show the results as a graph, return `p` instead od properties: 
+
+```cypher
+MATCH (a:Officer {name: 'Mehriban Aliyeva'}), (b:Officer {name: 'Leyla Aliyeva'})
+MATCH p = shortestPath((a)-[*..6]-(b))
+RETURN p;
+```
+
 
 ---
 
@@ -290,9 +268,6 @@ ORDER BY clients DESC LIMIT 10;
 Expect `ORION HOUSE SERVICES (HK) LIMITED` 7,016, then `MOSSACK FONSECA & CO.`
 4,364, `PRIME CORPORATE SOLUTIONS SARL` 4,117.
 
-Note the blog's `Mossack Fonseca & Co (UK)` is really
-`MOSSACK FONSECA & CO. (U.K.) LTD.` here — the firm appears under dozens of
-country-specific records, another entity-resolution trap.
 
 ---
 
@@ -321,9 +296,6 @@ The top four results are all the **same building** in Road Town, Tortola, entere
 four different ways (`AKARA BLDG.; 24 DE CASTRO STREET…`, `Akara Building; 24 de
 Castro Street…`, …) with 1,007 + 813 + 686 + 667 registrations.
 
-**Teaches:** hub detection, and that entity resolution applies to addresses just as
-much as to people. The true concentration is roughly triple what any single row
-suggests.
 
 ---
 
@@ -335,7 +307,7 @@ RETURN o.name, count(e) AS companies
 ORDER BY companies DESC LIMIT 10;
 ```
 
-`MOSSFON SUBSCRIBERS LTD.` holds positions in **3,882** companies — a Mossack
+`MOSSFON SUBSCRIBERS LTD.` holds positions in **3,958** companies — a Mossack
 Fonseca in-house nominee. Real individuals essentially never exceed a few dozen,
 so this is a useful filter to exclude elsewhere.
 
@@ -348,8 +320,9 @@ work directly:
 
 ```cypher
 MATCH (e:Entity) WHERE e.incorporation_date IS NOT NULL
-RETURN e.incorporation_date.year AS year, count(*) AS incorporations
-ORDER BY year;
+WITH e, toInteger(split(e.incorporation_date, '-')[-1]) AS year
+RETURN year, count(e) as count
+ORDER BY year ASC;
 ```
 
 The range runs 1936–2015 and peaks in 2005 (13,246), 2007 (12,814) and 2006 (12,355).
@@ -368,7 +341,7 @@ RETURN e.name, e.incorporation_date, shareholders[..5] AS shareholders
 LIMIT 25;
 ```
 
-**Teaches:** date component access (`.year`), half-open date ranges — safer than
+**Hints:** date component access (`.year`), half-open date ranges — safer than
 `BETWEEN`-style logic — and combining property filters with graph patterns.
 
 ---
@@ -392,9 +365,8 @@ MERGE (o)-[:IDENTITY]->(p)
 RETURN p.name, count(*) AS merged_records;
 ```
 
-**Teaches:** `MERGE` for idempotent writes (re-running creates nothing new — unlike
-the blog's `CREATE`, which duplicates on a second run), and `UNWIND` to turn a
-collected list back into rows.
+**Hints:** `MERGE` for idempotent writes (re-running creates nothing new — unlike
+ `CREATE`, which duplicates on a second run).
 
 ### Scenario 15: Query through the resolved layer
 
@@ -409,33 +381,10 @@ RETURN p.name AS person,
 Each person now shows a single consolidated holding across all their spellings —
 the result the raw data could not give you.
 
-### Cleanup
-
+Show the graph: 
 ```cypher
-MATCH (p:Person) DETACH DELETE p;
+MATCH path = (p:Person)<-[:IDENTITY]-(o:Officer)-[r:OFFICER_OF]->(e:Entity)
+RETURN path LIMIT 20;
 ```
 
----
 
-## Part 5 — Making queries fast
-
-Put `PROFILE` in front of any query to see the plan and the rows touched at each
-step. Compare these two:
-
-```cypher
-PROFILE MATCH (e:Entity {name: 'Exaltation Limited'}) RETURN e;
-PROFILE MATCH (e:Entity) WHERE e.name CONTAINS 'Exaltation' RETURN e;
-```
-
-The first shows `NodeIndexSeek` and touches a handful of rows; the second shows
-`NodeByLabelScan` and touches all 213,634. That difference is the whole reason for
-[`cypher/06_indexes.cypher`](cypher/06_indexes.cypher).
-
-Three rules that matter on this dataset:
-
-1. **Bound variable-length paths.** `-[*..6]-` is fine; `-[*]-` will hang on hubs
-   like ACCELONIC LTD (1,006 officers).
-2. **Filter hubs out of pair and path analysis.** Nominee companies and shared
-   registered-agent addresses connect almost everything to everything.
-3. **Aggregate before expanding.** `WITH e, collect(o) AS officers WHERE size(officers) <= 50`
-   discards the explosive cases before the cross-product, not after.
