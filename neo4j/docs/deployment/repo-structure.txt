@@ -1,0 +1,318 @@
+network-search/
+│
+├── README.md
+├── CONTRIBUTING.md
+├── CODEOWNERS
+├── CHANGELOG.md
+├── .gitignore
+├── .editorconfig
+├── .pre-commit-config.yaml
+│
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml
+│   │   ├── security-scan.yml
+│   │   ├── terraform-plan.yml
+│   │   └── release.yml
+│   ├── pull_request_template.md
+│   └── ISSUE_TEMPLATE/
+│
+│
+├── docs/
+│   │
+│   ├── 01-overview/
+│   │   ├── solution-overview.md
+│   │   ├── business-context.md
+│   │   ├── scope.md
+│   │   ├── use-cases.md
+│   │   └── glossary.md
+│   │
+│   ├── 02-architecture/
+│   │   ├── solution-architecture.md
+│   │   ├── logical-architecture.md
+│   │   ├── physical-architecture.md
+│   │   ├── data-flow.md
+│   │   ├── integration-architecture.md
+│   │   ├── security-architecture.md
+│   │   └── diagrams/
+│   │
+│   ├── 03-graph-fundamentals/
+│   │   ├── graph-database-basics.md
+│   │   ├── property-graph-basics.md
+│   │   ├── neo4j-basics.md
+│   │   ├── cypher-guidelines.md
+│   │   └── graph-patterns.md
+│   │
+│   ├── 04-modeling-guidelines/
+│   │   ├── modeling-principles.md
+│   │   ├── node-guidelines.md
+│   │   ├── relationship-guidelines.md
+│   │   ├── property-guidelines.md
+│   │   ├── naming-conventions.md
+│   │   ├── identifier-strategy.md
+│   │   ├── temporal-modeling.md
+│   │   ├── event-modeling.md
+│   │   ├── provenance.md
+│   │   └── modeling-examples.md
+│   │
+│   ├── 05-data/
+│   │   ├── source-inventory.md
+│   │   ├── source-definitions.md
+│   │   ├── canonical-definitions.md
+│   │   ├── entity-resolution.md
+│   │   ├── data-lineage.md
+│   │   ├── data-quality.md
+│   │   └── retention.md
+│   │
+│   ├── 06-ingestion/
+│   │   ├── day0-load.md
+│   │   ├── incremental-load.md
+│   │   ├── kafka-ingestion.md
+│   │   ├── replay-strategy.md
+│   │   ├── reconciliation.md
+│   │   ├── idempotency.md
+│   │   └── failure-handling.md
+│   │
+│   ├── 07-risk-and-fraud/
+│   │   ├── risk-scoring.md
+│   │   ├── fraud-patterns.md
+│   │   ├── network-search-patterns.md
+│   │   ├── feature-engineering.md
+│   │   ├── explainability.md
+│   │   └── investigation-use-cases.md
+│   │
+│   ├── 08-hume/
+│   │   ├── orchestra-design.md
+│   │   ├── investigation-workflow.md
+│   │   ├── integration.md
+│   │   └── workflow-patterns.md
+│   │
+│   ├── 09-operations/
+│   │   ├── monitoring.md
+│   │   ├── alerting.md
+│   │   ├── backup-restore.md
+│   │   ├── disaster-recovery.md
+│   │   ├── capacity-management.md
+│   │   ├── performance-tuning.md
+│   │   └── runbooks/
+│   │
+│   ├── 10-security-governance/
+│   │   ├── access-control.md
+│   │   ├── pii-handling.md
+│   │   ├── encryption.md
+│   │   ├── audit.md
+│   │   ├── data-classification.md
+│   │   ├── segregation-of-duties.md
+│   │   └── regulatory-considerations.md
+│   │
+│   ├── 11-testing/
+│   │   ├── test-strategy.md
+│   │   ├── data-testing.md
+│   │   ├── graph-testing.md
+│   │   ├── integration-testing.md
+│   │   ├── performance-testing.md
+│   │   └── reconciliation-testing.md
+│   │
+│   ├── 12-decisions/
+│   │   └── adr/
+│   │       ├── ADR-001-use-neo4j.md
+│   │       ├── ADR-002-graph-model.md
+│   │       ├── ADR-003-event-ingestion.md
+│   │       └── ...
+│   │
+│   └── 13-deployment/
+│       └── repo-structure.txt
+│
+│
+├── model/
+│   │
+│   ├── graph-schema/
+│   │   ├── nodes/
+│   │   ├── relationships/
+│   │   ├── properties/
+│   │   └── diagrams/
+│   │
+│   ├── domain/
+│   │   ├── party/
+│   │   ├── account/
+│   │   ├── service/
+│   │   ├── transaction/
+│   │   ├── device/
+│   │   ├── address/
+│   │   ├── organisation/
+│   │   └── risk/
+│   │
+│   └── mappings/
+│       ├── warehouse/
+│       ├── kafka/
+│       └── external-sources/
+│
+│
+├── data-contracts/
+│   │
+│   ├── warehouse/
+│   │   ├── customer/
+│   │   ├── account/
+│   │   ├── service/
+│   │   └── transaction/
+│   │
+│   ├── kafka/
+│   │   ├── customer-events/
+│   │   ├── account-events/
+│   │   ├── transaction-events/
+│   │   └── service-events/
+│   │
+│   ├── external-sources/
+│   │
+│   └── schemas/
+│
+│
+├── src/
+│   │
+│   ├── ingestion/
+│   │   ├── day0/
+│   │   ├── kafka/
+│   │   ├── transformation/
+│   │   ├── validation/
+│   │   ├── entity-resolution/
+│   │   └── dead-letter/
+│   │
+│   ├── graph/
+│   │   ├── loaders/
+│   │   ├── queries/
+│   │   ├── algorithms/
+│   │   └── utilities/
+│   │
+│   ├── risk/
+│   │   ├── features/
+│   │   ├── rules/
+│   │   ├── scoring/
+│   │   └── explanations/
+│   │
+│   ├── investigation/
+│   │   ├── search/
+│   │   └── case-management/
+│   │
+│   └── common/
+│
+│
+├── cypher/
+│   │
+│   ├── schema/
+│   │   └── bootstrap.cypher
+│   │
+│   ├── migrations/
+│   │   ├── V001__initial_schema.cypher
+│   │   ├── V002__add_transaction_indexes.cypher
+│   │   └── ...
+│   │
+│   ├── ingestion/
+│   ├── queries/
+│   ├── fraud-patterns/
+│   ├── risk-features/
+│   ├── investigation/
+│   ├── administration/
+│   └── diagnostics/
+│
+│
+├── orchestration/
+│   │
+│   ├── hume/
+│   │   ├── orchestra/
+│   │   ├── workflows/
+│   │   ├── configurations/
+│   │   └── prompts/
+│   │
+│   └── pipelines/
+│
+│
+├── infrastructure/
+│   │
+│   ├── terraform/
+│   │   ├── modules/
+│   │   └── environments/
+│   │       ├── dev/
+│   │       ├── test/
+│   │       ├── staging/
+│   │       └── prod/
+│   │
+│   ├── helm/
+│   ├── kubernetes/
+│   ├── docker/
+│   └── kafka-connect/
+│
+│
+├── config/
+│   ├── dev/
+│   ├── test/
+│   ├── staging/
+│   └── prod/
+│
+│
+├── tests/
+│   │
+│   ├── unit/
+│   ├── integration/
+│   ├── graph/
+│   ├── contract/
+│   ├── data-quality/
+│   ├── reconciliation/
+│   ├── performance/
+│   └── security/
+│
+│
+├── test-data/
+│   ├── README.md
+│   ├── synthetic/
+│   ├── graph-fixtures/
+│   ├── kafka-events/
+│   └── expected-results/
+│
+│
+├── notebooks/
+│   ├── README.md
+│   ├── exploration/
+│   ├── graph-analysis/
+│   ├── fraud-pattern-analysis/
+│   └── performance/
+│
+│
+├── scripts/
+│   ├── bootstrap/
+│   ├── local-dev/
+│   ├── migration/
+│   ├── deployment/
+│   ├── data-validation/
+│   └── utilities/
+│
+│
+├── monitoring/
+│   ├── dashboards/
+│   ├── alerts/
+│   ├── metrics/
+│   └── log-config/
+│
+│
+├── examples/
+│   ├── cypher/
+│   ├── python/
+│   ├── kafka/
+│   ├── graph-model/
+│   └── investigations/
+│
+└── tools/
+    ├── schema-validation/
+    └── data-generation/
+
+
+Conventions
+-----------
+- "Party" is the canonical graph term (model/, cypher/, src/). "Customer" is kept
+  only where it mirrors a source system's own name (data-contracts/). The mapping
+  is defined once, in docs/01-overview/glossary.md.
+- cypher/migrations/ is the only executable source for constraints and indexes.
+- Risk scoring lives in src/risk/scoring/; Hume workflows in orchestration/hume/workflows/.
+- Graph and Cypher tests both live in tests/graph/.
+- data-contracts/schemas/ holds one format only: the one the Kafka schema registry uses.
+- test-data/ and notebooks/ are synthetic data only; notebook outputs are stripped
+  before commit (.pre-commit-config.yaml).
