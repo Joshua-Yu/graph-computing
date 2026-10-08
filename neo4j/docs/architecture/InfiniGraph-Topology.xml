@@ -1,0 +1,133 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0">
+  <diagram id="infinigraph_cluster_arch" name="Neo4j Infinigraph Cluster Architecture">
+    <mxGraphModel dx="1006" dy="632" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_banner" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#cbd5e1;strokeWidth=1;align=left;spacingLeft=20;" value="&lt;b style=&quot;font-size: 16px; color: #1e293b;&quot;&gt;Neo4j Infinigraph Multi-Raft Disaggregated Cluster Architecture&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 11px; color: #64748b;&quot;&gt;Single Logical Graph • Decoupled Memory-Mapped Topology • Multi-Raft Partitioned Property Storage Tier&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="1080" x="60" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="client_apps" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#475569;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" value="&lt;b&gt;Enterprise Applications / GraphRAG AI Agents&lt;/b&gt;" vertex="1">
+          <mxGeometry height="40" width="360" x="100" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="load_balancer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;strokeWidth=1.5;fontColor=#1e293b;fontSize=11;" value="&lt;b&gt;Network Load Balancer (NLB)&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #64748b;&quot;&gt;Bolt Routing Protocol (:7687)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="40" width="380" x="580" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="az1_box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#94a3b8;strokeWidth=1.5;dashed=1;" value="" vertex="1">
+          <mxGeometry height="690" width="340" x="60" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="az1_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;" value="&lt;b style=&quot;font-size: 12px; color: #0f172a;&quot;&gt;AVAILABILITY ZONE 1 (AZ-A)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="340" x="60" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="az2_box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#94a3b8;strokeWidth=1.5;dashed=1;" value="" vertex="1">
+          <mxGeometry height="690" width="340" x="430" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="az2_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;" value="&lt;b style=&quot;font-size: 12px; color: #0f172a;&quot;&gt;AVAILABILITY ZONE 2 (AZ-B)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="340" x="430" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="az3_box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#94a3b8;strokeWidth=1.5;dashed=1;" value="" vertex="1">
+          <mxGeometry height="690" width="340" x="800" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="az3_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;" value="&lt;b style=&quot;font-size: 12px; color: #0f172a;&quot;&gt;AVAILABILITY ZONE 3 (AZ-C)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="340" x="800" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="coord_az1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f9ff;strokeColor=#0284c7;strokeWidth=1.5;fontSize=11;" value="&lt;b&gt;Query Coordinator 1&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #0284c7;&quot;&gt;Stateless Query Engine&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #64748b;&quot;&gt;Cypher Planner • Hash Router&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="300" x="80" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="coord_az2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f9ff;strokeColor=#0284c7;strokeWidth=1.5;fontSize=11;" value="&lt;b&gt;Query Coordinator 2&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #0284c7;&quot;&gt;Stateless Query Engine&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #64748b;&quot;&gt;Cypher Planner • Hash Router&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="300" x="450" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="coord_az3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f9ff;strokeColor=#0284c7;strokeWidth=1.5;fontSize=11;" value="&lt;b&gt;Query Coordinator 3&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #0284c7;&quot;&gt;Stateless Query Engine&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #64748b;&quot;&gt;Cypher Planner • Hash Router&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="300" x="820" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="topo_az1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffbeb;strokeColor=#d97706;strokeWidth=2;fontSize=11;" value="&lt;b style=&quot;color: #b45309;&quot;&gt;Topology Core [Leader ★]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;High RAM (512GB+) • Page Cache&lt;br&gt;Adjacency Pointers • Labels • Indexes&lt;br&gt;&lt;b style=&quot;color: #d97706;&quot;&gt;Raft Group 0 (Topology)&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="95" width="300" x="80" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="topo_az2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffbeb;strokeColor=#d97706;strokeWidth=1.5;fontSize=11;" value="&lt;b style=&quot;color: #b45309;&quot;&gt;Topology Core [Follower]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;High RAM (512GB+) • Page Cache&lt;br&gt;Adjacency Pointers • Labels • Indexes&lt;br&gt;&lt;b style=&quot;color: #d97706;&quot;&gt;Raft Group 0 (Topology)&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="95" width="300" x="450" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="topo_az3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffbeb;strokeColor=#d97706;strokeWidth=1.5;fontSize=11;" value="&lt;b style=&quot;color: #b45309;&quot;&gt;Topology Core [Follower]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;High RAM (512GB+) • Page Cache&lt;br&gt;Adjacency Pointers • Labels • Indexes&lt;br&gt;&lt;b style=&quot;color: #d97706;&quot;&gt;Raft Group 0 (Topology)&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="95" width="300" x="820" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="topo_raft1" edge="1" parent="1" source="topo_az1" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;dashed=1;fontSize=9;fontColor=#b45309;" target="topo_az2" value="Raft Heartbeat &amp;amp; WAL Sync">
+          <mxGeometry relative="1" x="-0.4286" y="-22" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="topo_raft2" edge="1" parent="1" source="topo_az2" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;dashed=1;fontSize=9;fontColor=#b45309;" target="topo_az3" value="Raft Heartbeat &amp;amp; WAL Sync">
+          <mxGeometry relative="1" x="0.4286" y="-32" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sn1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0e7ff;strokeColor=#6366f1;strokeWidth=1.5;fontSize=11;verticalAlign=top;align=center;spacingTop=6;" value="&lt;b style=&quot;color: #4338ca;&quot;&gt;Storage Host 1 (Local NVMe)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="400" width="300" x="80" y="425" as="geometry" />
+        </mxCell>
+        <mxCell id="s1_lead" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;strokeWidth=2;fontSize=10;" value="&lt;b style=&quot;color: #15803d;&quot;&gt;Shard 1 [Leader ★]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #475569;&quot;&gt;Tokens: 0x0000 - 0x5555&lt;br&gt;Active Writes + Local MemTable&lt;/span&gt;" vertex="1">
+          <mxGeometry height="55" width="260" x="100" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="s2_fol1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=1;fontSize=10;" value="&lt;b style=&quot;color: #475569;&quot;&gt;Shard 2 [Follower]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #64748b;&quot;&gt;Replicated WAL • Local NVMe Read Cache&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="260" x="100" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_fol1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=1;fontSize=10;" value="&lt;b style=&quot;color: #475569;&quot;&gt;Shard 3 [Follower]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #64748b;&quot;&gt;Replicated WAL • Local NVMe Read Cache&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="260" x="100" y="585" as="geometry" />
+        </mxCell>
+        <mxCell id="sn_fol1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=1;fontSize=10;" value="&lt;b style=&quot;color: #475569;&quot;&gt;Shard N [Follower]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #64748b;&quot;&gt;Vector Store Replicas (HNSW)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="260" x="100" y="645" as="geometry" />
+        </mxCell>
+        <mxCell id="sn2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0e7ff;strokeColor=#6366f1;strokeWidth=1.5;fontSize=11;verticalAlign=top;align=center;spacingTop=6;" value="&lt;b style=&quot;color: #4338ca;&quot;&gt;Storage Host 2 (Local NVMe)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="400" width="300" x="450" y="425" as="geometry" />
+        </mxCell>
+        <mxCell id="s1_fol1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=1;fontSize=10;" value="&lt;b style=&quot;color: #475569;&quot;&gt;Shard 1 [Follower]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #64748b;&quot;&gt;Replicated WAL • Local NVMe Read Cache&lt;/span&gt;" vertex="1">
+          <mxGeometry height="55" width="260" x="470" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="s2_lead" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;strokeWidth=2;fontSize=10;" value="&lt;b style=&quot;color: #15803d;&quot;&gt;Shard 2 [Leader ★]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #475569;&quot;&gt;Tokens: 0x5556 - 0xAAAA&lt;br&gt;Active Writes + Local MemTable&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="260" x="470" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_fol2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=1;fontSize=10;" value="&lt;b style=&quot;color: #475569;&quot;&gt;Shard 3 [Follower]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #64748b;&quot;&gt;Replicated WAL • Local NVMe Read Cache&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="260" x="470" y="585" as="geometry" />
+        </mxCell>
+        <mxCell id="sn_fol2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=1;fontSize=10;" value="&lt;b style=&quot;color: #475569;&quot;&gt;Shard N [Follower]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #64748b;&quot;&gt;Vector Store Replicas (HNSW)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="260" x="470" y="645" as="geometry" />
+        </mxCell>
+        <mxCell id="sn3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0e7ff;strokeColor=#6366f1;strokeWidth=1.5;fontSize=11;verticalAlign=top;align=center;spacingTop=6;" value="&lt;b style=&quot;color: #4338ca;&quot;&gt;Storage Host 3 (Local NVMe)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="400" width="300" x="820" y="425" as="geometry" />
+        </mxCell>
+        <mxCell id="s1_fol2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=1;fontSize=10;" value="&lt;b style=&quot;color: #475569;&quot;&gt;Shard 1 [Follower]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #64748b;&quot;&gt;Replicated WAL • Local NVMe Read Cache&lt;/span&gt;" vertex="1">
+          <mxGeometry height="55" width="260" x="840" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="s2_fol2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=1;fontSize=10;" value="&lt;b style=&quot;color: #475569;&quot;&gt;Shard 2 [Follower]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #64748b;&quot;&gt;Replicated WAL • Local NVMe Read Cache&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="260" x="840" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_lead" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;strokeWidth=2;fontSize=10;" value="&lt;b style=&quot;color: #15803d;&quot;&gt;Shard 3 [Leader ★]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #475569;&quot;&gt;Tokens: 0xAAAB - 0xFFFF&lt;br&gt;Active Writes + Local MemTable&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="260" x="840" y="585" as="geometry" />
+        </mxCell>
+        <mxCell id="sn_lead" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;strokeWidth=2;fontSize=10;" value="&lt;b style=&quot;color: #15803d;&quot;&gt;Shard N [Leader ★]&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 9px; color: #475569;&quot;&gt;Vector Embeddings &amp;amp; HNSW Graph&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="260" x="840" y="645" as="geometry" />
+        </mxCell>
+        <mxCell id="raft_s1_edge1" edge="1" parent="1" source="s1_lead" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#22c55e;strokeWidth=1.5;dashed=1;" target="s1_fol1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="raft_s1_edge2" edge="1" parent="1" source="s1_fol1" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#22c55e;strokeWidth=1.5;dashed=1;" target="s1_fol2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_lb_in" edge="1" parent="1" source="client_apps" style="endArrow=classic;html=1;strokeColor=#475569;strokeWidth=1.5;" target="load_balancer" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_lb_coord" edge="1" parent="1" source="load_balancer" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="coord_az2" value="Bolt Session Handshake">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_coord_topo" edge="1" parent="1" source="coord_az2" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=2;fontSize=10;fontColor=#b45309;" target="topo_az2" value="1. Pointer Traversal &amp;amp; Index Seek">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_coord_props" edge="1" parent="1" source="topo_az2" style="endArrow=classic;html=1;strokeColor=#6366f1;strokeWidth=2;fontSize=10;fontColor=#4338ca;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="sn2" value="2. Parallel Batched RPCs (Scatter-Gather / Filter Pushdown)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="footer_legend" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontSize=11;fontColor=#334155;align=center;" value="&lt;b&gt;Architecture Takeaway:&lt;/b&gt; The Graph Topology Tier runs a single 3-node Raft group focused strictly on in-memory pointer expansion. The Property Storage Tier runs a Multi-Raft cluster with parallel groups partitioned by token hash, ensuring single-leader bottlenecks are completely removed for writes and vector indexing." vertex="1">
+          <mxGeometry height="35" width="1080" x="60" y="840" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
