@@ -1,0 +1,19 @@
+MATCH (me:AccountHolder {name: 'AccountHolder 2'})-[:HAS_ACCOUNT]->(:BankAccount)
+      (()-[:DEBIT|CREDIT]-(t:Transaction
+            WHERE t.amount > 100
+              AND t.date >= date() - duration('P30D'))
+         -[:DEBIT|CREDIT]-(:BankAccount)){1,3}
+      (:BankAccount)<-[:HAS_ACCOUNT]-(other:AccountHolder)
+WHERE other <> me
+  AND EXISTS     { (me)-[:LIVES_AT]->(:Location)<-[:LIVES_AT]-(other) }
+  AND NOT EXISTS { (me)-[:HAS_SSN]->(:SSN)<-[:HAS_SSN]-(other) }
+RETURN DISTINCT other.name AS accountHolder
+ 
+
+MATCH (me:AccountHolder {name: 'AccountHolder 2'})-[:HAS_ACCOUNT]->(:BankAccount)
+      (()-[:DEBIT|CREDIT]-(:Transaction)-[:DEBIT|CREDIT]-(:BankAccount)){1,3}
+      (:BankAccount)<-[:HAS_ACCOUNT]-(other:AccountHolder)
+WHERE other <> me
+  AND EXISTS     { (me)-[:LIVES_AT]->(:Location)<-[:LIVES_AT]-(other) }
+  AND NOT EXISTS { (me)-[:HAS_SSN]->(:SSN)<-[:HAS_SSN]-(other) }
+RETURN DISTINCT other.name AS accountHolder
