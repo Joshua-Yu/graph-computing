@@ -1,0 +1,1552 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Infinigraph Fraud Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+  :root{
+    --ink:#141a1e; --body:#2c3941; --muted:#5f7078;
+    --paper:#eceff0; --surface:#fbfcfc; --surface-2:#f2f5f6;
+    --rule:#ccd6d9; --rule-strong:#a7b7bc;
+    --accent:#0f5b66; --accent-soft:#dfecee;
+    --hot:#9a3f1c; --hot-soft:#f7e7df;
+    --cold:#2d4a78; --cold-soft:#e3e9f4;
+    --warn:#755d0e; --warn-soft:#f4eeda;
+    --sans:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+    --display:"Archivo","IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --col:70ch;
+    --c-topo:#c2511f; --c-prop:#3a5fa8;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#e9eff1; --body:#c2cfd4; --muted:#8a9ba2;
+      --paper:#0e1316; --surface:#161d21; --surface-2:#1b2328;
+      --rule:#2a353b; --rule-strong:#3c4b52;
+      --accent:#63b8c4; --accent-soft:#14313a;
+      --hot:#e08a5d; --hot-soft:#2d1d15;
+      --cold:#8dabde; --cold-soft:#192234;
+      --warn:#cfad4c; --warn-soft:#282213;
+      --c-topo:#d4713a; --c-prop:#5b87d6;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e9eff1; --body:#c2cfd4; --muted:#8a9ba2;
+    --paper:#0e1316; --surface:#161d21; --surface-2:#1b2328;
+    --rule:#2a353b; --rule-strong:#3c4b52;
+    --accent:#63b8c4; --accent-soft:#14313a;
+    --hot:#e08a5d; --hot-soft:#2d1d15;
+    --cold:#8dabde; --cold-soft:#192234;
+    --warn:#cfad4c; --warn-soft:#282213;
+    --c-topo:#d4713a; --c-prop:#5b87d6;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--paper); color:var(--body);
+    font-family:var(--sans); font-size:16px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1160px; margin:0 auto; padding:0 28px 96px;}
+
+  /* ---- masthead ---- */
+  .mast{border-bottom:2px solid var(--ink); padding:44px 0 20px; margin-bottom:0;}
+  .mast .kicker{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 14px;
+  }
+  .mast h1{
+    font-family:var(--display); font-weight:700; color:var(--ink);
+    font-size:clamp(34px,5.2vw,54px); line-height:1.04; letter-spacing:-.022em;
+    margin:0 0 16px; text-wrap:balance; max-width:20ch;
+  }
+  .mast .standfirst{
+    font-size:18px; line-height:1.55; color:var(--muted);
+    max-width:62ch; margin:0 0 22px;
+  }
+  .facts{
+    display:flex; flex-wrap:wrap; gap:0; border-top:1px solid var(--rule);
+    padding-top:16px;
+  }
+  .fact{padding-right:32px; margin-right:32px; border-right:1px solid var(--rule);}
+  .fact:last-child{border-right:0; margin-right:0; padding-right:0;}
+  .fact dt{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted); margin:0 0 4px;
+  }
+  .fact dd{
+    margin:0; font-family:var(--display); font-weight:600; font-size:19px;
+    color:var(--ink); font-variant-numeric:tabular-nums;
+  }
+  .fact dd small{font-weight:500; font-size:13px; color:var(--muted); font-family:var(--sans);}
+
+  /* ---- layout ---- */
+  .cols{display:grid; grid-template-columns:200px minmax(0,1fr); gap:0 60px; align-items:start;}
+  nav.toc{position:sticky; top:24px; padding-top:44px;}
+  nav.toc p{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted); margin:0 0 12px;
+  }
+  nav.toc ol{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px;}
+  nav.toc a{
+    color:var(--muted); text-decoration:none; font-size:13.5px; line-height:1.35;
+    display:block; border-left:2px solid var(--rule); padding-left:11px;
+  }
+  nav.toc a:hover,nav.toc a:focus-visible{color:var(--accent); border-left-color:var(--accent);}
+  main{padding-top:44px; min-width:0;}
+  @media (max-width:1000px){
+    .cols{grid-template-columns:minmax(0,1fr);}
+    nav.toc{display:none;}
+  }
+
+  /* ---- type ---- */
+  h2{
+    font-family:var(--display); font-weight:700; color:var(--ink);
+    font-size:27px; line-height:1.16; letter-spacing:-.015em;
+    margin:0 0 4px; text-wrap:balance;
+  }
+  h3{
+    font-family:var(--display); font-weight:600; color:var(--ink);
+    font-size:18px; line-height:1.3; letter-spacing:-.008em; margin:34px 0 8px;
+  }
+  section{padding:46px 0; border-top:1px solid var(--rule);}
+  section:first-of-type{border-top:0;}
+  .secnum{
+    font-family:var(--mono); font-size:11px; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--accent); display:block; margin-bottom:9px;
+  }
+  p{margin:0 0 15px; max-width:var(--col);}
+  ul,ol.body{margin:0 0 15px; padding-left:20px; max-width:var(--col);}
+  li{margin-bottom:7px;}
+  a{color:var(--accent);}
+  strong{color:var(--ink); font-weight:600;}
+  code{
+    font-family:var(--mono); font-size:.855em; background:var(--surface-2);
+    border:1px solid var(--rule); border-radius:3px; padding:.1em .34em; color:var(--ink);
+  }
+  .lede{font-size:17.5px; line-height:1.55; color:var(--ink); max-width:64ch;}
+
+  pre{
+    font-family:var(--mono); font-size:12.5px; line-height:1.65;
+    background:var(--surface-2); border:1px solid var(--rule);
+    border-left:3px solid var(--accent); color:var(--ink);
+    padding:14px 16px; margin:0 0 18px; max-width:var(--col); overflow-x:auto;
+  }
+  pre code{background:none; border:0; padding:0; font-size:inherit;}
+  .k{color:var(--accent); font-weight:500;}
+  .cm{color:var(--muted); font-style:italic;}
+
+  /* ---- callouts: role-coded, not uniform cards ---- */
+  .note{
+    max-width:var(--col); margin:0 0 20px; padding:15px 18px;
+    border-left:3px solid var(--accent); background:var(--accent-soft);
+  }
+  .note.warn{border-left-color:var(--warn); background:var(--warn-soft);}
+  .note.hot{border-left-color:var(--hot); background:var(--hot-soft);}
+  .note p{margin:0 0 9px; max-width:none;}
+  .note p:last-child{margin-bottom:0;}
+  .note .tag{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.12em;
+    text-transform:uppercase; display:block; margin-bottom:6px; color:var(--ink);
+  }
+
+  /* ---- figures ---- */
+  figure{margin:30px 0; }
+  figure svg{
+    display:block; width:100%; max-width:100%; height:auto;
+    background:var(--surface); border:1px solid var(--rule); padding:10px 6px;
+    color:var(--ink);
+  }
+  figcaption{
+    font-size:13.5px; line-height:1.5; color:var(--muted);
+    margin-top:10px; max-width:66ch;
+  }
+  figcaption b{color:var(--ink); font-weight:600;}
+  .figscroll{overflow-x:auto;}
+
+  /* ---- tables ---- */
+  .tablewrap{overflow-x:auto; margin:22px 0 8px;}
+  table{border-collapse:collapse; width:100%; font-size:14px; min-width:560px;}
+  caption{
+    text-align:left; font-family:var(--mono); font-size:10.5px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted); padding-bottom:9px;
+  }
+  th{
+    text-align:left; font-family:var(--display); font-weight:600; font-size:12px;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--muted);
+    border-bottom:1.5px solid var(--rule-strong); padding:0 14px 8px 0; vertical-align:bottom;
+  }
+  td{
+    padding:11px 14px 11px 0; border-bottom:1px solid var(--rule);
+    vertical-align:top; line-height:1.48;
+  }
+  td:first-child{color:var(--ink); font-weight:500;}
+  td.num{font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap;}
+  tr:last-child td{border-bottom:0;}
+
+  .pill{
+    display:inline-block; font-family:var(--mono); font-size:10.5px;
+    letter-spacing:.06em; text-transform:uppercase; padding:2px 7px;
+    border:1px solid currentColor; border-radius:2px; white-space:nowrap;
+  }
+  .pill.hot{color:var(--hot);} .pill.cold{color:var(--cold);}
+  .pill.yes{color:var(--accent);} .pill.no{color:var(--warn);}
+
+  /* ---- phase strip: real sequence, so numbered ---- */
+  .phases{list-style:none; margin:24px 0 0; padding:0; display:grid; gap:1px; background:var(--rule);}
+  .phases li{
+    background:var(--surface); padding:16px 18px; margin:0;
+    display:grid; grid-template-columns:52px minmax(0,1fr); gap:16px; align-items:start;
+  }
+  .phases .ph{
+    font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--accent);
+    text-transform:uppercase; padding-top:2px;
+  }
+  .phases h4{
+    font-family:var(--display); font-weight:600; font-size:15.5px; color:var(--ink);
+    margin:0 0 4px; letter-spacing:-.005em;
+  }
+  .phases p{margin:0; font-size:14px; max-width:60ch;}
+
+  ul.legend{
+    list-style:none; padding:0; margin:0 0 4px; display:flex; flex-wrap:wrap; gap:8px 22px;
+    font-size:13px; color:var(--muted);
+  }
+  ul.legend li{display:flex; align-items:center; gap:8px; margin:0;}
+  ul.legend .sw{width:11px; height:11px; border-radius:2px; flex:none;}
+
+  ul.qs{list-style:none; padding-left:0;}
+  ul.qs li{
+    padding-left:26px; position:relative; margin-bottom:12px; max-width:var(--col);
+  }
+  ul.qs li::before{
+    content:"?"; position:absolute; left:0; top:0;
+    font-family:var(--mono); font-weight:500; color:var(--warn);
+  }
+  ul.qs b{display:block; color:var(--ink); font-weight:600;}
+
+  footer{
+    border-top:2px solid var(--ink); margin-top:56px; padding-top:20px;
+    font-size:13px; color:var(--muted);
+  }
+  footer ul{padding-left:18px; max-width:none;}
+  footer li{margin-bottom:5px;}
+
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="kicker">Reference architecture · AWS · reviewed 24 Sep 2026</p>
+  <h1>Infinigraph Fraud Platform</h1>
+  <p class="standfirst">A financial-crime graph sized for 1B base nodes, 100 events/s of transaction and
+  fraud telemetry, a 30-day online window and two years of queryable history — built on
+  Neo4j Infinigraph, GDS, and Hume with Orchestra as the ingestion plane.</p>
+  <dl class="facts">
+    <div class="fact"><dt>Online graph</dt><dd>1.26B <small>nodes</small></dd></div>
+    <div class="fact"><dt>Relationships</dt><dd>~4B</dd></div>
+    <div class="fact"><dt>Peak ingest</dt><dd>100 <small>events/s</small></dd></div>
+    <div class="fact"><dt>Write ops/s</dt><dd>~1,000 <small>incl. eviction</small></dd></div>
+    <div class="fact"><dt>Hot window</dt><dd>30 <small>days</small></dd></div>
+    <div class="fact"><dt>Archive</dt><dd>2 <small>years</small></dd></div>
+  </dl>
+</header>
+
+<div class="cols">
+<nav class="toc" aria-label="Contents">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#verdict">What decides the design</a></li>
+    <li><a href="#volume">Volume model</a></li>
+    <li><a href="#shape">Overall shape</a></li>
+    <li><a href="#ingest">Ingest and transport</a></li>
+    <li><a href="#graph">The graph tier</a></li>
+    <li><a href="#modeling">Modelling for the shard boundary</a></li>
+    <li><a href="#merge">Writing without MERGE</a></li>
+    <li><a href="#retention">The 30-day window</a></li>
+    <li><a href="#gds">GDS placement</a></li>
+    <li><a href="#hume">Hume and Orchestra</a></li>
+    <li><a href="#cold">The two-year tier</a></li>
+    <li><a href="#aws">AWS build sheet</a></li>
+    <li><a href="#decision">The Infinigraph decision</a></li>
+    <li><a href="#phasing">Phasing</a></li>
+    <li><a href="#questions">Open questions</a></li>
+    <li><a href="#summary">Infinigraph or not</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="verdict">
+  <span class="secnum">01 · Premise</span>
+  <h2>What actually decides this design</h2>
+  <p class="lede">Three facts reshape the obvious architecture. None of them is throughput.</p>
+
+  <h3>100 events/s is not the scaling problem</h3>
+  <p>At a fan-out of roughly one event node plus four relationships, peak ingest is about
+  <strong>500 write operations per second</strong> — comfortably inside what a single Neo4j leader
+  sustains. The rolling 30-day eviction adds about as much again. Plan for ~1,000 write ops/s
+  steady state and stop worrying about the write path; spend the engineering on identity
+  resolution, ordering and idempotency instead.</p>
+
+  <h3>Infinigraph shards properties, not topology</h3>
+  <p>This is the detail that changes sizing. The <em>graph shard</em> holds every node, relationship,
+  label and id in a single Raft group — the topology is not partitioned and must fit one machine.
+  Only <em>properties</em> hash-distribute across property shards. For this workload topology is
+  ~200–250&nbsp;GB (fits comfortably) and properties are ~650&nbsp;GB–1&nbsp;TB (the bulk). That
+  ratio is exactly what property sharding is built for, which is why Infinigraph is a defensible
+  call here rather than a premature one.</p>
+  <div class="note hot">
+    <span class="tag">Deployment constraint</span>
+    <p>Sharded property databases require an <strong>Infinigraph subscription</strong> on Neo4j
+    Enterprise and are <strong>not available on Aura</strong>. This tier is self-managed on EC2 or
+    EKS — with the backup, patching and cluster operations that implies.</p>
+  </div>
+
+  <h3><code>MERGE</code> degrades on sharded property databases</h3>
+  <p>Neo4j documents that <code>MERGE</code> performs poorly at scale on these databases, because
+  its nested loop joins do not optimise across shards. Both of your write paths — daily
+  customer/account upserts and idempotent event ingest — are <code>MERGE</code>-shaped by default.
+  This is a hard design constraint on every Orchestra pipeline, not a tuning detail.
+  <a href="#merge">Section 06</a> covers the pattern that replaces it.</p>
+</section>
+
+<section id="volume">
+  <span class="secnum">02 · Sizing</span>
+  <h2>Volume model</h2>
+  <p>Everything downstream derives from this table. Treat it as the planning baseline and re-measure
+  against a 5% sample before you commit to shard counts, which are fixed at creation.</p>
+
+  <div class="tablewrap">
+  <table>
+    <caption>Online graph at steady state, 30-day window</caption>
+    <thead><tr><th>Component</th><th>Count</th><th>Topology</th><th>Properties</th><th>Basis</th></tr></thead>
+    <tbody>
+      <tr><td>Base entities</td><td class="num">1.0B</td><td class="num">~15 GB</td><td class="num">~400 GB</td>
+          <td>Customers, accounts, devices, merchants, addresses</td></tr>
+      <tr><td>Base relationships</td><td class="num">~3.0B</td><td class="num">~102 GB</td><td class="num">~60 GB</td>
+          <td>Ownership, residence, device binding</td></tr>
+      <tr><td>Event nodes</td><td class="num">260M</td><td class="num">~4 GB</td><td class="num">~156 GB</td>
+          <td>8.64M/day × 30 days at sustained peak</td></tr>
+      <tr><td>Event relationships</td><td class="num">~1.04B</td><td class="num">~35 GB</td><td class="num">~40 GB</td>
+          <td>4 per event: from, to, device, counterparty</td></tr>
+      <tr><td>Indexes and constraints</td><td class="num">—</td><td class="num">~50 GB</td><td class="num">—</td>
+          <td>Unique keys on 1.26B nodes, label and type indexes</td></tr>
+      <tr><td><strong>Total</strong></td><td class="num"><strong>1.26B nodes<br>4.04B rels</strong></td>
+          <td class="num"><strong>~206 GB</strong></td><td class="num"><strong>~656 GB</strong></td>
+          <td>Properties are 3.2× topology</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <span class="tag">Read this as an order of magnitude</span>
+    <p>Byte figures assume block-format record sizes and ~600&nbsp;B of properties per event,
+    ~400&nbsp;B per base entity. Property width is the number most likely to be wrong, and it is the
+    one that sets shard count. Load a representative sample and read the actual store sizes before
+    provisioning — shard count is changeable later, but only by copying into a new database.</p>
+  </div>
+
+  <h3>Write load, including the part people forget</h3>
+  <p>Ingestion is 8.64M events/day. Eviction is the <em>same</em> 8.64M event nodes plus ~35M
+  relationships leaving the window every day. Spread evenly that is roughly 100 node-deletes and
+  400 relationship-deletes per second running continuously alongside ingest. Budget for it, schedule
+  it off the daily batch peak, and never let it accumulate into a weekly bulk delete.</p>
+</section>
+
+<section id="shape">
+  <span class="secnum">03 · Topology</span>
+  <h2>Overall shape</h2>
+  <p>One decision organises the whole platform: <strong>the graph is not the system of record.</strong>
+  Every event is tee'd at the broker into a hot path that maintains the 30-day graph and a cold path
+  that lands immutable Parquet in S3. The graph becomes a disposable, rebuildable projection of the
+  last 30 days — which is what makes aggressive eviction safe and what makes two-year history
+  affordable.</p>
+
+  <figure>
+    <div class="figscroll">
+    <svg viewBox="0 0 1040 372" role="img" aria-label="Events flow from source systems into Amazon MSK, which tees them into a hot path through Hume Orchestra into Neo4j Infinigraph and a cold path through a connector sink into S3 with Iceberg; a dashed rehydrate path brings archived case subgraphs from Athena back through Orchestra into the graph.">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/>
+        </marker>
+        <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" style="fill:var(--warn)"/>
+        </marker>
+      </defs>
+      <g font-family="IBM Plex Sans, sans-serif">
+
+        <!-- lane labels -->
+        <text x="14" y="52" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.3" style="fill:var(--hot)">HOT · 30 DAYS</text>
+        <text x="14" y="248" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.3" style="fill:var(--cold)">COLD · 2 YEARS</text>
+        <line x1="14" y1="60" x2="1026" y2="60" stroke-width="1" opacity=".3" style="stroke:var(--hot)"/>
+        <line x1="14" y1="230" x2="1026" y2="230" stroke-width="1" opacity=".3" style="stroke:var(--cold)"/>
+
+        <!-- c1 sources -->
+        <rect x="20" y="145" width="150" height="80" rx="2" stroke="currentColor" stroke-width="1.2" style="fill:var(--surface-2)"/>
+        <text x="95" y="172" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">Source systems</text>
+        <text x="95" y="191" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">core banking CDC</text>
+        <text x="95" y="205" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">txn stream · fraud cases</text>
+
+        <!-- c2 MSK -->
+        <rect x="220" y="145" width="150" height="80" rx="2" stroke="currentColor" stroke-width="1.2" style="fill:var(--surface-2)"/>
+        <text x="295" y="172" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">Amazon MSK</text>
+        <text x="295" y="191" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">partitioned by account_id</text>
+        <text x="295" y="205" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">7-day replay buffer</text>
+
+        <!-- c3 -->
+        <rect x="420" y="72" width="150" height="66" rx="2" stroke-width="1.2" style="fill:var(--hot-soft);stroke:var(--hot)"/>
+        <text x="495" y="99" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">Hume Orchestra</text>
+        <text x="495" y="117" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">resolve · batch · load</text>
+
+        <rect x="420" y="242" width="150" height="66" rx="2" stroke-width="1.2" style="fill:var(--cold-soft);stroke:var(--cold)"/>
+        <text x="495" y="269" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">MSK Connect sink</text>
+        <text x="495" y="287" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">exactly-once to S3</text>
+
+        <!-- c4 -->
+        <rect x="620" y="72" width="160" height="66" rx="2" stroke-width="1.2" style="fill:var(--hot-soft);stroke:var(--hot)"/>
+        <text x="700" y="99" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">Neo4j Infinigraph</text>
+        <text x="700" y="117" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">graph + property shards</text>
+
+        <rect x="620" y="242" width="160" height="66" rx="2" stroke-width="1.2" style="fill:var(--cold-soft);stroke:var(--cold)"/>
+        <text x="700" y="269" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">S3 + Iceberg</text>
+        <text x="700" y="287" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">system of record</text>
+
+        <!-- c5 -->
+        <rect x="830" y="72" width="150" height="66" rx="2" stroke="currentColor" stroke-width="1.2" style="fill:var(--surface-2)"/>
+        <text x="905" y="99" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">Hume + scoring</text>
+        <text x="905" y="117" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">investigate · decide</text>
+
+        <rect x="830" y="242" width="150" height="66" rx="2" stroke="currentColor" stroke-width="1.2" style="fill:var(--surface-2)"/>
+        <text x="905" y="269" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">Athena</text>
+        <text x="905" y="287" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">SQL over 2 years</text>
+
+        <!-- arrows -->
+        <line x1="170" y1="185" x2="214" y2="185" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)"/>
+        <text x="192" y="176" text-anchor="middle" font-size="10" style="fill:var(--muted)">emit</text>
+
+        <path d="M370,170 C395,170 395,105 414,105" fill="none" stroke-width="1.4" marker-end="url(#ar)" style="stroke:var(--hot);color:var(--hot)"/>
+        <text x="390" y="128" text-anchor="end" font-size="10" style="fill:var(--muted)">consume</text>
+
+        <path d="M370,200 C395,200 395,275 414,275" fill="none" stroke-width="1.4" marker-end="url(#ar)" style="stroke:var(--cold);color:var(--cold)"/>
+        <text x="390" y="250" text-anchor="end" font-size="10" style="fill:var(--muted)">tee</text>
+
+        <line x1="570" y1="105" x2="614" y2="105" stroke-width="1.4" marker-end="url(#ar)" style="stroke:var(--hot);color:var(--hot)"/>
+        <text x="592" y="96" text-anchor="middle" font-size="10" style="fill:var(--muted)">UNWIND</text>
+
+        <line x1="570" y1="275" x2="614" y2="275" stroke-width="1.4" marker-end="url(#ar)" style="stroke:var(--cold);color:var(--cold)"/>
+        <text x="592" y="266" text-anchor="middle" font-size="10" style="fill:var(--muted)">Parquet</text>
+
+        <line x1="780" y1="105" x2="824" y2="105" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)"/>
+        <text x="802" y="96" text-anchor="middle" font-size="10" style="fill:var(--muted)">Bolt</text>
+
+        <line x1="780" y1="275" x2="824" y2="275" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)"/>
+        <text x="802" y="266" text-anchor="middle" font-size="10" style="fill:var(--muted)">SQL</text>
+
+        <!-- rehydrate -->
+        <path d="M905,242 L905,190 L495,190 L495,144" fill="none" stroke-width="1.4"
+              stroke-dasharray="5 4" marker-end="url(#arw)" style="stroke:var(--warn);color:var(--warn)"/>
+        <text x="700" y="182" text-anchor="middle" font-size="10.5" style="fill:var(--warn)">rehydrate case subgraph on demand</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>The tee at the broker is the load-bearing decision.</b> Because S3 holds the
+    authoritative event history, the graph can evict at 30 days without data loss, and an
+    investigation needing older evidence pulls a scoped subgraph back through Orchestra rather than
+    forcing the online graph to carry two years.</figcaption>
+  </figure>
+</section>
+
+<section id="ingest">
+  <span class="secnum">04 · Ingest</span>
+  <h2>Ingest and transport</h2>
+
+  <h3>Amazon MSK, sized for retention rather than throughput</h3>
+  <p>At 100 events/s, throughput is irrelevant to broker sizing — three <code>m7g.large</code> brokers
+  across three AZs are ample. Size the cluster for <strong>replay depth</strong> instead: seven days
+  of retention is roughly 50–100&nbsp;GB and buys you the ability to rebuild the hot graph from the
+  broker alone after a bad deployment.</p>
+  <ul>
+    <li><strong>Partition by <code>account_id</code>.</strong> This preserves per-account ordering,
+    which is what transaction semantics actually require, and it co-locates lock contention on hub
+    nodes into a single consumer rather than scattering it across all of them.</li>
+    <li><strong>Register schemas.</strong> AWS Glue Schema Registry with Avro or Protobuf. Event
+    contracts between the fraud platform and core banking will change; an unversioned JSON blob
+    turns every change into an outage.</li>
+    <li><strong>Carry a deterministic event key.</strong> Idempotency has to come from the payload,
+    because you are giving up <code>MERGE</code>.</li>
+  </ul>
+
+  <h3>Daily batch: customer and account deltas</h3>
+  <p>AWS DMS in CDC mode, or Debezium on MSK Connect, onto the same broker. Routing batch deltas
+  through Kafka rather than a separate file drop means one ingestion plane, one schema registry and
+  one replay mechanism. Orchestra consumes the CDC topics on a schedule instead of continuously.</p>
+  <div class="note warn">
+    <span class="tag">Schedule this off-peak</span>
+    <p>Daily deltas on customer and account touch high-degree nodes and will contend with event
+    ingest for locks. Run the batch window when transaction volume is lowest, and pause the eviction
+    job while it runs.</p>
+  </div>
+</section>
+
+<section id="graph">
+  <span class="secnum">05 · Graph tier</span>
+  <h2>The graph tier</h2>
+  <p>Infinigraph splits a database into one graph shard carrying pure topology and N property shards
+  carrying the property data, hash-distributed by id. Queries address a single logical database;
+  the split is invisible to Cypher.</p>
+
+  <figure>
+    <div class="figscroll">
+    <svg viewBox="0 0 860 392" role="img" aria-label="A Cypher query reaches the graph shard, a Raft group of three primaries and two secondaries holding nodes, relationships, labels and ids but no properties. The graph shard fetches properties from three property shards by hash of id. The GDS secondary reads topology from the graph shard and also pulls properties from the property shards, adding load there.">
+      <defs>
+        <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/>
+        </marker>
+        <marker id="ar2w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" style="fill:var(--warn)"/>
+        </marker>
+      </defs>
+      <g font-family="IBM Plex Sans, sans-serif">
+
+        <rect x="340" y="14" width="180" height="38" rx="2" stroke="currentColor" stroke-width="1.2" style="fill:var(--surface-2)"/>
+        <text x="430" y="38" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Cypher 25 query</text>
+        <line x1="430" y1="52" x2="430" y2="82" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar2)"/>
+
+        <!-- graph shard region -->
+        <rect x="40" y="86" width="780" height="118" rx="2" stroke-width="1.4" style="fill:var(--hot-soft);stroke:var(--hot)"/>
+        <text x="56" y="106" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.1" style="fill:var(--hot)">GRAPH SHARD · ONE RAFT GROUP · NODES, RELATIONSHIPS, LABELS, IDS — NO PROPERTIES</text>
+
+        <rect x="60" y="122" width="210" height="62" rx="2" stroke="currentColor" stroke-width="1.1" style="fill:var(--surface)"/>
+        <text x="165" y="147" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Primary × 3</text>
+        <text x="165" y="165" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">writes · leader election</text>
+
+        <rect x="295" y="122" width="200" height="62" rx="2" stroke="currentColor" stroke-width="1.1" style="fill:var(--surface)"/>
+        <text x="395" y="147" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Secondary × 2</text>
+        <text x="395" y="165" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">scoring reads · Hume</text>
+
+        <rect x="520" y="122" width="280" height="62" rx="2" stroke-width="1.6" style="fill:var(--surface);stroke:var(--accent)"/>
+        <text x="660" y="147" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Secondary + GDS plugin</text>
+        <text x="660" y="165" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">read-only analytics · projects topology</text>
+
+        <!-- property shards -->
+        <rect x="60" y="292" width="200" height="64" rx="2" stroke-width="1.2" style="fill:var(--cold-soft);stroke:var(--cold)"/>
+        <text x="160" y="318" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Property shard 1</text>
+        <text x="160" y="336" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">+ replica</text>
+
+        <rect x="290" y="292" width="200" height="64" rx="2" stroke-width="1.2" style="fill:var(--cold-soft);stroke:var(--cold)"/>
+        <text x="390" y="318" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Property shard 2</text>
+        <text x="390" y="336" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">+ replica</text>
+
+        <rect x="520" y="292" width="200" height="64" rx="2" stroke-width="1.2" style="fill:var(--cold-soft);stroke:var(--cold)"/>
+        <text x="620" y="318" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Property shard 3</text>
+        <text x="620" y="336" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">+ replica</text>
+
+        <line x1="160" y1="204" x2="160" y2="286" stroke-width="1.4" marker-end="url(#ar2)" style="stroke:var(--cold);color:var(--cold)"/>
+        <line x1="390" y1="204" x2="390" y2="286" stroke-width="1.4" marker-end="url(#ar2)" style="stroke:var(--cold);color:var(--cold)"/>
+        <line x1="620" y1="204" x2="620" y2="286" stroke-width="1.4" marker-end="url(#ar2)" style="stroke:var(--cold);color:var(--cold)"/>
+        <text x="275" y="250" text-anchor="middle" font-size="11" style="fill:var(--muted)">property fetch by hash(id)</text>
+        <text x="505" y="250" text-anchor="middle" font-size="11" style="fill:var(--muted)">one shard serves each entity</text>
+
+        <path d="M790,184 L790,240 L690,240 L690,286" fill="none" stroke-width="1.4"
+              stroke-dasharray="5 4" marker-end="url(#ar2w)" style="stroke:var(--warn);color:var(--warn)"/>
+        <text x="852" y="232" text-anchor="end" font-size="10.5" style="fill:var(--warn)">GDS property reads add shard load</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>Topology stays whole; only properties scale out.</b> The graph shard is a
+    conventional Raft group, so the entire ~206&nbsp;GB of nodes, relationships and indexes has to
+    fit one machine's page cache. Properties — 3.2× that volume — hash across shards, and a node's
+    properties travel with its outgoing relationships. If your topology ever outgrows a single host,
+    Infinigraph does not solve it.</figcaption>
+  </figure>
+
+  <h3>Instance sizing</h3>
+  <div class="tablewrap">
+  <table>
+    <caption>Graph tier, self-managed on EKS or EC2</caption>
+    <thead><tr><th>Role</th><th>Count</th><th>Instance</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Graph shard primary</td><td class="num">3</td><td class="num">r7i.12xlarge<br><small>384 GB</small></td>
+          <td>Holds ~206 GB topology + indexes in page cache with headroom. Three primaries give write HA — the documented 1+1 example explicitly does not.</td></tr>
+      <tr><td>Graph shard secondary</td><td class="num">2</td><td class="num">r7i.8xlarge<br><small>256 GB</small></td>
+          <td>Scoring reads and Hume traversals, isolated from the write path.</td></tr>
+      <tr><td>GDS analytics secondary</td><td class="num">1</td><td class="num">r7i.24xlarge<br><small>768 GB</small></td>
+          <td>In-memory projections plus algorithm working set. Size from <code>gds.graph.project.estimate</code>, not from this table.</td></tr>
+      <tr><td>Property shards</td><td class="num">8 shards<br><small>× 2 replicas</small></td><td class="num">6 × r7i.4xlarge<br><small>128 GB each</small></td>
+          <td>~82 GB per shard today, co-located at ~2.7 copies per server — the same hardware a 3-shard design would use. Eight is chosen to cap future spread, not present need; see below. Replicas serve GDS property reads so analytics does not degrade OLTP.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Storage: <code>gp3</code> with provisioned IOPS for durability, or <code>i7ie</code> local NVMe
+  where you can tolerate rebuilding a member from backup. Neo4j is sensitive to write latency on the
+  transaction log — do not put it on burst-credit volumes.</p>
+
+  <h3>Choosing the number of property shards</h3>
+  <p>Neo4j publishes no guidance on this. The syntax
+  — <code>SET PROPERTY SHARDS { COUNT n TOPOLOGY m REPLICAS }</code> — accepts anything from 1 to
+  1000 and leaves the choice to you, so it is worth deriving rather than guessing.</p>
+
+  <p>Start by separating three numbers that are routinely conflated:</p>
+  <div class="tablewrap">
+  <table>
+    <caption>Three dials, one of which is expensive</caption>
+    <thead><tr><th>Dial</th><th>Solves</th><th>Cost to change</th></tr></thead>
+    <tbody>
+      <tr><td>Shard count (<code>COUNT n</code>)</td><td>How finely properties divide — and therefore how many servers you can ever spread them across</td>
+          <td><span class="pill no">Migration</span> a full <code>neo4j-admin database copy</code> into a new database — offline, or online from a backup, then cut over</td></tr>
+      <tr><td>Replica count per shard</td><td>Read throughput and redundancy. The default is 1, meaning no redundancy at all.</td>
+          <td><span class="pill yes">Online</span> no downtime</td></tr>
+      <tr><td>Server count</td><td>Aggregate page cache and CPU</td>
+          <td><span class="pill yes">Online</span> add servers, redistribute shards</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <span class="tag">The reframe that makes the number obvious</span>
+    <p>Raising <em>n</em> does not by itself add memory — aggregate page cache is servers × RAM,
+    whatever the shard count. What <em>n</em> actually sets is <strong>the maximum number of servers
+    you can ever spread properties across</strong>, since one shard per server is the finest
+    granularity available. So <em>n</em> is not a sizing decision for today. It is a ceiling on
+    future horizontal scale-out, chosen once, and the only one of the three dials you cannot adjust
+    without downtime.</p>
+  </div>
+
+  <p>That makes the calculation a projection rather than a measurement:</p>
+  <div class="tablewrap">
+  <table>
+    <caption>Deriving n from three-year hot working set</caption>
+    <thead><tr><th>Input</th><th>Value</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Properties today</td><td class="num">656 GB</td><td>Property + string + array stores</td></tr>
+      <tr><td>Three-year growth at 30%/yr</td><td class="num">~1.44 TB</td><td>Driven by base entities, not the event window</td></tr>
+      <tr><td>Hot fraction</td><td class="num">~40% → 577 GB</td><td>The assumption most worth measuring rather than inheriting</td></tr>
+      <tr><td>Page cache per server</td><td class="num">~85 GB</td><td>r7i.4xlarge, after heap and OS</td></tr>
+      <tr><td><strong>n by memory</strong></td><td class="num"><strong>577 / 85 ≈ 7</strong></td><td>The binding constraint</td></tr>
+      <tr><td>n by size ceiling</td><td class="num">~2</td><td>Against Neo4j’s 1–3 TB per-database guidance — not binding</td></tr>
+      <tr><td>n by fan-out budget</td><td class="num">single digits</td><td>See the counter-pressure below — not binding here</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>Provision <code>COUNT 8</code> at replica factor 2, and run it on the six servers a
+  three-shard design would have used.</strong> Identical hardware today, three years of spread
+  available without a copy-and-cutover, and eight divides evenly when you later move to 2, 4 or 8
+  servers. The three-shard figure is tighter than it looks: 656&nbsp;GB across three shards is
+  219&nbsp;GB each against ~85&nbsp;GB of cache, which only holds while the hot fraction stays under
+  about 40%.</p>
+
+  <h3>The counter-pressure, and two costs of overshooting</h3>
+  <p>More shards is not monotonically better. A query materialising properties for K entities
+  contacts <code>min(K, n)</code> shards, so once K exceeds <em>n</em> every request touches all of
+  them — and <strong>p99 becomes the p99 of the slowest of <em>n</em> responses</strong>. Sampling
+  the tail <em>n</em> times per request is invisible at 4 and is not at 40, on a sub-100&nbsp;ms
+  budget.</p>
+  <div class="note warn">
+    <span class="tag">Verify before choosing a large n</span>
+    <p>Whether property fetches dispatch to shards <strong>in parallel or serially</strong> is not
+    addressed in public documentation, and it decides whether fan-out latency is the maximum across
+    shards or the sum of them. At <em>n</em> = 8 the distinction is tolerable either way; past that
+    it governs the ceiling. Ask Neo4j directly.</p>
+  </div>
+  <ul>
+    <li><strong>Backup cost scales linearly with <em>n</em>.</strong> Each shard carries its own
+    chain, and property shard chains permit only one full backup with no differentials. Eight shards
+    means eight full backups and an eight-way restore — the reason to overshoot moderately rather
+    than maximally.</li>
+    <li><strong>Hashing does not protect against co-location skew.</strong> Entities spread evenly by
+    <em>count</em>, but a node’s outgoing relationship properties travel with it. Anchoring
+    <code>(:Account)-[:SENT]-&gt;(:Txn)</code> as <a href="#modeling">section 06</a> recommends means
+    a settlement or corporate account with a million outgoing transactions concentrates a million
+    edge-property records on one shard. Most accounts are tiny and average out; a handful will not.
+    Identify the super-hubs before you model, and consider anchoring those specific entities the
+    other way and accepting the scatter.</li>
+  </ul>
+
+</section>
+
+<section id="modeling">
+  <span class="secnum">06 · Data model</span>
+  <h2>Modelling for the shard boundary</h2>
+  <p class="lede">There is no setting that keeps a property next to the topology. The graph shard
+  holds none at all — so the question becomes how much of your filtering can be expressed as
+  structure.</p>
+
+  <p>The execution model is specific and worth internalising: <strong>traversal runs entirely on the
+  graph shard, and property lookups are batched and fetched at the final stage.</strong> That is the
+  shape every query should have — structural predicates narrow the candidate set locally, then one
+  batched fetch materialises what survives. A predicate on a property <em>mid-pattern</em> breaks it,
+  because the planner must materialise a neighbour before it can test it.</p>
+
+  <figure>
+    <div class="figscroll">
+    <svg viewBox="0 0 920 322" role="img" aria-label="Left: a transaction property on the relationship means all five neighbours are expanded and five property fetches are issued to test the channel. Right: promoting that property to a relationship type prunes three neighbours at expansion on the graph shard, with no property fetch at all.">
+      <defs>
+        <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" style="fill:currentColor"/>
+        </marker>
+      </defs>
+      <g font-family="IBM Plex Sans, sans-serif">
+        <line x1="460" y1="24" x2="460" y2="298" style="stroke:var(--rule)" stroke-width="1"/>
+
+        <text x="26" y="34" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.1" style="fill:var(--warn)">PROPERTY ON THE RELATIONSHIP</text>
+        <text x="500" y="34" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.1" style="fill:var(--accent)">PROMOTED TO RELATIONSHIP TYPE</text>
+
+        <!-- ---------------- panel A ---------------- -->
+        <circle cx="72" cy="162" r="27" style="fill:var(--surface-2);stroke:currentColor" stroke-width="1.3"/>
+        <text x="72" y="166" text-anchor="middle" font-size="11" font-weight="600" style="fill:currentColor">Acct</text>
+
+        <circle cx="236" cy="82"  r="15" style="fill:var(--surface-2);stroke:currentColor" stroke-width="1.1"/>
+        <circle cx="236" cy="122" r="15" style="fill:var(--surface-2);stroke:currentColor" stroke-width="1.1"/>
+        <circle cx="236" cy="162" r="15" style="fill:var(--surface-2);stroke:currentColor" stroke-width="1.1"/>
+        <circle cx="236" cy="202" r="15" style="fill:var(--surface-2);stroke:currentColor" stroke-width="1.1"/>
+        <circle cx="236" cy="242" r="15" style="fill:var(--surface-2);stroke:currentColor" stroke-width="1.1"/>
+
+        <line x1="99" y1="152" x2="215" y2="88"  style="stroke:currentColor" stroke-width="1.2" marker-end="url(#ar4)"/>
+        <line x1="99" y1="156" x2="216" y2="124" style="stroke:currentColor" stroke-width="1.2" marker-end="url(#ar4)"/>
+        <line x1="99" y1="162" x2="215" y2="162" style="stroke:currentColor" stroke-width="1.2" marker-end="url(#ar4)"/>
+        <line x1="99" y1="168" x2="216" y2="200" style="stroke:currentColor" stroke-width="1.2" marker-end="url(#ar4)"/>
+        <line x1="99" y1="172" x2="215" y2="236" style="stroke:currentColor" stroke-width="1.2" marker-end="url(#ar4)"/>
+        <text x="150" y="278" text-anchor="middle" font-size="11" style="fill:var(--muted)">:TRANSACTED {channel}</text>
+        <text x="150" y="294" text-anchor="middle" font-size="11" style="fill:var(--muted)">all 5 expanded</text>
+
+        <rect x="330" y="126" width="104" height="72" rx="2" style="fill:var(--cold-soft);stroke:var(--cold)" stroke-width="1.2"/>
+        <text x="382" y="156" text-anchor="middle" font-size="11" font-weight="600" style="fill:currentColor">property</text>
+        <text x="382" y="171" text-anchor="middle" font-size="11" font-weight="600" style="fill:currentColor">shards</text>
+
+        <line x1="252" y1="86"  x2="326" y2="140" style="stroke:var(--cold);color:var(--cold)" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#ar4)"/>
+        <line x1="252" y1="126" x2="326" y2="150" style="stroke:var(--cold);color:var(--cold)" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#ar4)"/>
+        <line x1="252" y1="162" x2="326" y2="162" style="stroke:var(--cold);color:var(--cold)" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#ar4)"/>
+        <line x1="252" y1="198" x2="326" y2="176" style="stroke:var(--cold);color:var(--cold)" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#ar4)"/>
+        <line x1="252" y1="238" x2="326" y2="186" style="stroke:var(--cold);color:var(--cold)" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#ar4)"/>
+        <text x="382" y="222" text-anchor="middle" font-size="11" style="fill:var(--warn)">5 fetches to test</text>
+        <text x="382" y="237" text-anchor="middle" font-size="11" style="fill:var(--warn)">what to discard</text>
+
+        <!-- ---------------- panel B ---------------- -->
+        <circle cx="524" cy="162" r="27" style="fill:var(--surface-2);stroke:currentColor" stroke-width="1.3"/>
+        <text x="524" y="166" text-anchor="middle" font-size="11" font-weight="600" style="fill:currentColor">Acct</text>
+
+        <circle cx="688" cy="82"  r="15" style="fill:none;stroke:currentColor" stroke-width="1" stroke-dasharray="3 3" opacity=".3"/>
+        <circle cx="688" cy="122" r="15" style="fill:var(--accent-soft);stroke:var(--accent)" stroke-width="1.4"/>
+        <circle cx="688" cy="162" r="15" style="fill:none;stroke:currentColor" stroke-width="1" stroke-dasharray="3 3" opacity=".3"/>
+        <circle cx="688" cy="202" r="15" style="fill:var(--accent-soft);stroke:var(--accent)" stroke-width="1.4"/>
+        <circle cx="688" cy="242" r="15" style="fill:none;stroke:currentColor" stroke-width="1" stroke-dasharray="3 3" opacity=".3"/>
+
+        <line x1="551" y1="156" x2="668" y2="124" style="stroke:var(--accent);color:var(--accent)" stroke-width="1.6" marker-end="url(#ar4)"/>
+        <line x1="551" y1="168" x2="668" y2="200" style="stroke:var(--accent);color:var(--accent)" stroke-width="1.6" marker-end="url(#ar4)"/>
+        <text x="602" y="278" text-anchor="middle" font-size="11" style="fill:var(--muted)">:WIRE_OUT</text>
+        <text x="602" y="294" text-anchor="middle" font-size="11" style="fill:var(--accent)">3 pruned at expansion</text>
+
+        <rect x="782" y="126" width="104" height="72" rx="2" style="fill:none;stroke:var(--cold)" stroke-width="1.2" stroke-dasharray="4 3" opacity=".45"/>
+        <text x="834" y="156" text-anchor="middle" font-size="11" font-weight="600" style="fill:currentColor" opacity=".45">property</text>
+        <text x="834" y="171" text-anchor="middle" font-size="11" font-weight="600" style="fill:currentColor" opacity=".45">shards</text>
+        <text x="834" y="222" text-anchor="middle" font-size="11" style="fill:var(--accent)">0 fetches during</text>
+        <text x="834" y="237" text-anchor="middle" font-size="11" style="fill:var(--accent)">traversal</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>The same question, one modelling change.</b> A property predicate can only be
+    tested after the neighbour is materialised, so every candidate costs a cross-shard fetch before
+    most of them are thrown away. A relationship type is graph-shard resident, so the same predicate
+    prunes the expansion itself and never leaves the machine.</figcaption>
+  </figure>
+
+  <h3>What to promote, in order of leverage</h3>
+  <div class="tablewrap">
+  <table>
+    <caption>Promotion candidates in the fraud model</caption>
+    <thead><tr><th>Today a property</th><th>Promote to</th><th>Effect</th></tr></thead>
+    <tbody>
+      <tr><td><code>txn.channel</code><br><code>txn.direction</code></td>
+          <td><span class="pill yes">Rel type</span><br><code>:WIRE_OUT</code>, <code>:CARD_PRESENT</code></td>
+          <td>Highest leverage. Type filtering prunes at expansion, so the neighbour is never visited and nothing is fetched. Filtering after expansion visits everything, then pays a round-trip to discard most of it.</td></tr>
+      <tr><td><code>account.status</code><br><code>account.risk_tier</code></td>
+          <td><span class="pill yes">Label</span><br><code>:Frozen</code>, <code>:HighRisk</code></td>
+          <td>Labels are graph-shard resident, so the predicate is free during traversal. Right for low-cardinality, high-selectivity, slowly-changing attributes — wrong for anything mutating per transaction, since a label change is a graph-shard write.</td></tr>
+      <tr><td><code>txn.timestamp</code></td>
+          <td><span class="pill yes">Bucket node</span><br><code>(:Day)</code> in the path</td>
+          <td>Time-slicing becomes traversal instead of an index scan, and eviction becomes structural — drop the bucket subtree rather than scanning a date index across 260M nodes.</td></tr>
+      <tr><td><code>txn.country</code><br><code>txn.mcc</code></td>
+          <td><span class="pill yes">Shared node</span><br><code>-[:IN_COUNTRY]-&gt;(:Country)</code></td>
+          <td>Low cardinality, high selectivity, and it makes &ldquo;transactions into high-risk jurisdictions&rdquo; a two-hop traversal with no property access at all.</td></tr>
+      <tr><td><code>txn.amount</code>, device fingerprints, free text, vectors</td>
+          <td><span class="pill cold">Leave as properties</span></td>
+          <td>High cardinality, no pruning value. These are exactly what property shards exist for — moving them off the graph shard is the win, not the cost. Keeping bulky values out of the graph shard&rsquo;s page cache is the whole point of the architecture.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <span class="tag">The co-location rule worth designing around</span>
+    <p>Neo4j documents that <strong>a node&rsquo;s properties and its outgoing relationships are
+    assigned to the same shard</strong>. Direction therefore has a performance meaning it never had
+    before. Model <code>(:Account)-[:SENT {amount, ts}]-&gt;(:Txn)</code> and one account&rsquo;s
+    entire outgoing edge-property set resolves from a single shard in one batched fetch. Model the
+    same facts as <code>(:Txn)-[:FROM {amount, ts}]-&gt;(:Account)</code> and that read scatters
+    across every shard. <strong>Anchor relationships outgoing from the entity your traversals start
+    at.</strong></p>
+  </div>
+
+
+  <h3>Seeding a traversal by account number</h3>
+  <div class="note warn">
+    <span class="tag">A boundary on everything above</span>
+    <p>The promotion advice applies to <strong>low-cardinality filter predicates</strong>, not to
+    <strong>high-cardinality identity lookups</strong>. An account number is the second kind.
+    Structure never beats an index for exact lookup of a unique string — a prefix-bucket node with
+    100,000 children means scanning 100,000 relationships to find one, which is strictly worse than
+    an index seek. Do not promote an identifier.</p>
+  </div>
+
+  <p>So the account number stays an indexed property. What matters is that it is the
+  <em>only</em> property touched before the projection stage. One indexed seed, amortised across an
+  entire query, is affordable even if it costs a shard hop; ten of them, or a property predicate
+  mid-pattern, is not.</p>
+
+  <pre><code><span class="k">CREATE INDEX</span> account_number_idx <span class="k">FOR</span> (a:Account) <span class="k">ON</span> (a.account_number);</code></pre>
+
+  <p>A plain range index rather than <code>IS UNIQUE</code> or <code>IS NODE KEY</code>. A uniqueness
+  constraint is validated on every write to <code>:Account</code>, and that check reaches a property
+  shard — the same cost that makes <code>MERGE</code> slow in <a href="#merge">section 07</a>.
+  Identity is already resolved upstream in Orchestra, so the database does not need to re-prove it.
+  Enforce uniqueness where you own it and let the index be purely a read structure. Keep one
+  canonical key: every additional indexed property is more index memory and, if constrained, another
+  cross-shard write check.</p>
+
+  <p>Then shape the query so the seed is the only property access until the end:</p>
+
+  <pre><code><span class="k">MATCH</span> (a:Account {account_number: $acct})            <span class="cm">// one indexed seed</span>
+<span class="k">MATCH</span> (a)-[:WIRE_OUT]-&gt;(t:Txn)-[:TO]-&gt;(c:Account)   <span class="cm">// pure topology</span>
+<span class="k">WHERE</span> c:HighRisk                                     <span class="cm">// label — graph-shard local</span>
+<span class="k">WITH</span> a, t, c <span class="k">LIMIT</span> 200
+<span class="k">RETURN</span> a.name, t.amount, c.name                      <span class="cm">// one batched fetch</span></code></pre>
+
+  <p>Seed, traverse structurally, project once. That shape holds whether or not the index turns out
+  to be graph-shard local, which is what makes it the safe thing to build against while the question
+  is open.</p>
+
+  <h3>Exact lookup and search are different systems</h3>
+  <p>Exact account-number lookup belongs in the Neo4j index above. Partial, prefix or typo-tolerant
+  matching belongs in OpenSearch, which <a href="#aws">section 12</a> already provisions: resolve the
+  string to an exact key there, then seed Neo4j with the key. Do not reach for a Neo4j full-text
+  index for this — it is eventually consistent, heavier than a range index, and one of its refresh
+  procedures is unsupported on sharded property databases in some versions.</p>
+
+  <div class="note">
+    <span class="tag">You can settle the index question yourself</span>
+    <p>Once a cluster exists, <code>PROFILE</code> that query and read the plan for a cross-shard
+    round trip on the <code>NodeIndexSeek</code>. That answers index residency empirically without
+    waiting on Neo4j, and it is worth doing in the first week because it constrains the whole model.
+    If the seed does prove to be a remote hop and it is hurting the real-time path, the contingency is
+    a resolver cache in front — <code>account_number → elementId</code>, seeding later queries by
+    element ID. One caveat makes it a contingency rather than part of the design: element IDs are not
+    stable across a store copy, so a reshard becomes a cache-flush event.</p>
+  </div>
+
+  <h3>What still costs you</h3>
+  <ul>
+    <li><strong>Mid-pattern property predicates.</strong> Push them after the structural match —
+    <code>MATCH</code> on topology, <code>WITH</code> the narrowed set, then <code>WHERE</code> on
+    properties. Same results, one batched fetch instead of many.</li>
+    <li><strong>Variable-length paths filtered on relationship properties.</strong> Documented as
+    degrading; use quantified relationships (<code>-[]-&gt;+</code>) rather than
+    <code>-[*1..]-&gt;</code>.</li>
+    <li><strong>Uniqueness constraints on properties.</strong> The check has to reach a property
+    shard on every write, which plausibly accounts for part of the <code>MERGE</code> penalty in
+    <a href="#merge">section 07</a>. Another reason to resolve identity upstream in Orchestra.</li>
+  </ul>
+
+  <div class="note warn">
+    <span class="tag">Unresolved — ask before you model around it</span>
+    <p>The public documentation does not say whether property indexes live on the graph shard or the
+    property shards. That decides whether an indexed seed lookup such as
+    <code>MATCH (a:Account {id: $id})</code> is graph-shard local or already a cross-shard hop —
+    and therefore how every traversal in the system should be keyed. Settle it with Neo4j before
+    finalising the model.</p>
+  </div>
+</section>
+
+<section id="merge">
+  <span class="secnum">07 · Write path</span>
+  <h2>Writing without <code>MERGE</code></h2>
+  <p>Because <code>MERGE</code> is documented as slow on sharded property databases, identity
+  resolution has to move upstream into Orchestra. The pattern is: resolve the business key to a known
+  node key <em>before</em> the write, then issue a pure <code>MATCH</code>/<code>CREATE</code> over a
+  large <code>UNWIND</code>ed batch.</p>
+  <ul>
+    <li><strong>Deterministic keys.</strong> Derive node keys from the source system's identifiers so
+    Orchestra can decide create-vs-update without asking the graph.</li>
+    <li><strong>Node key constraints, then <code>MATCH</code>.</strong> An indexed unique lookup is
+    cheap; <code>MERGE</code>'s join planning is what costs you.</li>
+    <li><strong>Large batches.</strong> Neo4j notes that batch-size gains are <em>more</em> pronounced
+    on sharded databases than on single instances. Tune upward from 10k rows per transaction and
+    measure — the reflex to keep batches small is wrong here.</li>
+    <li><strong>Avoid variable-length syntax.</strong> Use quantified relationships
+    (<code>-[]-&gt;+</code>) rather than <code>-[*1..]-&gt;</code>, which the docs flag as degrading
+    when relationship properties are filtered across shards.</li>
+  </ul>
+  <div class="note warn">
+    <span class="tag">Also on the constraint list</span>
+    <p>Cypher 5 is unsupported — Cypher 25 only. Property-based access control for
+    <code>MATCH</code>/<code>TRAVERSE</code> is unavailable, which matters if you planned to enforce
+    data-segregation rules at the property level. <code>neo4j-admin database copy</code> cannot shard
+    a database in place; you migrate to a new name or location.</p>
+  </div>
+</section>
+
+<section id="retention">
+  <span class="secnum">08 · Retention</span>
+  <h2>The 30-day window</h2>
+  <p>Eviction is the most under-designed part of most graph platforms and, at these volumes, the
+  larger half of the write budget. Three approaches are viable; only one survives contact with
+  Infinigraph and GDS together.</p>
+
+  <div class="tablewrap">
+  <table>
+    <caption>Eviction strategies compared</caption>
+    <thead><tr><th>Approach</th><th>Mechanism</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Time-partitioned databases</td>
+          <td>One database per week, composite database over them, <code>DROP</code> the expired one — instant reclaim, no fragmentation.</td>
+          <td><span class="pill no">Rejected</span> GDS cannot project cleanly across composite databases, and layering composites over sharded property databases compounds two young features. The cheapest eviction buys the most expensive analytics.</td></tr>
+      <tr><td>Rolling in-place delete</td>
+          <td><code>CALL { … } IN TRANSACTIONS</code> against a day-stamped index, run continuously as a background Orchestra pipeline.</td>
+          <td><span class="pill yes">Recommended</span> Costs ~500 write ops/s, which the cluster has spare. Keeps one database, so GDS and Infinigraph both behave normally.</td></tr>
+      <tr><td>Aggregate-and-drop</td>
+          <td>Collapse raw events older than ~7 days into weighted <code>TRANSACTED_WITH</code> edges; delete the event nodes.</td>
+          <td><span class="pill yes">Recommended alongside</span> Cuts the resident event population by most of its volume while preserving the structure GDS actually needs for community and risk propagation.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+
+  <h3>What the window actually requires</h3>
+  <p>&ldquo;Thirty days online&rdquo; is a sentence in a requirements document and a standing
+  obligation in production. These are the requirements it implies, each of which has to be built
+  rather than assumed.</p>
+
+  <div class="tablewrap">
+  <table>
+    <caption>Requirements implied by a 30-day rolling window</caption>
+    <thead><tr><th>Requirement</th><th>What it means</th><th>If you skip it</th></tr></thead>
+    <tbody>
+      <tr><td>Define the boundary</td>
+          <td>Is the window measured on event time or ingestion time? Fraud telemetry arrives late by
+          nature — chargebacks, disputes and confirmed-fraud labels land days to weeks after the
+          transaction they describe.</td>
+          <td>A chargeback for a 40-day-old transaction arrives to find its subject already evicted,
+          and silently attaches to nothing.</td></tr>
+      <tr><td>Late-arrival policy</td>
+          <td>An explicit rule for events whose subject is outside the window: rehydrate the subject
+          from Iceberg, attach to the aggregated edge, or route to a review queue.</td>
+          <td>Silent data loss in exactly the records an investigator is most likely to need.</td></tr>
+      <tr><td>Legal hold</td>
+          <td>Entities under active case review are exempt from eviction until the case closes. The
+          eviction job needs a hold mechanism and the case system needs to set it.</td>
+          <td>Evidence disappears mid-investigation. This is a compliance incident, not a performance
+          bug — and the hardest one to explain after the fact.</td></tr>
+      <tr><td>Continuous, resumable eviction</td>
+          <td>~100 node-deletes and ~400 relationship-deletes per second, checkpointed, able to fall
+          behind and catch up without a burst.</td>
+          <td>A weekly bulk delete creates a transaction spike that competes with ingest and can
+          exceed the window it was meant to enforce.</td></tr>
+      <tr><td>Reclamation plan</td>
+          <td>Neo4j reuses freed records, so the store reaches a high-water mark rather than growing
+          without bound — but it does not return space to the OS. Compaction means an offline copy,
+          which on a sharded database is a multi-shard operation.</td>
+          <td>You provision for the average and are surprised by the high-water mark, with no
+          affordable way to compact.</td></tr>
+      <tr><td>Window isolation</td>
+          <td>Eviction must not overlap the daily batch window or a GDS projection run.</td>
+          <td>Lock contention on exactly the high-degree nodes all three jobs touch.</td></tr>
+      <tr><td>Reconciliation</td>
+          <td>A nightly count check between the graph and the Iceberg tables, proving the window is
+          the width you think it is and nothing was orphaned.</td>
+          <td>Drift accumulates invisibly until someone audits it.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note warn">
+    <span class="tag">Settle what &ldquo;online&rdquo; means before sizing anything</span>
+    <p>There is a large difference between <em>30 days of raw event nodes resident with full
+    properties</em> and <em>30 days answerable without the investigator waiting</em>. The second is
+    satisfied by aggregated relationships plus on-demand rehydration at a fraction of the resident
+    cost. Which one you have committed to is a business question, and it is worth asking whether the
+    30 days is a regulatory obligation, an investigator expectation, or an inherited assumption —
+    the three have different answers and only the first is fixed.</p>
+  </div>
+
+  <p>Run the second and third together: raw event nodes live ~7 days for investigator drill-down,
+  aggregated relationships carry the remaining 23 days of signal, and the full-fidelity record sits
+  in Iceberg for two years. That trims the resident graph substantially against the table in
+  <a href="#volume">section 02</a> and leaves headroom for base-entity growth.</p>
+</section>
+
+<section id="gds">
+  <span class="secnum">09 · Analytics</span>
+  <h2>GDS placement and the write-back hop</h2>
+  <p>GDS operates on the graph shard; property shards are transparent to it and managed automatically.
+  It runs on a secondary with the plugin installed — which introduces a wiring problem that is easy
+  to miss until integration testing: <strong>that secondary is read-only, so algorithm results cannot
+  be written where they were computed.</strong></p>
+
+  <figure>
+    <div class="figscroll">
+    <svg viewBox="0 0 820 244" role="img" aria-label="The GDS secondary computes features but is read-only, so results are streamed out to an Orchestra write-back pipeline, which writes them as batched SET statements to the graph shard leader; Raft replication then returns the values to the secondary.">
+      <defs>
+        <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <g font-family="IBM Plex Sans, sans-serif">
+        <text x="135" y="36" text-anchor="middle" font-size="10.5" font-family="IBM Plex Mono, monospace" letter-spacing="1" style="fill:var(--warn)">READ-ONLY — CANNOT WRITE HERE</text>
+
+        <rect x="30" y="52" width="210" height="72" rx="2" stroke-width="1.4" style="fill:var(--accent-soft);stroke:var(--accent)"/>
+        <text x="135" y="82" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">GDS secondary</text>
+        <text x="135" y="101" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">WCC · Louvain · PageRank</text>
+        <text x="135" y="115" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">scheduled, not in hot path</text>
+
+        <rect x="305" y="52" width="210" height="72" rx="2" stroke="currentColor" stroke-width="1.2" style="fill:var(--surface-2)"/>
+        <text x="410" y="82" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">Orchestra pipeline</text>
+        <text x="410" y="101" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">batches feature rows</text>
+
+        <rect x="580" y="52" width="210" height="72" rx="2" stroke-width="1.4" style="fill:var(--hot-soft);stroke:var(--hot)"/>
+        <text x="685" y="82" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">Graph shard leader</text>
+        <text x="685" y="101" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">features land as properties</text>
+
+        <line x1="240" y1="88" x2="299" y2="88" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar3)"/>
+        <text x="270" y="78" text-anchor="middle" font-size="10" style="fill:var(--muted)">stream</text>
+
+        <line x1="515" y1="88" x2="574" y2="88" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar3)"/>
+        <text x="545" y="78" text-anchor="middle" font-size="10" style="fill:var(--muted)">UNWIND SET</text>
+
+        <path d="M685,124 L685,190 L135,190 L135,130" fill="none" stroke="currentColor" stroke-width="1.4"
+              stroke-dasharray="5 4" marker-end="url(#ar3)" opacity=".75"/>
+        <text x="410" y="182" text-anchor="middle" font-size="10.5" style="fill:var(--muted)">Raft replication returns the values</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>Feature computation is a loop, not a step.</b> Results leave the analytics
+    secondary as a stream, re-enter through the leader as a batched write, and replicate back — so
+    the scoring secondaries read precomputed features without ever running an algorithm.</figcaption>
+  </figure>
+
+  <h3>Keep algorithms out of the request path</h3>
+  <p>Real-time scoring at 100 events/s cannot wait on a community detection run. Split it:</p>
+  <ul>
+    <li><strong>Offline, scheduled (hourly or nightly):</strong> connected components, Louvain
+    communities, PageRank, risk propagation — written back as node properties by the loop above.</li>
+    <li><strong>Online, per event (&lt;100&nbsp;ms p99):</strong> a bounded 2–3 hop Cypher traversal
+    with an explicit <code>LIMIT</code>, joined against those precomputed properties. Deterministic
+    cost, no projection, no surprise.</li>
+  </ul>
+  <p>Project subgraphs rather than the whole database. A projection of accounts plus aggregated
+  transfer edges over the active window is roughly an order of magnitude smaller than a full
+  projection, and it is what the fraud algorithms actually operate on.</p>
+</section>
+
+<section id="hume">
+  <span class="secnum">10 · Application</span>
+  <h2>Hume and Orchestra</h2>
+  <p>Hume covers both the investigator frontend and, through Orchestra, the ingestion plane — which
+  answers the question of whether to hand-roll Kubernetes Jobs for loading: you would be rebuilding
+  Orchestra badly. Orchestra is the job runner, with native Kafka consumption, scheduling, retries
+  and monitoring already built.</p>
+  <ul>
+    <li><strong>Deploy on EKS via GraphAware's Helm charts</strong>, in the same cluster and VPC as
+    the graph tier. Orchestra workers scale horizontally; the front end and workers scale
+    independently.</li>
+    <li><strong>RDS PostgreSQL, Multi-AZ</strong>, for Hume's own connection and configuration state.
+    This is operational metadata, not graph data — size it small and back it up conventionally.</li>
+    <li><strong>Separate Orchestra instances by workload.</strong> Recent Hume versions let different
+    knowledge graphs point at different Orchestra instances. Use that to isolate the continuous event
+    stream from the daily batch and the eviction job, so a stuck batch cannot stall real-time
+    ingestion.</li>
+    <li><strong>ALB with OIDC</strong> in front of Hume, wired to your existing IdP. Investigator
+    access to a financial-crime graph needs real SSO and audit, not local accounts.</li>
+    <li><strong>OpenSearch Service</strong> if you use Hume's replication for free-text entity search —
+    much better suited to name matching than a Neo4j full-text index at this scale.</li>
+  </ul>
+</section>
+
+<section id="cold">
+  <span class="secnum">11 · Archive</span>
+  <h2>The two-year tier</h2>
+  <p>"Queryable from sources" is satisfied by a lakehouse, not by the graph. Events land from MSK
+  Connect into S3 as Iceberg tables registered in the Glue Data Catalog, partitioned by event date,
+  and are queried with Athena. Lifecycle to Glacier Instant Retrieval at 90 days and expire at
+  two years plus your retention margin.</p>
+  <p>The piece worth building deliberately is <strong>rehydration</strong>. When an investigation
+  needs evidence older than the hot window, an Orchestra pipeline takes the case's entity set, runs
+  an Athena query bounded to those entities and a date range, and materialises the result as a scoped
+  investigation subgraph — a separate database, or a labelled partition with a TTL. This keeps
+  two-year access a per-case cost rather than a permanent one, and it is dramatically cheaper than
+  sizing the online graph for 24 months of events.</p>
+  <div class="note">
+    <span class="tag">Sizing the archive</span>
+    <p>8.64M events/day × 730 days at ~600&nbsp;B compressed is roughly 3–4&nbsp;TB in Parquet —
+    a rounding error in S3 terms, and a fraction of what the same history would cost held in
+    Neo4j page cache.</p>
+  </div>
+</section>
+
+<section id="aws">
+  <span class="secnum">12 · Build sheet</span>
+  <h2>AWS build sheet</h2>
+  <div class="tablewrap">
+  <table>
+    <caption>Services by layer</caption>
+    <thead><tr><th>Layer</th><th>Service</th><th>Configuration</th></tr></thead>
+    <tbody>
+      <tr><td>Transport</td><td>Amazon MSK</td><td>3 × m7g.large, 3 AZ, 7-day retention, partitioned by account_id</td></tr>
+      <tr><td>Schema</td><td>Glue Schema Registry</td><td>Avro, backward-compatible evolution enforced</td></tr>
+      <tr><td>Batch CDC</td><td>AWS DMS or MSK Connect</td><td>Core banking → Kafka topics, daily window</td></tr>
+      <tr><td>Graph</td><td>EKS or EC2</td><td>3 primary + 2 secondary + 1 GDS + 8 property shards at replica factor 2, co-located on 6 servers</td></tr>
+      <tr><td>Graph storage</td><td>EBS gp3 / i7ie NVMe</td><td>Provisioned IOPS; transaction log off burst volumes</td></tr>
+      <tr><td>Application</td><td>EKS</td><td>Hume front end + Orchestra workers, GraphAware Helm charts</td></tr>
+      <tr><td>App state</td><td>RDS PostgreSQL</td><td>Multi-AZ, small; Hume configuration only</td></tr>
+      <tr><td>Search</td><td>OpenSearch Service</td><td>Optional; entity name matching via Hume replication</td></tr>
+      <tr><td>Archive</td><td>S3 + Iceberg + Glue + Athena</td><td>Date-partitioned, Glacier IR at 90 d, expire at 2 y</td></tr>
+      <tr><td>Backup</td><td>S3</td><td><code>neo4j-admin database backup</code> per shard — see the constraint below</td></tr>
+      <tr><td>Secrets</td><td>Secrets Manager</td><td>Neo4j, Hume, Postgres credentials; no env-file credentials</td></tr>
+      <tr><td>Observability</td><td>CloudWatch + Prometheus/Grafana</td><td>Neo4j metrics endpoint, Orchestra pipeline monitoring</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note warn">
+    <span class="tag">Backup is not one artefact</span>
+    <p>A sharded property database is backed up <strong>shard by shard</strong>, producing multiple
+    backup chains that must be kept consistent with each other. Each property shard's chain may
+    contain <em>only one full backup and no differentials</em>, while the graph shard takes full plus
+    differentials. Model your RPO and restore-time objectives against that asymmetry before you
+    commit — it is materially different from backing up a single Neo4j database.</p>
+  </div>
+</section>
+
+<section id="decision">
+  <span class="secnum">13 · Go / no-go</span>
+  <h2>The Infinigraph decision</h2>
+  <p class="lede">Infinigraph solves one problem: property volume beyond what a single instance can
+  economically cache, while topology still fits one machine. Every other reason to adopt it is a bad
+  reason.</p>
+
+  <h3>Gate 0 — is the retention requirement itself fixed?</h3>
+  <p>Take this gate first, because it is the cheapest thing in the system to change and it moves
+  resident volume more than any tuning will. The 30-day window is the only major requirement here
+  that is continuously adjustable, and the three plausible readings of it differ by ~220&nbsp;GB.</p>
+
+  <figure>
+    <ul class="legend">
+      <li><span class="sw" style="background:var(--c-topo)"></span>Topology — graph shard</li>
+      <li><span class="sw" style="background:var(--c-prop)"></span>Properties — property shards</li>
+    </ul>
+    <div class="figscroll">
+    <svg viewBox="0 0 880 268" role="img" aria-label="Resident store under three retention options. Option A, 30 days of raw events, totals 862 GB. Option B, 7 days raw plus 23 days aggregated, totals 686 GB. Option C, 30 days aggregated only, totals 639 GB. All three sit below the 1 TB single-instance page cache ceiling.">
+      <g font-family="IBM Plex Sans, sans-serif">
+        <!-- gridlines, recessive, behind marks -->
+        <line x1="200" y1="52" x2="200" y2="222" style="stroke:var(--rule)" stroke-width="1"/>
+        <line x1="316.4" y1="52" x2="316.4" y2="222" style="stroke:var(--rule)" stroke-width="1"/>
+        <line x1="432.7" y1="52" x2="432.7" y2="222" style="stroke:var(--rule)" stroke-width="1"/>
+        <line x1="549.1" y1="52" x2="549.1" y2="222" style="stroke:var(--rule)" stroke-width="1"/>
+        <line x1="665.5" y1="52" x2="665.5" y2="222" style="stroke:var(--rule)" stroke-width="1"/>
+
+        <!-- single-instance ceiling -->
+        <line x1="795.8" y1="52" x2="795.8" y2="228" style="stroke:var(--accent)" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <text x="795.8" y="44" text-anchor="middle" font-size="11" font-weight="600" style="fill:var(--accent)">1 TB ceiling</text>
+
+        <!-- option A -->
+        <text x="186" y="75" text-anchor="end" font-size="12.5" font-weight="600" style="fill:currentColor">Option A</text>
+        <text x="186" y="90" text-anchor="end" font-size="10.5" style="fill:var(--muted)">30 d raw events (current)</text>
+        <rect x="200" y="66" width="119.9" height="24" style="fill:var(--c-topo)"/>
+        <path d="M321.9,66 H697.6 A4,4 0 0 1 701.6,70 V86 A4,4 0 0 1 697.6,90 H321.9 Z" style="fill:var(--c-prop)"/>
+        <text x="709.5" y="82" font-size="12.5" font-weight="600" font-family="IBM Plex Mono, monospace" style="fill:currentColor">862 GB</text>
+
+        <!-- option B -->
+        <text x="186" y="131" text-anchor="end" font-size="12.5" font-weight="600" style="fill:currentColor">Option B</text>
+        <text x="186" y="146" text-anchor="end" font-size="10.5" style="fill:var(--muted)">7 d raw + 23 d aggregated</text>
+        <rect x="200" y="122" width="103" height="24" style="fill:var(--c-topo)"/>
+        <path d="M305,122 H595.1 A4,4 0 0 1 599.1,126 V142 A4,4 0 0 1 595.1,146 H305 Z" style="fill:var(--c-prop)"/>
+        <text x="607" y="138" font-size="12.5" font-weight="600" font-family="IBM Plex Mono, monospace" style="fill:currentColor">686 GB</text>
+
+        <!-- option C -->
+        <text x="186" y="187" text-anchor="end" font-size="12.5" font-weight="600" style="fill:currentColor">Option C</text>
+        <text x="186" y="202" text-anchor="end" font-size="10.5" style="fill:var(--muted)">30 d aggregated only</text>
+        <rect x="200" y="178" width="98.3" height="24" style="fill:var(--c-topo)"/>
+        <path d="M300.3,178 H567.8 A4,4 0 0 1 571.8,182 V198 A4,4 0 0 1 567.8,202 H300.3 Z" style="fill:var(--c-prop)"/>
+        <text x="579.8" y="194" font-size="12.5" font-weight="600" font-family="IBM Plex Mono, monospace" style="fill:currentColor">639 GB</text>
+
+        <!-- axis -->
+        <line x1="200" y1="222" x2="840" y2="222" style="stroke:var(--rule-strong)" stroke-width="1"/>
+        <text x="200" y="238" text-anchor="middle" font-size="10.5" font-family="IBM Plex Mono, monospace" style="fill:var(--muted)">0</text>
+        <text x="316.4" y="238" text-anchor="middle" font-size="10.5" font-family="IBM Plex Mono, monospace" style="fill:var(--muted)">200</text>
+        <text x="432.7" y="238" text-anchor="middle" font-size="10.5" font-family="IBM Plex Mono, monospace" style="fill:var(--muted)">400</text>
+        <text x="549.1" y="238" text-anchor="middle" font-size="10.5" font-family="IBM Plex Mono, monospace" style="fill:var(--muted)">600</text>
+        <text x="665.5" y="238" text-anchor="middle" font-size="10.5" font-family="IBM Plex Mono, monospace" style="fill:var(--muted)">800</text>
+        <text x="520" y="259" text-anchor="middle" font-size="11" style="fill:var(--muted)">resident store, GB</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>Retention moves the number, but not across the line.</b> Every reading of the
+    30-day requirement lands below what a single x2iedn instance holds in page cache — which is
+    why the honest answer today is not yet, whichever option you choose. Retention buys growth
+    runway, not a change of architecture.</figcaption>
+  </figure>
+
+  <div class="tablewrap">
+  <table>
+    <caption>The three readings, in full</caption>
+    <thead><tr><th>Option</th><th>Topology</th><th>Properties</th><th>Total</th><th>Trade</th></tr></thead>
+    <tbody>
+      <tr><td>A — 30 d raw events</td><td class="num">206 GB</td><td class="num">656 GB</td><td class="num">862 GB</td>
+          <td>Every event node resident with full properties for the whole window. Maximum investigator freedom, maximum cost.</td></tr>
+      <tr><td>B — 7 d raw + 23 d aggregated</td><td class="num">177 GB</td><td class="num">509 GB</td><td class="num">686 GB</td>
+          <td><span class="pill yes">Recommended</span> Raw drill-down where investigators actually work; aggregated structure preserves what GDS needs beyond it.</td></tr>
+      <tr><td>C — 30 d aggregated only</td><td class="num">169 GB</td><td class="num">470 GB</td><td class="num">639 GB</td>
+          <td>Cheapest resident footprint, but every raw drill-down becomes a rehydration with a latency the investigator feels.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <span class="tag">The counterintuitive part</span>
+    <p>Events are only <strong>30% of property volume</strong>. The base entity graph — customers,
+    accounts, devices — carries ~460&nbsp;GB of the 656&nbsp;GB, and it is not on a retention clock
+    at all. <strong>If the goal is to defer Infinigraph, attack base entity property width, not the
+    event window.</strong> Moving KYC documents, address history, free-text notes and any embedding
+    vectors off customer and account nodes into S3 or OpenSearch is worth several times what
+    shortening the window achieves.</p>
+  </div>
+
+  <h3>Gates 1&ndash;4 — the architectural tests</h3>
+  <div class="tablewrap">
+  <table>
+    <caption>Fail any one and the answer is defer, not proceed carefully</caption>
+    <thead><tr><th>Gate</th><th>Threshold</th><th>Where you stand</th></tr></thead>
+    <tbody>
+      <tr><td>Topology fits one machine, with three years of headroom</td>
+          <td>Node + relationship + index stores measured on disk, against the largest instance you will buy. The graph shard is replicated, not partitioned — if this fails, Infinigraph does nothing for you.</td>
+          <td><span class="pill yes">Pass</span> 206 GB against 768 GB, 3.7× headroom</td></tr>
+      <tr><td>Properties are genuinely the bulk</td>
+          <td>Property + string + array stores versus topology. Below ~2:1 you are buying distributed-systems complexity for nothing.</td>
+          <td><span class="pill yes">Pass</span> 3.2:1</td></tr>
+      <tr><td>A single instance is genuinely exhausted</td>
+          <td>Hot working set — not total store — against ~1&ndash;1.5 TB. x2iedn.16xlarge holds 1 TB, .32xlarge holds 2 TB. Below that, buying RAM beats sharding on cost, complexity and risk.</td>
+          <td><span class="pill no">Fail</span> 862 GB fits one instance today</td></tr>
+      <tr><td>You can operate nine stateful nodes</td>
+          <td>Write-HA is 3 graph primaries + secondaries + property shards with replicas, self-managed, with per-shard backup chains. Not on Aura.</td>
+          <td><span class="pill no">Unanswered</span> — an organisational question, and the most commonly underestimated of the four</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Business blockers</h3>
+  <p>These are binary. Any one of them is a stop regardless of how the volume curve looks.</p>
+  <ul>
+    <li><strong>Property-level access control.</strong> PBAC for <code>MATCH</code> and
+    <code>TRAVERSE</code> is unavailable. For financial crime data this is live risk — segregating
+    investigator access by jurisdiction, business line or case is a common obligation, and this
+    pushes enforcement into the application layer where auditors are markedly less comfortable.</li>
+    <li><strong>A managed-services mandate.</strong> Self-managed only today, with Aura stated as
+    coming. If policy forbids self-managed stateful infrastructure, this is a wait, not a decision.</li>
+    <li><strong>Data residency.</strong> Properties distribute by hash across cluster members. Whether
+    placement can be constrained to a region is not addressed in public documentation — and hash
+    distribution and residency pinning are fundamentally in tension. Resolve this first if it
+    applies to you.</li>
+    <li><strong>Contractual RPO.</strong> Backup is per-shard, and property shard chains permit only
+    one full backup with no differentials. Validate your committed recovery point is achievable
+    before signing, not after.</li>
+    <li><strong>A regulatory delivery date.</strong> Putting an architecture your team has never
+    operated on the critical path of a compliance deadline is schedule risk independent of whether
+    the technology is sound.</li>
+    <li><strong>Licensing economics.</strong> Infinigraph subscription plus GDS Enterprise plus nine
+    instances, against Enterprise plus one or two large ones. There is a crossover point and it sits
+    further out than the scale conversation tends to imply.</li>
+  </ul>
+
+  <h3>Exhaust these first</h3>
+  <p>If any one of these brings you under the ceiling, Infinigraph is premature:</p>
+  <ol class="body">
+    <li><strong>Move cold properties out entirely</strong> — free text, vectors, document payloads
+    and audit fields to S3 or OpenSearch, keyed by node id. Often 60&ndash;80% of property volume, and
+    by a wide margin the highest-return move available.</li>
+    <li><strong>Shorten the raw window</strong> or aggregate sooner — Option B above.</li>
+    <li><strong>Split weakly-connected subdomains</strong> into separate databases with
+    application-level joins.</li>
+    <li><strong>Buy RAM.</strong> Boring, and usually correct below a terabyte.</li>
+  </ol>
+
+  <div class="note hot">
+    <span class="tag">The trigger, stated as a measurement</span>
+    <p>Shape is right; timing is not. Re-evaluate when <strong>hot working set exceeds ~70% of the
+    largest instance you are willing to buy, with twelve months of growth still ahead of it</strong>
+    — and only after cold properties have been moved to object storage. Resolve PBAC and data
+    residency now regardless, because those two can invalidate the direction whatever the volume
+    curve does.</p>
+  </div>
+</section>
+
+<section id="phasing">
+  <span class="secnum">14 · Sequence</span>
+  <h2>Phasing</h2>
+  <p>Do not start on Infinigraph. It solves a property-volume problem and adds a young feature set
+  and a separate subscription. Shard count is not a one-way door — replicas adjust online and shard
+  count changes via a copy into a new database — but the data model is much harder to walk back. Earn your way
+  in, and get the modelling right early.</p>
+  <ol class="phases">
+    <li><span class="ph">P1</span><div>
+      <h4>Single-instance baseline</h4>
+      <p>Standard Neo4j Enterprise cluster on an x2iedn-class instance. At ~860 GB total store, the
+      whole graph plausibly fits one machine's page cache. Load real data, measure actual property
+      width and store sizes, and establish the eviction pipeline.</p>
+    </div></li>
+    <li><span class="ph">P2</span><div>
+      <h4>Split the workloads</h4>
+      <p>Add secondaries for scoring reads and a dedicated GDS analytics member. Build the feature
+      write-back loop and the precomputed-property scoring path. This is where most of the latency
+      engineering happens, and none of it depends on sharding.</p>
+    </div></li>
+    <li><span class="ph">P3</span><div>
+      <h4>Archive and rehydration</h4>
+      <p>Stand up the Iceberg tier and the rehydration pipeline. Once this exists, the hot window is
+      a tunable number rather than a data-retention commitment — which de-risks everything after it.</p>
+    </div></li>
+    <li><span class="ph">P4</span><div>
+      <h4>Adopt Infinigraph when properties, not topology, are the constraint</h4>
+      <p>The trigger is measured: total store outgrowing what a single instance caches economically,
+      while topology still fits one host. Migrate with <code>neo4j-admin database copy</code> to a
+      new location — in-place conversion is not supported — and land the topology promotions in
+      <a href="#modeling">section 06</a> first, because they are far more disruptive to change
+      afterwards than shard count is.</p>
+    </div></li>
+  </ol>
+</section>
+
+<section id="questions">
+  <span class="secnum">15 · Diligence</span>
+  <h2>Open questions for Neo4j and GraphAware</h2>
+  <p>Each of these could change the architecture. Get answers before the Phase 4 commitment, and
+  ideally before contract.</p>
+  <ul class="qs">
+    <li><b>Point-in-time recovery across shards</b>Given the single-full-backup constraint on
+    property shard chains, what is the achievable RPO and the realistic restore time for a ~860 GB
+    sharded database?</li>
+    <li><b>Infinigraph on Aura</b>Neo4j has stated it is coming to AuraDB. What is the timeline and
+    the feature parity? If it lands within your build window, Phase 4 changes from a self-managed
+    cluster to a managed one.</li>
+    <li><b>Hume and Orchestra certification</b>Are Hume's visualisation and Orchestra's loaders
+    tested against sharded property databases on Cypher 25 — specifically the Orchestra loaders that
+    generate <code>MERGE</code> by default?</li>
+    <li><b>Property fetch dispatch</b>Are batched property lookups dispatched to shards in parallel
+    or serially? This sets whether fan-out latency is the maximum across shards or the sum, and
+    therefore the practical ceiling on shard count for the real-time scoring path.</li>
+    <li><b>Index residency</b>Do property indexes live on the graph shard or the property shards?
+    This decides whether an indexed seed lookup such as <code>MATCH (a:Account {id: $id})</code> is
+    graph-shard local or already a cross-shard hop — and therefore how you key every traversal.</li>
+    <li><b>Constraint enforcement cost</b>How is a uniqueness constraint on a property validated at
+    write time across shards? This likely accounts for part of the <code>MERGE</code> penalty and
+    determines whether node key constraints are affordable at 1.26B nodes.</li>
+    <li><b>Resharding in practice</b>Resharding by copy into a new database is documented, including online from a backup; how long does copying
+    a ~860 GB sharded database actually take, and can it be staged against a backup to avoid a
+    maintenance window on the live cluster?</li>
+    <li><b>GDS write-back</b>Is there a supported path better than stream-out-and-reload, and what
+    property-shard load do large projections actually generate?</li>
+    <li><b>Licensing</b>Infinigraph subscription, GDS Enterprise and Hume are three commercial
+    licences on top of AWS spend. Model the total before the architecture is locked.</li>
+  </ul>
+</section>
+
+<section id="summary">
+  <span class="secnum">16 · Decision summary</span>
+  <h2>Infinigraph or not</h2>
+  <p class="lede">A self-contained summary of the adoption decision, written to be lifted into a
+  solution architecture document. Each point refers back to the section that supports it.</p>
+
+  <div class="note hot">
+    <span class="tag">Recommendation</span>
+    <p><strong>Not yet: design for Infinigraph now, and adopt it at Phase 4 when the measured trigger is
+    met.</strong> The workload has the right shape for property sharding: topology fits one machine,
+    and properties outweigh it 3.2:1. But at ~860&nbsp;GB a single large instance still holds the whole
+    store in page cache. Build on standard Neo4j Enterprise, apply the shard-safe modelling and write
+    patterns from day one so a later migration is a data copy rather than a redesign, and resolve the
+    two business blockers (property-based access control and data residency) before committing.</p>
+  </div>
+
+  <h3>Pros</h3>
+  <div class="tablewrap">
+  <table>
+    <caption>What Infinigraph gives this platform</caption>
+    <thead><tr><th>Benefit</th><th>Why it matters here</th></tr></thead>
+    <tbody>
+      <tr><td>Property volume scales horizontally</td>
+          <td>Properties hash across N shards on separate servers, so total page cache grows with server count. That matches a workload where properties (~656&nbsp;GB) dominate topology (~206&nbsp;GB). <a href="#graph">§05</a></td></tr>
+      <tr><td>One logical database, transparent to Cypher</td>
+          <td>No application-level sharding, routing or federation. Queries address the database by its virtual name, and the split is invisible to Hume and the scoring service.</td></tr>
+      <tr><td>ACID preserved</td>
+          <td>Transactions are coordinated on the graph shard's Raft group, and internal bookmarks give read-your-own-writes across shards. No consistency model to redesign around.</td></tr>
+      <tr><td>Traversal cache protected from bulky values</td>
+          <td>Free text, device fingerprints and vectors leave the graph shard's page cache, so topology stays memory-resident. Neo4j positions the feature as suited to vector and full-text workloads.</td></tr>
+      <tr><td>Large headroom</td>
+          <td>Vendor-stated capacity is up to 100&nbsp;TB, far beyond any projection for this workload.</td></tr>
+      <tr><td>Online elasticity for two of the three dials</td>
+          <td>Replica count and server count change without downtime. Over-provisioning the shard count and co-locating shards (vendor-recommended) buys future spread at no hardware cost today. <a href="#graph">§05</a></td></tr>
+      <tr><td>Stays inside the existing product family</td>
+          <td>GDS runs on a graph shard secondary, and Hume connects over Bolt as usual. No second database technology to introduce.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Cons</h3>
+  <div class="tablewrap">
+  <table>
+    <caption>Limits, costs and risks</caption>
+    <thead><tr><th>Limitation</th><th>Consequence</th></tr></thead>
+    <tbody>
+      <tr><td>Topology is not partitioned</td>
+          <td>Nodes, relationships, labels, IDs and indexes must fit one machine. If topology outgrows the largest host, Infinigraph does not help.</td></tr>
+      <tr><td>Writes go through a single leader</td>
+          <td>Write throughput is that of one graph shard leader. Adequate at ~1,000 ops/s, but not a write-scaling solution.</td></tr>
+      <tr><td>Still shared-nothing; compute is not separate from storage</td>
+          <td>There is no stateless query tier. Read scale-out means adding graph shard secondaries, each holding a full topology replica (~206&nbsp;GB here), so read capacity costs storage-node hardware.</td></tr>
+      <tr><td>Query-pattern penalties</td>
+          <td><code>MERGE</code> is very slow at scale. Property filters on variable-length paths and shortest paths are not fully optimised. Cross-shard fan-out adds tail latency. <a href="#merge">§07</a></td></tr>
+      <tr><td>No property-based access control</td>
+          <td>PBAC is unsupported, so attribute-level data segregation moves into the application layer.</td></tr>
+      <tr><td>Cypher 25 only</td>
+          <td>Cypher 5 is not officially supported. Existing queries and tooling must be ported and tested.</td></tr>
+      <tr><td>Self-managed only, separate subscription</td>
+          <td>Not available on Aura. Requires an Infinigraph subscription on Enterprise, on top of GDS and Hume licences.</td></tr>
+      <tr><td>Weaker HA on property shards</td>
+          <td>Property shard replicas are not Raft members, so redundancy comes from replica count alone (M&nbsp;=&nbsp;F&nbsp;+&nbsp;1).</td></tr>
+      <tr><td>Fragmented backup and restore</td>
+          <td>Backups run shard by shard, and each property shard chain allows one full backup with no differentials. Restore is an N-way coordinated operation. <a href="#aws">§12</a></td></tr>
+      <tr><td>Shard count is fixed at creation</td>
+          <td>Changing it means copying into a new database and cutting over. The copy can run from a backup while the live database serves, but it is still a migration.</td></tr>
+      <tr><td>Maturity</td>
+          <td>Announced September 2025, with a feature set still changing release to release. There is little public operating experience at this scale.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Implications for design, build and operation</h3>
+  <div class="tablewrap">
+  <table>
+    <caption>What adopting it commits each discipline to</caption>
+    <thead><tr><th>Stage</th><th>Implication</th><th>Ref</th></tr></thead>
+    <tbody>
+      <tr><td>Design</td><td>Model filter predicates as structure: relationship types, labels, bucket and shared nodes. Keep identifiers as indexed properties. Anchor relationships outgoing from traversal entry points, and identify super-hubs before modelling.</td><td class="num">§06</td></tr>
+      <tr><td>Design</td><td>Remove <code>MERGE</code> from every write path. Resolve identity upstream in Orchestra with deterministic keys, then <code>MATCH</code>/<code>CREATE</code> over large <code>UNWIND</code> batches.</td><td class="num">§07</td></tr>
+      <tr><td>Design</td><td>Enforce attribute-level access control in the application or API layer, because PBAC is unavailable.</td><td class="num">§13</td></tr>
+      <tr><td>Design</td><td>Derive shard count from the three-year hot working set rather than current size (here <code>COUNT 8</code>, replica factor 2). Keep eviction in a single database, without composite databases.</td><td class="num">§05, §08</td></tr>
+      <tr><td>Build</td><td>Run self-managed on EKS or EC2 using block format, with at least three graph shard primaries and multiple replicas per property shard.</td><td class="num">§05</td></tr>
+      <tr><td>Build</td><td>Port queries to Cypher 25. Rewrite Orchestra loaders that generate <code>MERGE</code>, and certify Hume and Orchestra against a sharded database.</td><td class="num">§10, §15</td></tr>
+      <tr><td>Build</td><td>Load a representative sample to measure real property width. <code>PROFILE</code> the seed query to settle index residency before finalising the model.</td><td class="num">§02, §06</td></tr>
+      <tr><td>Build</td><td>Migrate by copying into a new database; in-place conversion is not supported. Land modelling changes before the migration.</td><td class="num">§14</td></tr>
+      <tr><td>Operate</td><td>Run per-shard backup chains and rehearse coordinated multi-shard restores against the committed RPO and RTO.</td><td class="num">§12</td></tr>
+      <tr><td>Operate</td><td>Monitor per-shard size skew (super-hub concentration) and fan-out p99 alongside standard cluster metrics.</td><td class="num">§05</td></tr>
+      <tr><td>Operate</td><td>Apply configuration with <code>ALTER DATABASE</code>, not <code>dbms.setConfigValue()</code>, which does not propagate across members. Treat resharding as a planned migration with cutover.</td><td class="num">—</td></tr>
+      <tr><td>Operate</td><td>Staff for a cluster of nine or more stateful nodes, and budget three commercial licences (Infinigraph, GDS Enterprise, Hume) on top of AWS spend.</td><td class="num">§13</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Key decision criteria</h3>
+  <div class="tablewrap">
+  <table>
+    <caption>Gates (all must pass) and blockers (any one stops)</caption>
+    <thead><tr><th>Criterion</th><th>Threshold</th><th>This workload</th></tr></thead>
+    <tbody>
+      <tr><td>Retention requirement is fixed</td><td>The 30-day window is confirmed as a regulatory or business obligation, not an inherited assumption</td>
+          <td><span class="pill no">Open</span> Options A–C span ~220&nbsp;GB</td></tr>
+      <tr><td>Topology fits one host</td><td>Topology plus indexes fit the largest instance with three years of headroom</td>
+          <td><span class="pill yes">Pass</span> 206&nbsp;GB vs 768&nbsp;GB</td></tr>
+      <tr><td>Properties dominate</td><td>Property-to-topology ratio of at least ~2:1</td>
+          <td><span class="pill yes">Pass</span> 3.2:1</td></tr>
+      <tr><td>Single instance exhausted</td><td>Hot working set above ~70% of the largest acceptable instance, with 12 months of growth ahead, after cold properties are moved out</td>
+          <td><span class="pill no">Fail</span> 862&nbsp;GB fits today</td></tr>
+      <tr><td>Read scale-out is affordable</td><td>Required read replicas × topology size is acceptable, since each secondary carries full topology</td>
+          <td><span class="pill no">Open</span> 3 secondaries planned</td></tr>
+      <tr><td>Operating capability</td><td>The team can run a self-managed, multi-shard cluster with per-shard backups</td>
+          <td><span class="pill no">Open</span> Organisational question</td></tr>
+      <tr><td>Blocker: attribute-level access control</td><td>No requirement for PBAC on <code>MATCH</code>/<code>TRAVERSE</code></td>
+          <td><span class="pill no">Open</span> Confirm with compliance</td></tr>
+      <tr><td>Blocker: managed-service mandate</td><td>Self-managed stateful infrastructure is permitted</td>
+          <td><span class="pill no">Open</span></td></tr>
+      <tr><td>Blocker: data residency</td><td>Hash distribution across members is acceptable, or placement can be pinned</td>
+          <td><span class="pill no">Open</span> Not documented by Neo4j</td></tr>
+      <tr><td>Blocker: contractual RPO</td><td>Committed RPO and RTO are achievable with per-shard, full-only property backups</td>
+          <td><span class="pill no">Open</span> Validate with Neo4j</td></tr>
+      <tr><td>Blocker: delivery risk and TCO</td><td>Not on a regulatory critical path; three-licence TCO beats Enterprise plus a larger instance</td>
+          <td><span class="pill no">Open</span> Model before lock-in</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Vendor references and recommendations</h3>
+  <p>What Neo4j itself publishes, and how this design applies it. Neo4j gives no CPU, memory or disk
+  sizing figures and refers accurate sizing to its account team, so the instance figures in this
+  report are planning estimates.</p>
+  <div class="tablewrap">
+  <table>
+    <caption>Neo4j guidance mapped to this design</caption>
+    <thead><tr><th>Vendor guidance</th><th>Applied here</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Positioned for graphs with a large volume of properties and for vector and full-text search; up to 100&nbsp;TB; writes on a single instance</td>
+          <td>The workload fits the positioning, but is ~1&nbsp;TB, not tens of terabytes</td><td><a href="https://neo4j.com/docs/operations-manual/current/scalability/scaling-with-neo4j/">Scaling with Neo4j</a></td></tr>
+      <tr><td>At least three graph shard primaries for HA; a single primary only when HA is not required</td>
+          <td>3 primaries</td><td><a href="https://neo4j.com/docs/operations-manual/current/scalability/sharded-property-databases/planning-and-sizing/">Planning and sizing</a></td></tr>
+      <tr><td>Add graph shard secondaries to scale out reads; they cache graph data and run read-only queries</td>
+          <td>2 scoring secondaries + 1 GDS secondary</td><td>Planning and sizing</td></tr>
+      <tr><td>Multiple replicas per property shard, sized M&nbsp;=&nbsp;F&nbsp;+&nbsp;1, because replicas are not Raft members</td>
+          <td>Replica factor 2 (tolerates one failure per shard)</td><td>Planning and sizing</td></tr>
+      <tr><td>Keep each database at 1–3&nbsp;TB on commodity hardware so administrative operations stay manageable</td>
+          <td>~860&nbsp;GB, inside the band</td><td>Planning and sizing</td></tr>
+      <tr><td>Create more property shards than needed at the start, co-locate them, and add servers as data grows</td>
+          <td><code>COUNT 8</code> co-located on 6 servers</td><td>Planning and sizing; <a href="https://neo4j.com/docs/operations-manual/current/scalability/sharded-property-databases/resharding-databases/">Resharding</a></td></tr>
+      <tr><td>Block format required for graph and property shards</td>
+          <td>Adopted</td><td>Planning and sizing</td></tr>
+      <tr><td>Avoid <code>MERGE</code>; batch writes with <code>UNWIND</code> or <code>CALL&nbsp;IN&nbsp;TRANSACTIONS</code>; use quantified relationships rather than <code>[*1..]</code></td>
+          <td>Write path in <a href="#merge">§07</a></td><td><a href="https://neo4j.com/docs/operations-manual/current/scalability/sharded-property-databases/limitations-and-considerations/">Limitations</a></td></tr>
+      <tr><td>Use Cypher 25; PBAC unsupported; avoid <code>dbms.setConfigValue()</code>; target the database by virtual name, never an individual shard</td>
+          <td>Build and operate constraints above</td><td>Limitations</td></tr>
+      <tr><td>Shard count changes by copying into a new database (offline, or online from a backup); replica count changes online</td>
+          <td>Shard count derived from three-year projection</td><td>Resharding</td></tr>
+      <tr><td>Not available on Aura</td>
+          <td>Self-managed on EKS/EC2</td><td><a href="https://neo4j.com/docs/operations-manual/current/scalability/sharded-property-databases/security/">Security</a></td></tr>
+      <tr><td>GDS deploys on a graph shard secondary with the plugin; property shards are handled transparently</td>
+          <td>Dedicated GDS secondary with write-back loop</td><td><a href="https://neo4j.com/docs/operations-manual/2026.08/scalability/sharded-property-databases/deploy-sharded-database-gds/">GDS on sharded DB</a></td></tr>
+      <tr><td>Strongest scaling results come from combining clustering with composite databases</td>
+          <td>Not adopted, because GDS cannot project cleanly across composites (<a href="#retention">§08</a>)</td><td>Scaling with Neo4j</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <span class="tag">Revisit the decision when</span>
+    <p>The hot working set passes ~70% of the largest instance you will buy with a year of growth
+    still ahead. Or Infinigraph reaches Aura. Or PBAC support ships. Or Neo4j answers the open
+    questions in <a href="#questions">§15</a> on fan-out dispatch, index residency and multi-shard
+    RPO. Any one of these changes the balance above.</p>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Sources</strong></p>
+  <ul>
+    <li>Neo4j Operations Manual — <a href="https://neo4j.com/docs/operations-manual/current/scalability/sharded-property-databases/overview/">Sharded property databases: overview</a>, <a href="https://neo4j.com/docs/operations-manual/current/scalability/sharded-property-databases/planning-and-sizing/">planning and sizing</a>, <a href="https://neo4j.com/docs/operations-manual/current/scalability/sharded-property-databases/resharding-databases/">resharding</a>, <a href="https://neo4j.com/docs/operations-manual/current/scalability/sharded-property-databases/security/">security</a>, <a href="https://neo4j.com/docs/operations-manual/current/scalability/scaling-with-neo4j/">scaling with Neo4j</a>, <a href="https://neo4j.com/docs/operations-manual/current/scalability/sharded-property-databases/limitations-and-considerations/">limitations and considerations</a>, <a href="https://neo4j.com/docs/operations-manual/2026.08/scalability/sharded-property-databases/deploy-sharded-database-gds/">deploying GDS on a sharded property database</a>, <a href="https://neo4j.com/docs/operations-manual/2026.08/backup-restore/validate/">backup validation</a></li>
+    <li>Neo4j — <a href="https://neo4j.com/blog/graph-database/infinigraph-scalable-architecture/">Infinigraph architecture announcement</a> and <a href="https://neo4j.com/blog/graph-database/property-sharding-infinigraph/">property sharding in Infinigraph</a></li>
+    <li>Neo4j GDS — <a href="https://neo4j.com/docs/graph-data-science/current/production-deployment/composite/">GDS and composite databases</a></li>
+    <li>GraphAware — <a href="https://graphaware.com/resources/hume-features-orchestra/">Hume Orchestra</a>, <a href="https://graphaware.com/blog/data-orchestration-meets-graph-analytics/">data orchestration and graph analytics</a></li>
+  </ul>
+  <p>Volume and instance figures are planning estimates, not measurements. Validate against a
+  representative sample load before provisioning.</p>
+</footer>
+
+</main>
+</div>
+</div>
+
+</body></html>
