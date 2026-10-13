@@ -28,3 +28,17 @@ NEO4J_HOME=/path/to/neo4j NEO4J_PASSWORD=yourpassword ./cypher/load_all.sh
 Data is from the [ICIJ Offshore Leaks Database](https://offshoreleaks.icij.org/)
 under the ODbL. There are legitimate uses for offshore companies — presence in
 this data is not evidence of wrongdoing.
+
+
+ResourceSpecification
+│
+├── PhysicalResourceSpecification
+│   ├── EquipmentSpecification
+│   ├── CableSpecification
+│   └── SupportStructureSpecification
+│
+├── LogicalResourceSpecification
+│   ├── LogicalInterfaceSpecification
+│   └── LogicalConnectionSpecification
+│
+└── CompoundResourceSpecification
