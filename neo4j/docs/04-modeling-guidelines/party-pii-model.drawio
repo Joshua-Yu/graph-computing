@@ -1,0 +1,316 @@
+<mxfile host="app.diagrams.net" pages="3">
+  <diagram id="party_lpg" name="Party model">
+    <mxGraphModel dx="2049" dy="1077" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=30;fontStyle=1;fontColor=#1f3864;fontFamily=Helvetica;" value="Party and PII Graph Model (ver 0.1-DRAFT)" vertex="1">
+          <mxGeometry height="30" width="900" x="40" y="15" as="geometry" />
+        </mxCell>
+        <mxCell id="party" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party&lt;br&gt;&lt;font style=&quot;font-size: 13px; font-weight: normal;&quot;&gt;:Person :Organisation&lt;/font&gt;" vertex="1">
+          <mxGeometry height="140" width="140" x="630" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="party_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=16;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;partyId&lt;/b&gt; (key)&amp;nbsp;&lt;div&gt;&lt;b&gt;cifId&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="200" x="600" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="phone" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Phone" vertex="1">
+          <mxGeometry height="100" width="100" x="1100" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="phone_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=16;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;number&lt;/b&gt;&lt;br&gt;&lt;i&gt;&lt;/i&gt;&lt;div&gt;&lt;b&gt;type&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="55" width="230" x="1100" y="275" as="geometry" />
+        </mxCell>
+        <mxCell id="email" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Email" vertex="1">
+          <mxGeometry height="100" width="100" x="1100" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="email_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=16;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;address&lt;/b&gt; (key, lower-case)&lt;br&gt;&lt;i&gt;&lt;/i&gt;" vertex="1">
+          <mxGeometry height="36" width="230" x="1100" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="address" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Address" vertex="1">
+          <mxGeometry height="100" width="100" x="1100" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="address_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=16;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;addressKey (&lt;/b&gt;Hash of text or dpid if available)&lt;br&gt;addressText&lt;br&gt;isOverseas&lt;div&gt;country&lt;br&gt;&lt;br&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="260" x="1100" y="675" as="geometry" />
+        </mxCell>
+        <mxCell id="iddoc" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Identity&lt;br&gt;Document" vertex="1">
+          <mxGeometry height="100" width="100" x="1100" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="iddoc_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=16;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;documentId&lt;/b&gt;&lt;br&gt;documentType: DRIVER_LICENCE |&lt;br&gt;PASSPORT&amp;nbsp;&lt;div&gt;&lt;br&gt;Other tyoes:&amp;nbsp;&lt;/div&gt;&lt;div&gt;ABN | ACN | TAX_NUMBER&lt;/div&gt;&lt;div&gt;&lt;br&gt;expiryDate&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="310" x="1110" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="party2" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#94a3b8;strokeColor=#64748b;fontColor=#ffffff;" value="Party&lt;br&gt;&lt;font style=&quot;font-size: 13px; font-weight: normal;&quot;&gt;another party&lt;/font&gt;" vertex="1">
+          <mxGeometry height="100" width="100" x="1550" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="party2_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=16;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="shares an email&lt;br&gt;or an address" vertex="1">
+          <mxGeometry height="70" width="165" x="1500" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="pname" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#f79767;strokeColor=#f36924;fontColor=#ffffff;" value="PartyName" vertex="1">
+          <mxGeometry height="100" width="100" x="250" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="pname_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=16;fontFamily=Helvetica;align=right;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;nameKey&lt;/b&gt;&lt;br&gt;givenName, familyName,&lt;br&gt;fullName&lt;br&gt;aliases" vertex="1">
+          <mxGeometry height="90" width="220" x="20" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="pstatus" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#f79767;strokeColor=#f36924;fontColor=#ffffff;" value="PartyStatus" vertex="1">
+          <mxGeometry height="100" width="100" x="250" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="pstatus_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=16;fontFamily=Helvetica;align=right;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;statusKey&lt;/b&gt;&lt;br&gt;domain: PERSONAL | FINANCIAL |&lt;br&gt;VALUE | ACTIVITY | AML |&lt;br&gt;RESIDENCY | CITIZENSHIP |&lt;br&gt;TAX_RESIDENCY | TAX_COMPLIANCE&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="190" width="230" x="10" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="rscore" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#8b5cf6;strokeColor=#6d28d9;fontColor=#ffffff;" value="RiskScore" vertex="1">
+          <mxGeometry height="100" width="100" x="250" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="rscore_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=16;fontFamily=Helvetica;align=right;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;riskScoreKey&lt;/b&gt;&amp;nbsp;(TBD)" vertex="1">
+          <mxGeometry height="160" width="220" x="20" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="alert" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#8b5cf6;strokeColor=#6d28d9;fontColor=#ffffff;" value="Alert" vertex="1">
+          <mxGeometry height="90" width="90" x="475" y="955" as="geometry" />
+        </mxCell>
+        <mxCell id="alert_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=16;fontFamily=Helvetica;align=right;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;alertKey&lt;/b&gt;&lt;br&gt;(TBD)" vertex="1">
+          <mxGeometry height="70" width="180" x="280" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="e_name" edge="1" parent="1" source="party" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=16;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="pname" value="&lt;b&gt;HAS_NAME&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;{validFrom, validTo}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_status" edge="1" parent="1" source="party" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=16;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="pstatus" value="&lt;b&gt;HAS_STATUS&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;{validFrom, validTo}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_score" edge="1" parent="1" source="party" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=16;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="rscore" value="&lt;b&gt;HAS_RISK_SCORE&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;{validFrom, validTo}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_alert" edge="1" parent="1" source="alert" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=16;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#7c3aed;strokeWidth=1.5;" target="party" value="&lt;b&gt;RAISED_ON&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_phone" edge="1" parent="1" source="party" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=16;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="phone" value="&lt;b&gt;HAS_PHONE&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;{usage, validFrom, validTo}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_email" edge="1" parent="1" source="party" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=16;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="email" value="&lt;b&gt;HAS_EMAIL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;{usage, validFrom, validTo}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_addr" edge="1" parent="1" source="party" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=16;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="address" value="&lt;b&gt;HAS_ADDRESS&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;{usage, validFrom, validTo}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_id" edge="1" parent="1" source="party" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=16;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="iddoc" value="&lt;b&gt;IDENTIFIED_BY&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;{verifiedAt, validFrom, validTo}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_email" edge="1" parent="1" source="party2" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=16;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#94a3b8;strokeWidth=1.5;" target="email" value="&lt;b&gt;HAS_EMAIL&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_addr" edge="1" parent="1" source="party2" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=16;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#94a3b8;strokeWidth=1.5;" target="address" value="&lt;b&gt;HAS_ADDRESS&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_shares" edge="1" parent="1" source="party" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=16;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#7c3aed;dashed=1;strokeWidth=1.5;exitX=0.5;exitY=1;entryX=0.5;entryY=1;edgeStyle=orthogonalEdgeStyle;" target="party2" value="&lt;b&gt;SHARES_IDENTIFIER_WITH (derived)&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="1070" />
+              <mxPoint x="1600" y="1070" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n_time" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=13;fontFamily=Helvetica;align=left;fontSize=11;spacing=10;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#1e293b;" value="&lt;b&gt;Time variance (§4)&lt;/b&gt;&lt;br&gt;• Open period: no validTo. As of a date: validFrom &amp;lt;= $asOf AND (validTo IS NULL OR validTo &amp;gt; $asOf)&lt;br&gt;• usage: RESIDENTIAL | POSTAL | BUSINESS&lt;br&gt;• Returning to an old address = a second relationship to the same node&lt;br&gt;• One current name: the load closes the old period in the same transaction&lt;br&gt;• One current RiskScore per model; Party holds a copy of the current one" vertex="1">
+          <mxGeometry height="120" width="620" x="30" y="1470" as="geometry" />
+        </mxCell>
+        <mxCell id="n_ex" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=13;fontFamily=Helvetica;align=left;fontSize=11;spacing=10;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#1e293b;" value="&lt;b&gt;Example: US citizen living in Australia&lt;/b&gt;&lt;br&gt;PartyStatus CITIZENSHIP, country US&lt;br&gt;PartyStatus RESIDENCY, country AU&lt;br&gt;PartyStatus TAX_COMPLIANCE, code FATCA_US_PERSON&lt;br&gt;Country is a property, not a node" vertex="1">
+          <mxGeometry height="120" width="330" x="670" y="1470" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_h" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#1f3864;fontFamily=Helvetica;" value="Legend" vertex="1">
+          <mxGeometry height="22" width="200" x="1060" y="1110" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_0" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="22" width="22" x="1064" y="1144" as="geometry" />
+        </mxCell>
+        <mxCell id="lgt_0" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontColor=#475569;whiteSpace=wrap;fontFamily=Helvetica;" value="Single instance, not time variant" vertex="1">
+          <mxGeometry height="20" width="380" x="1095" y="1145" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_1" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="22" width="22" x="1064" y="1174" as="geometry" />
+        </mxCell>
+        <mxCell id="lgt_1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontColor=#475569;whiteSpace=wrap;fontFamily=Helvetica;" value="Multiple valid instances, time variant" vertex="1">
+          <mxGeometry height="20" width="380" x="1095" y="1175" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_2" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#f79767;strokeColor=#f36924;fontColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="22" width="22" x="1064" y="1204" as="geometry" />
+        </mxCell>
+        <mxCell id="lgt_2" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontColor=#475569;whiteSpace=wrap;fontFamily=Helvetica;" value="Multiple instances, only one for each category is valid, time variant" vertex="1">
+          <mxGeometry height="20" width="380" x="1095" y="1205" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_3" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#8b5cf6;strokeColor=#6d28d9;fontColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="22" width="22" x="1064" y="1234" as="geometry" />
+        </mxCell>
+        <mxCell id="lgt_3" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontColor=#475569;whiteSpace=wrap;fontFamily=Helvetica;" value="Derived data (scores, alerts, overlap links)" vertex="1">
+          <mxGeometry height="20" width="380" x="1095" y="1235" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="shard_safe_lpg" name="Shard-safe form">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1150" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontColor=#1f3864;fontFamily=Helvetica;" value="Shard-safe form: current and ended periods" vertex="1">
+          <mxGeometry x="40" y="15" width="900" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;whiteSpace=wrap;fontFamily=Helvetica;" value="Departures D1, D2 and D7 (§7.3, §11), proposed before Day 0. Solid arrows and full colour: open periods. Dashed arrows and pale nodes: ended periods. Needs an ADR; until then build the first page." vertex="1">
+          <mxGeometry x="40" y="50" width="1500" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="party" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party&lt;br&gt;&lt;font style=&#39;font-size: 9px; font-weight: normal;&#39;&gt;:Person&lt;/font&gt;" vertex="1">
+          <mxGeometry x="235.0" y="465.0" width="130" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="party_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;partyId&lt;/b&gt; (key)&lt;br&gt;riskScore, riskBand ... (current copy)" vertex="1">
+          <mxGeometry x="200" y="380" width="210" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="email1" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Email" vertex="1">
+          <mxGeometry x="808.0" y="138.0" width="84" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="email1_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;address&lt;/b&gt;: current" vertex="1">
+          <mxGeometry x="905" y="162" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e_email1" parent="1" source="party" target="email1" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=10;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" value="&lt;b&gt;HAS_EMAIL&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 9px;&#39;&gt;{usage, validFrom}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="email0" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#c3dbf5;strokeColor=#4c8eda;fontColor=#1e293b;dashed=1;" value="Email" vertex="1">
+          <mxGeometry x="808.0" y="278.0" width="84" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="email0_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;address&lt;/b&gt;: former" vertex="1">
+          <mxGeometry x="905" y="302" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e_email0" parent="1" source="party" target="email0" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=10;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#94a3b8;dashed=1;strokeWidth=1.5;" value="&lt;b&gt;HAD_EMAIL&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 9px;&#39;&gt;{usage, validFrom, validTo}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="addr1" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Address" vertex="1">
+          <mxGeometry x="808.0" y="418.0" width="84" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="addr1_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;addressId&lt;/b&gt;: current" vertex="1">
+          <mxGeometry x="905" y="442" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e_addr1" parent="1" source="party" target="addr1" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=10;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" value="&lt;b&gt;HAS_ADDRESS&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 9px;&#39;&gt;{usage, validFrom}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="addr0" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#c3dbf5;strokeColor=#4c8eda;fontColor=#1e293b;dashed=1;" value="Address" vertex="1">
+          <mxGeometry x="808.0" y="558.0" width="84" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="addr0_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="&lt;b&gt;addressId&lt;/b&gt;: former" vertex="1">
+          <mxGeometry x="905" y="582" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e_addr0" parent="1" source="party" target="addr0" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=10;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#94a3b8;dashed=1;strokeWidth=1.5;" value="&lt;b&gt;HAD_ADDRESS&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 9px;&#39;&gt;{usage, validFrom, validTo}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rs1" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#8b5cf6;strokeColor=#6d28d9;fontColor=#ffffff;" value="RiskScore" vertex="1">
+          <mxGeometry x="808.0" y="698.0" width="84" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="rs1_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="band HIGH, model FRAUD_V3&lt;br&gt;lastConfirmedAt updated on rescore" vertex="1">
+          <mxGeometry x="905" y="722" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rs1" parent="1" source="party" target="rs1" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=10;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" value="&lt;b&gt;HAS_RISK_SCORE&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 9px;&#39;&gt;{validFrom}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rs0" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#ddd6fe;strokeColor=#8b5cf6;fontColor=#1e293b;dashed=1;" value="RiskScore" vertex="1">
+          <mxGeometry x="808.0" y="838.0" width="84" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="rs0_p" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="band MEDIUM, model FRAUD_V3" vertex="1">
+          <mxGeometry x="905" y="862" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rs0" parent="1" source="party" target="rs0" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=10;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#94a3b8;dashed=1;strokeWidth=1.5;" value="&lt;b&gt;HAD_RISK_SCORE&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 9px;&#39;&gt;{validFrom, validTo}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pairs" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fontSize=11;spacing=10;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#1e293b;" value="&lt;b&gt;Type pairs&lt;/b&gt;&lt;br&gt;&lt;table style=&#39;font-size: 11px;&#39;&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;Open (no validTo)&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Ended (always validTo)&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;HAS_ADDRESS&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;HAD_ADDRESS&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;HAS_PHONE&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;HAD_PHONE&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;HAS_EMAIL&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;HAD_EMAIL&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;HAS_NAME&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;HAD_NAME&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;HAS_STATUS&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;HAD_STATUS&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;HAS_RISK_SCORE&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;HAD_RISK_SCORE&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IDENTIFIED_BY&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;WAS_IDENTIFIED_BY&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry x="1180" y="110" width="330" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="closing" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fontSize=11;spacing=10;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#1e293b;" value="&lt;b&gt;Closing a period&lt;/b&gt;&lt;br&gt;Delete the open relationship and create the ended one (same properties plus validTo) in one transaction. History is kept.&lt;br&gt;&lt;br&gt;&lt;b&gt;Why before Day 0&lt;/b&gt;&lt;br&gt;Traversals skip ended links by type on a single graph and on Infinigraph. Retrofitting means rewriting every time-variant relationship." vertex="1">
+          <mxGeometry x="1180" y="340" width="560" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="naming" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fontSize=11;spacing=10;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#1e293b;" value="&lt;b&gt;Naming (§7.3)&lt;/b&gt;&lt;br&gt;HAS_EMAIL_CURRENT or HAS_CURRENT_EMAIL works the same way; the ADR picks one.&lt;br&gt;&lt;b&gt;Not allowed:&lt;/b&gt; HAS_EMAIL for every period plus a second current-only copy. The copies drift." vertex="1">
+          <mxGeometry x="1180" y="500" width="560" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="score" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fontSize=11;spacing=10;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#1e293b;" value="&lt;b&gt;RiskScore history (D7)&lt;/b&gt;&lt;br&gt;A new node only when the outcome changes (new band, or a move above the threshold). A rescore with the same outcome updates lastConfirmedAt. One open score per model. Party keeps a copy of the current score so filters stay fast." vertex="1">
+          <mxGeometry x="1180" y="610" width="560" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="later" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fontSize=11;spacing=10;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#1e293b;" value="&lt;b&gt;Only on a move to Infinigraph (D3–D6, backfilled at migration)&lt;/b&gt;&lt;br&gt;&amp;bull; Status and risk-band labels on Party, e.g. :HighRisk, :PEP&lt;br&gt;&amp;bull; :HighDegree label in place of isHighDegree&lt;br&gt;&amp;bull; No uniqueness constraints; MATCH / CREATE in place of MERGE&lt;br&gt;&amp;bull; Personal information restricted by label, not property" vertex="1">
+          <mxGeometry x="1180" y="730" width="560" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="infinigraph_lpg" name="Infinigraph placement">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontColor=#1f3864;fontFamily=Helvetica;" value="On Infinigraph: where each part of the model lives" vertex="1">
+          <mxGeometry x="40" y="15" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;whiteSpace=wrap;fontFamily=Helvetica;" value="§7.1. The graph shard holds topology only: every node, relationship, label and type. Property shards hold every { } block, hash-distributed by node." vertex="1">
+          <mxGeometry x="40" y="50" width="1500" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="zone_g" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fontStyle=1;fillColor=#eef2ff;strokeColor=#1f3864;dashed=1;fontColor=#1f3864;fontFamily=Helvetica;" value="Graph shard (one Raft group, not partitioned)" vertex="1">
+          <mxGeometry x="40" y="100" width="860" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="pa" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party A&lt;br&gt;&lt;font style=&#39;font-size: 9px; font-weight: normal;&#39;&gt;:Party:Person&lt;/font&gt;" vertex="1">
+          <mxGeometry x="135.0" y="305.0" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="em" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Email" vertex="1">
+          <mxGeometry x="425.0" y="175.0" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ad" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Address" vertex="1">
+          <mxGeometry x="425.0" y="455.0" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="pb" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party B&lt;br&gt;&lt;font style=&#39;font-size: 9px; font-weight: normal;&#39;&gt;:Party:Person&lt;/font&gt;" vertex="1">
+          <mxGeometry x="705.0" y="305.0" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" parent="1" source="pa" target="em" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=10;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" value="&lt;b&gt;HAS_EMAIL&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" parent="1" source="pa" target="ad" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=10;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" value="&lt;b&gt;HAS_ADDRESS&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" parent="1" source="pb" target="ad" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=10;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" value="&lt;b&gt;HAS_ADDRESS&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g_note" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;whiteSpace=wrap;fontFamily=Helvetica;" value="Free to filter on: labels, relationship types, structure" vertex="1">
+          <mxGeometry x="60" y="580" width="600" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="zone_1" parent="1" style="rounded=1;arcSize=5;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=12;fontStyle=1;fillColor=#ffedd5;strokeColor=#ea580c;dashed=1;fontColor=#9a3412;fontFamily=Helvetica;" value="Property shard 1" vertex="1">
+          <mxGeometry x="960" y="100" width="780" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="s1a" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#fff7ed;strokeColor=#fb923c;fontColor=#334155;" value="&lt;b&gt;Party A&lt;/b&gt;&lt;br&gt;{partyId, displayName,&lt;br&gt;riskScore, ...}" vertex="1">
+          <mxGeometry x="980" y="140" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s1b" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#fff7ed;strokeColor=#fb923c;fontColor=#334155;" value="&lt;b&gt;A -[:HAS_EMAIL]-&gt;&lt;/b&gt;&lt;br&gt;{usage, validFrom}" vertex="1">
+          <mxGeometry x="1220" y="140" width="240" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="s1c" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#fff7ed;strokeColor=#fb923c;fontColor=#334155;" value="&lt;b&gt;A -[:HAS_ADDRESS]-&gt;&lt;/b&gt;&lt;br&gt;{usage, validFrom}" vertex="1">
+          <mxGeometry x="1480" y="140" width="240" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="s1n" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;whiteSpace=wrap;fontFamily=Helvetica;" value="A node&#39;s properties travel with its outgoing relationships&#39; properties: one fetch per party." vertex="1">
+          <mxGeometry x="980" y="225" width="740" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="zone_2" parent="1" style="rounded=1;arcSize=5;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=12;fontStyle=1;fillColor=#ffedd5;strokeColor=#ea580c;dashed=1;fontColor=#9a3412;fontFamily=Helvetica;" value="Property shard 2" vertex="1">
+          <mxGeometry x="960" y="290" width="780" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="s2a" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#fff7ed;strokeColor=#fb923c;fontColor=#334155;" value="&lt;b&gt;Party B&lt;/b&gt;&lt;br&gt;{partyId, displayName, ...}" vertex="1">
+          <mxGeometry x="980" y="330" width="220" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="s2b" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#fff7ed;strokeColor=#fb923c;fontColor=#334155;" value="&lt;b&gt;B -[:HAS_ADDRESS]-&gt;&lt;/b&gt;&lt;br&gt;{usage, validFrom}" vertex="1">
+          <mxGeometry x="1220" y="330" width="240" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="s2n" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;whiteSpace=wrap;fontFamily=Helvetica;" value="Many residents on one Address: no skew, each link&#39;s properties live with its party." vertex="1">
+          <mxGeometry x="980" y="395" width="740" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="zone_3" parent="1" style="rounded=1;arcSize=5;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=12;fontStyle=1;fillColor=#ffedd5;strokeColor=#ea580c;dashed=1;fontColor=#9a3412;fontFamily=Helvetica;" value="Property shard 3" vertex="1">
+          <mxGeometry x="960" y="450" width="780" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="s3a" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#fff7ed;strokeColor=#fb923c;fontColor=#334155;" value="&lt;b&gt;Email&lt;/b&gt;&lt;br&gt;{address}" vertex="1">
+          <mxGeometry x="980" y="490" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s3b" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fillColor=#fff7ed;strokeColor=#fb923c;fontColor=#334155;" value="&lt;b&gt;Address&lt;/b&gt;&lt;br&gt;{addressId, gnafPid, dpid}" vertex="1">
+          <mxGeometry x="1220" y="490" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rules" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fontSize=11;spacing=10;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#1e293b;" value="&lt;b&gt;What this means for the party model&lt;/b&gt;&lt;br&gt;&amp;bull; Shape every query as: one indexed seed (partyId) &amp;rarr; traverse on labels and types only &amp;rarr; fetch properties once at the end&lt;br&gt;&amp;bull; A property test mid-pattern (validFrom, usage, riskBand) forces a cross-shard fetch per candidate: §7.4 decides when to promote one to a type or label&lt;br&gt;&amp;bull; HAS_ / HAD_ (D1) makes &quot;current only&quot; a type filter, free on the graph shard&lt;br&gt;&amp;bull; Date filters inside quantified paths: §8 (fixed windows as markers, SHARES_IDENTIFIER_WITH for overlap, or traverse first and filter after)&lt;br&gt;&amp;bull; MERGE and uniqueness checks cross shards: keys resolved upstream in Orchestra (§9)&lt;br&gt;&amp;bull; Property-level access control is unavailable: tax numbers and other restricted data sit on their own labelled nodes (§6)" vertex="1">
+          <mxGeometry x="40" y="660" width="1100" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="verdict" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;spacing=6;fontSize=10;fontFamily=Helvetica;align=left;fontSize=11;spacing=10;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#1e293b;" value="&lt;b&gt;Current verdict&lt;/b&gt;&lt;br&gt;Not needed yet: the whole graph fits one instance (architecture doc, Infinigraph decision). D1, D2 and D7 are adopted before Day 0 because they are expensive to retrofit. D3–D6 are cheap backfills, applied only if a move is decided." vertex="1">
+          <mxGeometry x="1170" y="660" width="570" height="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
