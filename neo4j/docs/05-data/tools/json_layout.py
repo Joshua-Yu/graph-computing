@@ -1,8 +1,10 @@
 """Infer the field layout of JSON event messages, as rows for a contract's Schema sheet.
 
-Usage: python json_layout.py events.jsonl [--schema registry.json] [--csv out.csv]
+Usage: python json_layout.py EVENTS... [--schema registry.json] [--csv out.csv]
 
-events.jsonl holds one sample event per line. The more events (inserts, updates,
+EVENTS are files or directories of sample events. A file may be JSON Lines, one
+pretty-printed event, several pretty-printed events one after another, or a JSON
+array of events; a directory is read for its *.json and *.jsonl files. The more events (inserts, updates,
 deletes, persons, organisations), the better Required and the types will be.
 If --schema is given (the topic's JSON Schema from the registry), it is the
 authority for paths, types and required; samples only add examples and stats,
@@ -12,7 +14,7 @@ Example is filled with the first non-null value seen. If the samples come from
 production, replace those values with invented ones before the rows go into a
 contract, or run with --no-examples.
 """
-import argparse, csv, json, re, sys
+import argparse, csv, glob, json, os, re, sys
 from collections import defaultdict
 
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -214,17 +216,51 @@ def check_against_schema(r, s):
     return problems
 
 
+def load_events(paths):
+    """Read events from files or directories, whatever the JSON layout of each file."""
+    files = []
+    for p in paths:
+        if os.path.isdir(p):
+            files += sorted(glob.glob(os.path.join(p, "*.json")) + glob.glob(os.path.join(p, "*.jsonl")))
+        else:
+            files.append(p)
+    events = []
+    dec = json.JSONDecoder()
+    for path in files:
+        with open(path, encoding="utf-8-sig") as f:
+            text = f.read()
+        pos = 0
+        while True:
+            while pos < len(text) and text[pos].isspace():
+                pos += 1
+            if pos >= len(text):
+                break
+            try:
+                doc, pos = dec.raw_decode(text, pos)
+            except json.JSONDecodeError as e:
+                sys.exit(f"{path}: not valid JSON at line {e.lineno}, column {e.colno}: {e.msg}")
+            # A top-level array is a list of events, not one event.
+            items = doc if isinstance(doc, list) else [doc]
+            for ev in items:
+                if not isinstance(ev, dict):
+                    sys.exit(f"{path}: expected each event to be a JSON object, got {type(ev).__name__}")
+                events.append(ev)
+    if not events:
+        sys.exit("no events found")
+    print(f"read {len(events)} events from {len(files)} file(s)", file=sys.stderr)
+    return events
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("events")
+    ap.add_argument("events", nargs="+", help="event files or directories")
     ap.add_argument("--schema")
     ap.add_argument("--csv")
     ap.add_argument("--containers", action="store_true", help="also list object/array paths")
     ap.add_argument("--no-examples", action="store_true", help="leave Example blank")
     a = ap.parse_args()
 
-    with open(a.events) as f:
-        events = [json.loads(l) for l in f if l.strip()]
+    events = load_events(a.events)
     sampled = {r["Field"]: r for r in profile(events)}
 
     if a.schema:
