@@ -1,0 +1,279 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="cicd_architecture" name="CI/CD architecture - lanes 2 and 3">
+    <mxGraphModel dx="1414" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1f3864;fontFamily=Helvetica;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Data Contract Driven CI/CD: An Architecture View (DRAFT)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="900" x="40" y="12" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#475569;fontFamily=Helvetica;" value="Version 0.1" vertex="1">
+          <mxGeometry height="20" width="1100" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="actor0" parent="1" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;" value="&lt;b&gt;Analyst + source owner&lt;/b&gt;&lt;br&gt;contract, schema, quality, SLA" vertex="1">
+          <mxGeometry height="40" width="300.4" x="40" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="actor1" parent="1" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;" value="&lt;b&gt;Data engineer&lt;/b&gt;&lt;br&gt;mapping, transforms" vertex="1">
+          <mxGeometry height="40" width="300.4" x="352.4" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="actor2" parent="1" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;" value="&lt;b&gt;Graph engineer&lt;/b&gt;&lt;br&gt;canonical model, graph projection" vertex="1">
+          <mxGeometry height="40" width="300.4" x="664.8" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="actor3" parent="1" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;" value="&lt;b&gt;Data steward / product owner&lt;/b&gt;&lt;br&gt;classification, access" vertex="1">
+          <mxGeometry height="40" width="300.4" x="977.1999999999999" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="actor4" parent="1" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;" value="&lt;b&gt;Release manager&lt;/b&gt;&lt;br&gt;production approval" vertex="1">
+          <mxGeometry height="40" width="300.4" x="1289.6" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="repo" parent="1" style="swimlane;startSize=34;whiteSpace=wrap;html=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;swimlaneFillColor=#f8fafc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=4;fontFamily=Helvetica;" value="GitHub repository and governance" vertex="1">
+          <mxGeometry height="590" width="330" x="40" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="r_spec" parent="repo" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;spec/&lt;/b&gt;&lt;br&gt;contract workbooks, imported YAML, canonical model, transform registry" vertex="1">
+          <mxGeometry height="62" width="302" x="14" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="r_gen" parent="repo" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;generated/&lt;/b&gt;&lt;br&gt;committed output, never hand-edited" vertex="1">
+          <mxGeometry height="46" width="302" x="14" y="116" as="geometry" />
+        </mxCell>
+        <mxCell id="r_tool" parent="repo" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;tools/contractctl/&lt;/b&gt; source and tests" vertex="1">
+          <mxGeometry height="36" width="302" x="14" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="r_pr" parent="repo" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Pull requests + merge queue&lt;/b&gt;&lt;br&gt;queue serialises merges so generated/ never conflicts" vertex="1">
+          <mxGeometry height="58" width="302" x="14" y="214" as="geometry" />
+        </mxCell>
+        <mxCell id="r_rules" parent="repo" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Rulesets on main&lt;/b&gt;&lt;br&gt;pull request required, required checks, no bypass" vertex="1">
+          <mxGeometry height="50" width="302" x="14" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="r_owners" parent="repo" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;CODEOWNERS&lt;/b&gt;&lt;br&gt;path → owning team" vertex="1">
+          <mxGeometry height="44" width="302" x="14" y="338" as="geometry" />
+        </mxCell>
+        <mxCell id="r_labels" parent="repo" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Labels&lt;/b&gt;&lt;br&gt;breaking, access-change (set by the diff job)" vertex="1">
+          <mxGeometry height="46" width="302" x="14" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="r_tmpl" parent="repo" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Pull request template&lt;/b&gt; with review checklist" vertex="1">
+          <mxGeometry height="36" width="302" x="14" y="444" as="geometry" />
+        </mxCell>
+        <mxCell id="r_sec" parent="repo" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Secret scanning, push protection, dependency alerts&lt;/b&gt;" vertex="1">
+          <mxGeometry height="40" width="302" x="14" y="488" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" parent="1" style="swimlane;startSize=34;whiteSpace=wrap;html=1;fillColor=#9a4d00;strokeColor=#9a4d00;fontColor=#ffffff;swimlaneFillColor=#f8fafc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=4;fontFamily=Helvetica;" value="Lane 2 · Generate and test pipeline" vertex="1">
+          <mxGeometry height="590" width="550" x="410" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ci" parent="l2" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#fffbeb;strokeColor=#f59e0b;verticalAlign=top;fontSize=11;spacingTop=4;fontColor=#1e293b;fontFamily=Helvetica;" value="&lt;b&gt;contract-ci.yml&lt;/b&gt; · GitHub Actions workflow, runs on every pull request" vertex="1">
+          <mxGeometry height="122" width="522" x="14" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="job0" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Import&lt;br&gt;check&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="67.14285714285714" x="22" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="job1" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Validate&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="67.14285714285714" x="95.14285714285714" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="job2" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Verify&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="67.14285714285714" x="168.28571428571428" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="job3" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Diff&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="67.14285714285714" x="241.42857142857142" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="job4" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Generate&lt;br&gt;(drift)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="67.14285714285714" x="314.57142857142856" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="job5" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Unit&lt;br&gt;test&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="67.14285714285714" x="387.71428571428567" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="job6" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Plan&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="67.14285714285714" x="460.85714285714283" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ci_note" parent="l2" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#475569;fontFamily=Helvetica;" value="One job per stage. Each job runs one contractctl command." vertex="1">
+          <mxGeometry height="30" width="522" x="14" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="c_checks" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Required status checks, line annotations, job summaries&lt;/b&gt;&lt;br&gt;each stage gates the merge; errors point at the YAML line" vertex="1">
+          <mxGeometry height="52" width="522" x="14" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="c_neo" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Neo4j test container&lt;/b&gt;&lt;br&gt;internal Enterprise image with plugins, same version as PROD; started and destroyed per run" vertex="1">
+          <mxGeometry height="58" width="522" x="14" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="c_run" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Pull request runners&lt;/b&gt;&lt;br&gt;can start containers; no route to PROD" vertex="1">
+          <mxGeometry height="46" width="522" x="14" y="306" as="geometry" />
+        </mxCell>
+        <mxCell id="c_policy" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Approval policy check&lt;/b&gt;&lt;br&gt;reads labels and confirms the right team approved (for example data steward when classification or access changed) — CODEOWNERS alone is path-based" vertex="1">
+          <mxGeometry height="74" width="522" x="14" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="c_bot" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Pull request assistant (GitHub App)&lt;/b&gt;&lt;br&gt;posts a plain-language diff and the plan as a sticky comment; commits imported YAML and regenerated output for workbook-only authors" vertex="1">
+          <mxGeometry height="74" width="522" x="14" y="442" as="geometry" />
+        </mxCell>
+        <mxCell id="c_state" parent="l2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Plan input:&lt;/b&gt; candidate bundle compared with the version recorded as deployed, so no database credentials are needed here" vertex="1">
+          <mxGeometry height="52" width="522" x="14" y="524" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" parent="1" style="swimlane;startSize=34;whiteSpace=wrap;html=1;fillColor=#9a4d00;strokeColor=#9a4d00;fontColor=#ffffff;swimlaneFillColor=#f8fafc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=4;fontFamily=Helvetica;" value="Lane 3 · Release and promote" vertex="1">
+          <mxGeometry height="590" width="590" x="1000" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="d_rel" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;release.yml&lt;/b&gt; · on a version tag: build one bundle, assign migration numbers" vertex="1">
+          <mxGeometry height="40" width="562" x="14" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="d_bundle" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Release bundle&lt;/b&gt;&lt;br&gt;generated/ + Python package + manifest (commit, versions, image digests, checksums, access-change flag)" vertex="1">
+          <mxGeometry height="58" width="562" x="14" y="94" as="geometry" />
+        </mxCell>
+        <mxCell id="d_store" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;GitHub Releases or the bank's artefact repository&lt;/b&gt;&lt;br&gt;immutable store for bundles" vertex="1">
+          <mxGeometry height="46" width="562" x="14" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="d_dep" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;deploy.yml&lt;/b&gt; · reusable workflow, called once per environment&lt;br&gt;verify bundle → migrations → roles → loaders and Orchestra jobs → alerts → smoke check" vertex="1">
+          <mxGeometry height="58" width="562" x="14" y="214" as="geometry" />
+        </mxCell>
+        <mxCell id="envs" parent="l3" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#22c55e;verticalAlign=top;fontSize=11;spacingTop=4;fontColor=#1e293b;fontFamily=Helvetica;" value="&lt;b&gt;GitHub Environments&lt;/b&gt; · per-environment variables, credentials and protection rules" vertex="1">
+          <mxGeometry height="128" width="562" x="14" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="env0" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;DEV&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;automatic&lt;br&gt;deploy check&lt;/font&gt;" vertex="1">
+          <mxGeometry height="66" width="102.8" x="22" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="env1" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;SIT&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;automatic&lt;br&gt;integration tests&lt;/font&gt;" vertex="1">
+          <mxGeometry height="66" width="102.8" x="132.8" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="env2" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;NFT&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;automatic&lt;br&gt;Day 0 rehearsal,&lt;br&gt;reconciliation, load&lt;/font&gt;" vertex="1">
+          <mxGeometry height="66" width="102.8" x="243.6" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="env3" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Steward gate&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;only if manifest flags an access change&lt;/font&gt;" vertex="1">
+          <mxGeometry height="66" width="102.8" x="354.4" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="env4" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;PROD&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;required reviewers,&lt;br&gt;no self-approval&lt;/font&gt;" vertex="1">
+          <mxGeometry height="66" width="102.8" x="465.2" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="env_note" parent="l3" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#475569;fontFamily=Helvetica;" value="Same bundle in every environment; exit checks must pass before the next one starts." vertex="1">
+          <mxGeometry height="26" width="562" x="14" y="378" as="geometry" />
+        </mxCell>
+        <mxCell id="d_hist" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Deployment history&lt;/b&gt;&lt;br&gt;which version is in which environment; rollback = redeploy the previous version" vertex="1">
+          <mxGeometry height="46" width="562" x="14" y="416" as="geometry" />
+        </mxCell>
+        <mxCell id="d_runner" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Self-hosted runners inside the bank network&lt;/b&gt;&lt;br&gt;one runner group per environment; deploys serialised per environment" vertex="1">
+          <mxGeometry height="46" width="562" x="14" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="d_vault" parent="l3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;OIDC to the bank's vault&lt;/b&gt;&lt;br&gt;short-lived credentials scoped to one environment; no long-lived secrets in GitHub" vertex="1">
+          <mxGeometry height="46" width="562" x="14" y="524" as="geometry" />
+        </mxCell>
+        <mxCell id="ctl" parent="1" style="swimlane;startSize=34;whiteSpace=wrap;html=1;fillColor=#2563eb;strokeColor=#2563eb;fontColor=#ffffff;swimlaneFillColor=#f8fafc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=4;fontFamily=Helvetica;" value="contractctl · Python command-line tool (BUILD) — the same commands run on a laptop and in every workflow" vertex="1">
+          <mxGeometry height="250" width="920" x="40" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="m0" parent="ctl" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;import&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;workbook → YAML&lt;/font&gt;" vertex="1">
+          <mxGeometry height="86" width="93.77777777777777" x="14" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" parent="ctl" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;validate&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;schemas, references&lt;/font&gt;" vertex="1">
+          <mxGeometry height="86" width="93.77777777777777" x="113.77777777777777" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="m2" parent="ctl" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;verify&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;rule engine: guideline rules&lt;/font&gt;" vertex="1">
+          <mxGeometry height="86" width="93.77777777777777" x="213.55555555555554" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="m3" parent="ctl" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;diff&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;breaking-change classifier&lt;/font&gt;" vertex="1">
+          <mxGeometry height="86" width="93.77777777777777" x="313.3333333333333" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="m4" parent="ctl" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;resolve&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;contracts + canonical model&lt;/font&gt;" vertex="1">
+          <mxGeometry height="86" width="93.77777777777777" x="413.1111111111111" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="m5" parent="ctl" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;generate&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;templates → Cypher, Python, checks, roles, alerts, docs&lt;/font&gt;" vertex="1">
+          <mxGeometry height="86" width="93.77777777777777" x="512.8888888888889" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="m6" parent="ctl" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;test&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;harness: EXPLAIN, both load paths, role tests&lt;/font&gt;" vertex="1">
+          <mxGeometry height="86" width="93.77777777777777" x="612.6666666666666" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="m7" parent="ctl" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;plan&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;bundle vs deployed version&lt;/font&gt;" vertex="1">
+          <mxGeometry height="86" width="93.77777777777777" x="712.4444444444443" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="m8" parent="ctl" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;deploy&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;apply in order, smoke check&lt;/font&gt;" vertex="1">
+          <mxGeometry height="86" width="93.77777777777777" x="812.2222222222222" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="m_assets" parent="ctl" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Also built:&lt;/b&gt; Jinja2 templates per artefact · rule packs · transform library (src/common) · JSON Schemas for the spec · synthetic data profiles" vertex="1">
+          <mxGeometry height="40" width="892" x="14" y="142" as="geometry" />
+        </mxCell>
+        <mxCell id="m_libs" parent="ctl" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Leveraged libraries:&lt;/b&gt; openpyxl · jsonschema · Jinja2 · DuckDB · PyArrow · pytest · Testcontainers · Neo4j Python driver · Neo4j-Migrations" vertex="1">
+          <mxGeometry height="44" width="892" x="14" y="192" as="geometry" />
+        </mxCell>
+        <mxCell id="tgt" parent="1" style="swimlane;startSize=34;whiteSpace=wrap;html=1;fillColor=#475569;strokeColor=#475569;fontColor=#ffffff;swimlaneFillColor=#f8fafc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=4;fontFamily=Helvetica;" value="Target platforms (existing)" vertex="1">
+          <mxGeometry height="250" width="500" x="1090" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="t_low" parent="tgt" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Neo4j DEV · SIT · NFT&lt;/b&gt;" vertex="1">
+          <mxGeometry height="32" width="472" x="14" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="t_prod" parent="tgt" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Neo4j PROD cluster&lt;/b&gt; — primaries take all writes; read replicas serve UAT / production support (same release, nothing deployed separately)" vertex="1">
+          <mxGeometry height="58" width="472" x="14" y="83" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hume" parent="tgt" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Hume Orchestra&lt;/b&gt; — runs the generated jobs and Python package" vertex="1">
+          <mxGeometry height="34" width="472" x="14" y="148" as="geometry" />
+        </mxCell>
+        <mxCell id="t_kafka" parent="tgt" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Kafka (CDC events) + schema registry&lt;/b&gt; · &lt;b&gt;Monitoring&lt;/b&gt;" vertex="1">
+          <mxGeometry height="34" width="472" x="14" y="189" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="r_pr" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="ci" value="pull request opened or updated">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="c_checks" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="r_rules" value="pass / fail gates the merge">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="356" />
+              <mxPoint x="400" y="455" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="l2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.74;entryY=0;entryDx=0;entryDy=0;" target="ctl" value="each job runs one command">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="repo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.85;exitY=0;exitDx=0;exitDy=0;entryX=0.08;entryY=0;entryDx=0;entryDy=0;" target="l3" value="merge to main → version tag">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320.5" y="128" />
+              <mxPoint x="1047.2" y="128" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="l3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.58;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="tgt" value="deploys through self-hosted runners">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="l3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.04;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.35;entryDx=0;entryDy=0;" target="ctl" value="deploy job runs contractctl deploy">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1023.6" y="877.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="d_rel" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="d_bundle" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="d_bundle" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="d_store" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="d_store" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="d_dep" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="d_dep" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="envs" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ee0" edge="1" parent="1" source="env0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="env1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ee1" edge="1" parent="1" source="env1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="env2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ee2" edge="1" parent="1" source="env2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="env3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ee3" edge="1" parent="1" source="env3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontSize=10;fontStyle=1;fontColor=#334155;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="env4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lg" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#475569;fontFamily=Helvetica;" value="&lt;b&gt;Legend&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="40" y="1068" as="geometry" />
+        </mxCell>
+        <mxCell id="lg0" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Build&lt;/b&gt; — code we write" vertex="1">
+          <mxGeometry height="30" width="190" x="110" y="1068" as="geometry" />
+        </mxCell>
+        <mxCell id="lg1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Configure&lt;/b&gt; — YAML and settings we write" vertex="1">
+          <mxGeometry height="30" width="260" x="314" y="1068" as="geometry" />
+        </mxCell>
+        <mxCell id="lg2" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Leverage&lt;/b&gt; — GitHub feature" vertex="1">
+          <mxGeometry height="30" width="210" x="588" y="1068" as="geometry" />
+        </mxCell>
+        <mxCell id="lg3" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="&lt;b&gt;Leverage&lt;/b&gt; — open source or existing platform" vertex="1">
+          <mxGeometry height="30" width="300" x="812" y="1068" as="geometry" />
+        </mxCell>
+        <mxCell id="lg4" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;spacingLeft=6;spacingRight=6;" value="Repository content" vertex="1">
+          <mxGeometry height="30" width="150" x="1126" y="1068" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

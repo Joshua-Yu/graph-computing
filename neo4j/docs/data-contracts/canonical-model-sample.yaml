@@ -1,0 +1,166 @@
+# Canonical model: SAMPLE, Party scope only.
+# One model, authored once. Sources map TO it (in their contracts); the graph is PROJECTED from it
+# by the 'graph' annotations below. Names are glossary terms and are also the graph property names,
+# so the projection is structural: no renaming and no value transformation.
+# All values are invented for illustration.
+version: 1.0.0
+
+entities:
+  Party:
+    description: "A person or organisation known to the bank."
+    graph: { node: Party, temporal: current }
+    attributes:
+      partyId:
+        type: string
+        required: true
+        classification: internal
+        definition: "Business key of the party. A string, so leading zeros survive."
+        graph: "key of (:Party)"
+      partyType:
+        type: enum
+        required: true
+        values: [PERSON, ORGANISATION]
+        classification: internal
+        definition: "Whether the party is a natural person or an organisation."
+        graph: "second label :Person or :Organisation"
+      displayName:
+        type: string
+        required: true
+        classification: pii
+        definition: "Name shown to investigators. Full-text indexed."
+        graph: "(:Party).displayName"
+      birthYear:
+        type: integer
+        required: false
+        classification: pii-sensitive
+        definition: "Year of birth. Persons only. Full date of birth is never held."
+        graph: "(:Party).birthYear"
+      registrationNumber:
+        type: string
+        required: false
+        format: digits only
+        classification: internal
+        definition: "Business registration number. Organisations only."
+        graph: "(:Party).registrationNumber"
+      status:
+        type: enum
+        required: true
+        values: [ACTIVE, DORMANT, CLOSED, DECEASED]
+        classification: internal
+        definition: "Current status of the party's relationship with the bank."
+        graph: "(:Party).status"
+      residenceCountry:
+        type: string
+        required: false
+        format: ISO 3166-1 alpha-2
+        classification: internal
+        definition: "Country of residence or registration."
+        graph: "(:Party).residenceCountry"
+      onboardedDate:
+        type: date
+        required: false
+        classification: internal
+        definition: "Date the party was first onboarded."
+        graph: "(:Party).onboardedDate"
+
+relationships:
+  PartyPhone:
+    description: "A phone number on record for a party."
+    from: Party
+    to: Phone
+    graph: { relationship: HAS_PHONE, temporal: versioned, cardinality: one-current per usage }
+    attributes:
+      number:
+        type: string
+        required: true
+        format: E.164
+        classification: pii
+        definition: "The phone number, normalised."
+        graph: "key of (:Phone); creates (Party)-[:HAS_PHONE]->(Phone)"
+      usage:
+        type: enum
+        required: true
+        values: [MOBILE, HOME, WORK]
+        classification: internal
+        definition: "What the number is used for."
+        graph: "[:HAS_PHONE].usage"
+      validFrom:
+        type: datetime
+        required: true
+        format: UTC
+        classification: internal
+        definition: "When the number became the party's number for this usage."
+        graph: "[:HAS_PHONE].validFrom"
+  PartyEmail:
+    description: "An email address on record for a party."
+    from: Party
+    to: Email
+    graph: { relationship: HAS_EMAIL, temporal: versioned, cardinality: one-current per usage }
+    attributes:
+      address:
+        type: string
+        required: true
+        format: trimmed, lower case
+        classification: pii
+        definition: "The email address, normalised."
+        graph: "key of (:Email); creates (Party)-[:HAS_EMAIL]->(Email)"
+      usage:
+        type: enum
+        required: true
+        values: [PRIMARY, SECONDARY]
+        classification: internal
+        definition: "What the address is used for."
+        graph: "[:HAS_EMAIL].usage"
+      validFrom:
+        type: datetime
+        required: true
+        format: UTC
+        classification: internal
+        definition: "When the address became the party's address for this usage."
+        graph: "[:HAS_EMAIL].validFrom"
+  PartyAddress:
+    description: "A physical address on record for a party."
+    from: Party
+    to: Address
+    graph: { relationship: HAS_ADDRESS, temporal: versioned, cardinality: many-current }
+    attributes:
+      addressId:
+        type: string
+        required: true
+        format: ID from address standardisation
+        classification: pii
+        definition: "Standardised address identifier, not free text."
+        graph: "key of (:Address); creates (Party)-[:HAS_ADDRESS]->(Address)"
+      usage:
+        type: enum
+        required: true
+        values: [RESIDENTIAL, POSTAL, REGISTERED]
+        classification: internal
+        definition: "What the address is used for."
+        graph: "[:HAS_ADDRESS].usage"
+      validFrom:
+        type: datetime
+        required: true
+        format: UTC
+        classification: internal
+        definition: "When the address became current for this usage."
+        graph: "[:HAS_ADDRESS].validFrom"
+
+record:
+  Record:
+    description: "Facts about the source record itself. Written to every node and relationship the record produces."
+    graph: { appliesTo: every element written }
+    attributes:
+      sourceUpdatedAt:
+        type: datetime
+        required: true
+        format: UTC
+        classification: internal
+        definition: "When the source says the record last changed. Orders writes: newest wins."
+        graph: "sourceUpdatedAt on every element"
+      sourceSystem:
+        type: string
+        required: true
+        classification: internal
+        definition: "System of record the fact came from."
+        graph: "sourceSystem on every element"

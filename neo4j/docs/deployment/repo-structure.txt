@@ -11,9 +11,11 @@ network-search/
 ├── .github/
 │   ├── workflows/
 │   │   ├── ci.yml
+│   │   ├── contract-ci.yml
+│   │   ├── release.yml
+│   │   ├── deploy.yml
 │   │   ├── security-scan.yml
-│   │   ├── terraform-plan.yml
-│   │   └── release.yml
+│   │   └── terraform-plan.yml
 │   ├── pull_request_template.md
 │   └── ISSUE_TEMPLATE/
 │
@@ -22,47 +24,27 @@ network-search/
 │   │
 │   ├── 01-overview/
 │   │   ├── solution-overview.md
-│   │   ├── business-context.md
-│   │   ├── scope.md
-│   │   ├── use-cases.md
-│   │   └── glossary.md
 │   │
 │   ├── 02-architecture/
 │   │   ├── solution-architecture.md
-│   │   ├── logical-architecture.md
-│   │   ├── physical-architecture.md
-│   │   ├── data-flow.md
 │   │   ├── integration-architecture.md
 │   │   ├── security-architecture.md
 │   │   └── diagrams/
 │   │
 │   ├── 03-graph-fundamentals/
 │   │   ├── graph-database-basics.md
-│   │   ├── property-graph-basics.md
-│   │   ├── neo4j-basics.md
-│   │   ├── cypher-guidelines.md
-│   │   └── graph-patterns.md
+│   │   └── graph-algorithms.md
 │   │
 │   ├── 04-modeling-guidelines/
 │   │   ├── modeling-principles.md
-│   │   ├── node-guidelines.md
-│   │   ├── relationship-guidelines.md
-│   │   ├── property-guidelines.md
-│   │   ├── naming-conventions.md
-│   │   ├── identifier-strategy.md
-│   │   ├── temporal-modeling.md
-│   │   ├── event-modeling.md
-│   │   ├── provenance.md
-│   │   └── modeling-examples.md
 │   │
 │   ├── 05-data/
-│   │   ├── source-inventory.md
-│   │   ├── source-definitions.md
-│   │   ├── canonical-definitions.md
-│   │   ├── entity-resolution.md
-│   │   ├── data-lineage.md
-│   │   ├── data-quality.md
-│   │   └── retention.md
+│   │   ├── data-contract-guideline.md
+│   │   ├── canonical-model.md
+│   │   ├── source-contract.md
+│   │   ├── mapping-guide.md
+│   │   ├── product-contract.md
+│   │   └── contract-versioning.md
 │   │
 │   ├── 06-ingestion/
 │   │   ├── day0-load.md
@@ -75,11 +57,6 @@ network-search/
 │   │
 │   ├── 07-risk-and-fraud/
 │   │   ├── risk-scoring.md
-│   │   ├── fraud-patterns.md
-│   │   ├── network-search-patterns.md
-│   │   ├── feature-engineering.md
-│   │   ├── explainability.md
-│   │   └── investigation-use-cases.md
 │   │
 │   ├── 08-hume/
 │   │   ├── orchestra-design.md
@@ -89,7 +66,6 @@ network-search/
 │   │
 │   ├── 09-operations/
 │   │   ├── monitoring.md
-│   │   ├── alerting.md
 │   │   ├── backup-restore.md
 │   │   ├── disaster-recovery.md
 │   │   ├── capacity-management.md
@@ -98,12 +74,7 @@ network-search/
 │   │
 │   ├── 10-security-governance/
 │   │   ├── access-control.md
-│   │   ├── pii-handling.md
-│   │   ├── encryption.md
-│   │   ├── audit.md
 │   │   ├── data-classification.md
-│   │   ├── segregation-of-duties.md
-│   │   └── regulatory-considerations.md
 │   │
 │   ├── 11-testing/
 │   │   ├── test-strategy.md
@@ -114,62 +85,81 @@ network-search/
 │   │   └── reconciliation-testing.md
 │   │
 │   ├── 12-decisions/
-│   │   └── adr/
-│   │       ├── ADR-001-use-neo4j.md
-│   │       ├── ADR-002-graph-model.md
-│   │       ├── ADR-003-event-ingestion.md
-│   │       └── ...
 │   │
 │   └── 13-deployment/
-│       └── repo-structure.txt
+│       ├── repo-structure.txt
+│       └── contract-pipeline.md
 │
 │
-├── model/
+├── spec/                                  (hand-authored; the single source of truth)
 │   │
-│   ├── graph-schema/
-│   │   ├── nodes/
-│   │   ├── relationships/
-│   │   ├── properties/
+│   ├── model/                             (canonical model, with graph projection annotations)
+│   │   ├── domain/
+│   │   │   ├── party/
+│   │   │   ├── account/
+│   │   │   ├── service/
+│   │   │   ├── transaction/
+│   │   │   ├── device/
+│   │   │   ├── address/
+│   │   │   ├── organisation/
+│   │   │   └── risk/
+│   │   ├── access.yaml                    (who may read which classification)
 │   │   └── diagrams/
 │   │
-│   ├── domain/
-│   │   ├── party/
-│   │   ├── account/
-│   │   ├── service/
-│   │   ├── transaction/
-│   │   ├── device/
-│   │   ├── address/
-│   │   ├── organisation/
-│   │   └── risk/
+│   ├── contracts/                         (<system>/<table>/: one contract per dataset)
+│   │   ├── crm/
+│   │   │   └── customer/                  (customer-day0.contract.xlsx, customer-cdc.contract.xlsx + imported YAML)
+│   │   ├── core-banking/
+│   │   │   ├── account/
+│   │   │   └── transaction/
+│   │   └── external-sources/
 │   │
-│   └── mappings/
-│       ├── warehouse/
-│       ├── kafka/
-│       └── external-sources/
+│   ├── products/                          (contracts for data the graph produces)
+│   │   ├── risk-scores/
+│   │   ├── alerts/
+│   │   └── cases/
+│   │
+│   ├── schemas/                           (Kafka schema registry format)
+│   │
+│   ├── transforms/                        (registry of named transforms and shared code maps)
+│   │   └── transforms.yaml
+│   │
+│   ├── meta/                              (JSON Schema for the spec files themselves)
+│   │   ├── model.schema.json
+│   │   ├── contract.schema.json
+│   │   └── product.schema.json
+│   │
+│   └── templates/                         (copy these to start a new dataset or product)
+│       ├── dataset.contract.xlsx
+│       └── product.yaml
 │
 │
-├── data-contracts/
+├── generated/                             (contractctl output; committed, never hand-edited)
 │   │
-│   ├── warehouse/
-│   │   ├── customer/
-│   │   ├── account/
-│   │   ├── service/
-│   │   └── transaction/
-│   │
-│   ├── kafka/
-│   │   ├── customer-events/
-│   │   ├── account-events/
-│   │   ├── transaction-events/
-│   │   └── service-events/
-│   │
-│   ├── external-sources/
-│   │
-│   └── schemas/
+│   ├── README.md
+│   ├── cypher/
+│   │   ├── migrations/
+│   │   ├── loaders/
+│   │   └── reconciliation/
+│   ├── python/                            (source-to-canonical row builders, one per contract)
+│   ├── jobs/                              (Orchestra job definitions)
+│   │   ├── day0/
+│   │   └── cdc/
+│   ├── kafka-connect/
+│   ├── rbac/
+│   ├── dq-checks/
+│   ├── monitoring/
+│   │   ├── alerts/
+│   │   └── dashboards/
+│   ├── docs/
+│   │   ├── data-dictionary/
+│   │   └── lineage/
+│   └── test-data/
 │
 │
-├── src/
+├── src/                                   (hand-written code only)
 │   │
-│   ├── ingestion/
+│   ├── ingestion/                         (runtime that executes generated/ artifacts)
 │   │   ├── day0/
 │   │   ├── kafka/
 │   │   ├── transformation/
@@ -178,7 +168,6 @@ network-search/
 │   │   └── dead-letter/
 │   │
 │   ├── graph/
-│   │   ├── loaders/
 │   │   ├── queries/
 │   │   ├── algorithms/
 │   │   └── utilities/
@@ -196,32 +185,9 @@ network-search/
 │   └── common/
 │
 │
-├── cypher/
-│   │
-│   ├── schema/
-│   │   └── bootstrap.cypher
-│   │
-│   ├── migrations/
-│   │   ├── V001__initial_schema.cypher
-│   │   ├── V002__add_transaction_indexes.cypher
-│   │   └── ...
-│   │
-│   ├── ingestion/
-│   ├── queries/
-│   ├── fraud-patterns/
-│   ├── risk-features/
-│   ├── investigation/
-│   ├── administration/
-│   └── diagnostics/
-│
-│
 ├── orchestration/
 │   │
 │   ├── hume/
-│   │   ├── orchestra/
-│   │   ├── workflows/
-│   │   ├── configurations/
-│   │   └── prompts/
 │   │
 │   └── pipelines/
 │
@@ -232,8 +198,8 @@ network-search/
 │   │   ├── modules/
 │   │   └── environments/
 │   │       ├── dev/
-│   │       ├── test/
-│   │       ├── staging/
+│   │       ├── sit/
+│   │       ├── nft/
 │   │       └── prod/
 │   │
 │   ├── helm/
@@ -244,8 +210,8 @@ network-search/
 │
 ├── config/
 │   ├── dev/
-│   ├── test/
-│   ├── staging/
+│   ├── sit/
+│   ├── nft/
 │   └── prod/
 │
 │
@@ -263,18 +229,6 @@ network-search/
 │
 ├── test-data/
 │   ├── README.md
-│   ├── synthetic/
-│   ├── graph-fixtures/
-│   ├── kafka-events/
-│   └── expected-results/
-│
-│
-├── notebooks/
-│   ├── README.md
-│   ├── exploration/
-│   ├── graph-analysis/
-│   ├── fraud-pattern-analysis/
-│   └── performance/
 │
 │
 ├── scripts/
@@ -292,27 +246,62 @@ network-search/
 │   ├── metrics/
 │   └── log-config/
 │
-│
-├── examples/
-│   ├── cypher/
-│   ├── python/
-│   ├── kafka/
-│   ├── graph-model/
-│   └── investigations/
-│
 └── tools/
-    ├── schema-validation/
-    └── data-generation/
+    └── contractctl/                       (validate, lint, diff, generate, plan, test)
+        ├── README.md
+        ├── commands/
+        ├── generators/
+        ├── templates/
+        ├── rules/
+        └── tests/
 
 
 Conventions
 -----------
-- "Party" is the canonical graph term (model/, cypher/, src/). "Customer" is kept
-  only where it mirrors a source system's own name (data-contracts/). The mapping
+- "Party" is the canonical graph term (spec/model/, generated/cypher/, src/). "Customer"
+  is kept only where it mirrors a source system's own name (the source side of spec/contracts/). The mapping
   is defined once, in docs/01-overview/glossary.md.
-- cypher/migrations/ is the only executable source for constraints and indexes.
-- Risk scoring lives in src/risk/scoring/; Hume workflows in orchestration/hume/workflows/.
 - Graph and Cypher tests both live in tests/graph/.
-- data-contracts/schemas/ holds one format only: the one the Kafka schema registry uses.
+- Risk scoring lives in src/risk/scoring/; Hume workflows in orchestration/hume/workflows/.
+- spec/schemas/ holds one format only: the one the Kafka schema registry uses. A Kafka
+  contract references its registry schema and does not restate the fields.
 - test-data/ and notebooks/ are synthetic data only; notebook outputs are stripped
   before commit (.pre-commit-config.yaml).
+
+Data contract conventions (full rules: docs/05-data/data-contract-guideline.md)
+-------------------------------------------------------------------------------
+- spec/ is the only place a model, source, mapping, SLA or access rule is defined.
+  Everything under generated/ is derived from it by tools/contractctl.
+- There are three layers. A source contract describes one dataset and maps it to the
+  canonical model, with every transformation. The canonical model in spec/model/ standardises
+  terms, attributes and relationships. The graph is projected from the canonical model by its
+  graph annotations, with no value transformation.
+- One contract per dataset. A source table delivered as a Day 0 extract and as CDC events has
+  two contracts in the same spec/contracts/<system>/<table>/ folder, named <table>-day0 and
+  <table>-cdc. Folders use the source's own names, not graph terms.
+- Each contract is authored as a workbook (<name>.contract.xlsx) and imported to YAML beside
+  it. CI re-imports the workbook and fails if the result differs from the committed YAML.
+- A transform named in a mapping must exist in spec/transforms/transforms.yaml and be
+  implemented in src/common/.
+- Data the graph produces (scores, alerts, cases) has no source, so it is described by a
+  product.yaml under spec/products/.
+- Access is defined once, by classification, in spec/model/access.yaml.
+- Environments are dev, sit, nft and prod. UAT is served by read replicas of the prod cluster,
+  so it has no environment folder and nothing is deployed to it separately.
+- generated/ is committed. contract-ci.yml regenerates it on every pull request and fails
+  if the result differs from what is committed. Fix the spec or the generator, never the
+  generated file.
+- generated/cypher/migrations/ is the only executable source for constraints and indexes.
+  Migrations are append-only: a model change produces a new numbered migration, and an
+  applied migration is never rewritten.
+- Logic that cannot be declared stays in src/ and is referenced by name:
+  transforms in src/common/, staging steps in src/ingestion/transformation/, matching in
+  src/ingestion/entity-resolution/.
+- src/ingestion/ holds the runtime that executes generated row builders, loaders and quality
+  checks. It contains no source-specific field names.
+- infrastructure/kafka-connect/ and monitoring/ hold hand-written platform configuration;
+  per-source connector configs and SLA alerts are in generated/.
+- Environment values (hosts, topics, credentials, thresholds that differ by environment)
+  live in config/<env>/ and never in spec/.
+- A breaking contract or model change needs a major version bump and approval from the
+  CODEOWNERS of every affected contract. contractctl diff decides what counts as breaking.

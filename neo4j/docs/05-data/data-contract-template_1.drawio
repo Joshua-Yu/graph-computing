@@ -1,0 +1,211 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="data_contract_template" name="Data contract template">
+    <mxGraphModel dx="1178" dy="667" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1f3864;fontFamily=Helvetica;" value="Data contract template: structure and how to fill it in" vertex="1">
+          <mxGeometry height="30" width="800" x="40" y="15" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#475569;fontFamily=Helvetica;" value="One workbook per subject (example: party-contract-sample.xlsx). The numbers on the sheets match the steps." vertex="1">
+          <mxGeometry height="20" width="900" x="40" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="steps_h" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#1f3864;fontFamily=Helvetica;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Steps to populate&lt;/font&gt;" vertex="1">
+          <mxGeometry height="22" width="300" x="40" y="72" as="geometry" />
+        </mxCell>
+        <mxCell id="st0" parent="1" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=12;fillColor=#e2e8f0;strokeColor=#475569;fontColor=#1e293b;fontSize=10;spacingLeft=10;fontFamily=Helvetica;" value="&lt;b&gt;0 · Copy template&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:9px&#39;&gt;Graph engineer&lt;br&gt;refresh reference sheets&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="129.63636363636363" x="40" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="st1" parent="1" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=12;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontSize=10;spacingLeft=10;fontFamily=Helvetica;" value="&lt;b&gt;1 · Contract&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:9px&#39;&gt;Analyst&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="129.63636363636363" x="163.63636363636363" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="st2" parent="1" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=12;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontSize=10;spacingLeft=10;fontFamily=Helvetica;" value="&lt;b&gt;2 · Datasets&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:9px&#39;&gt;Analyst +&lt;br&gt;source owner&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="129.63636363636363" x="287.27272727272725" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="st3" parent="1" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=12;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontSize=10;spacingLeft=10;fontFamily=Helvetica;" value="&lt;b&gt;3 · Schema&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:9px&#39;&gt;Source owner&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="129.63636363636363" x="410.90909090909093" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="st4" parent="1" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=12;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontSize=10;spacingLeft=10;fontFamily=Helvetica;" value="&lt;b&gt;4 · CodeMaps&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:9px&#39;&gt;Analyst +&lt;br&gt;data steward&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="129.63636363636363" x="534.5454545454545" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="st5" parent="1" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=12;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontSize=10;spacingLeft=10;fontFamily=Helvetica;" value="&lt;b&gt;5 · Mapping&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:9px&#39;&gt;Graph engineer +&lt;br&gt;analyst&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="129.63636363636363" x="658.1818181818182" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="st6" parent="1" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=12;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontSize=10;spacingLeft=10;fontFamily=Helvetica;" value="&lt;b&gt;6 · Quality&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:9px&#39;&gt;Analyst +&lt;br&gt;source owner&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="129.63636363636363" x="781.8181818181819" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="st7" parent="1" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=12;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontSize=10;spacingLeft=10;fontFamily=Helvetica;" value="&lt;b&gt;7 · SLA&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:9px&#39;&gt;Source owner&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="129.63636363636363" x="905.4545454545455" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="st8" parent="1" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=12;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontSize=10;spacingLeft=10;fontFamily=Helvetica;" value="&lt;b&gt;8 · Access&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:9px&#39;&gt;Data steward&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="129.63636363636363" x="1029.090909090909" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="st9" parent="1" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=12;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontSize=10;spacingLeft=10;fontFamily=Helvetica;" value="&lt;b&gt;9 · ChangeLog&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:9px&#39;&gt;Whoever made&lt;br&gt;the change&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="129.63636363636363" x="1152.7272727272727" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="st10" parent="1" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=12;fillColor=#e2e8f0;strokeColor=#475569;fontColor=#1e293b;fontSize=10;spacingLeft=10;fontFamily=Helvetica;" value="&lt;b&gt;10 · Import + pull request&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:9px&#39;&gt;Graph engineer&lt;br&gt;import, validate, lint&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="129.63636363636363" x="1276.3636363636365" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="ref_box" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;dashed=1;fillColor=#f8fafc;strokeColor=#94a3b8;verticalAlign=top;align=center;fontSize=12;fontStyle=1;fontColor=#475569;spacingTop=4;fontFamily=Helvetica;" value="Reference sheets (read-only)" vertex="1">
+          <mxGeometry height="832" width="316" x="1102" y="181" as="geometry" />
+        </mxCell>
+        <mxCell id="fill_h" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#1f3864;fontFamily=Helvetica;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Sheets you fill in&lt;/font&gt;" vertex="1">
+          <mxGeometry height="22" width="300" x="40" y="183" as="geometry" />
+        </mxCell>
+        <mxCell id="contract" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;swimlaneFillColor=#fff8dc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="1 &amp;nbsp;·&amp;nbsp; Contract" vertex="1">
+          <mxGeometry height="200" width="280" x="40" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="contract_b" parent="contract" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;" value="&lt;span style=&quot;background-color: rgb(51, 153, 255); color: rgb(0, 0, 0);&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;i style=&quot;&quot;&gt;&lt;font style=&quot;&quot;&gt;Analyst&lt;/font&gt;&lt;/i&gt;&lt;br&gt;&lt;/font&gt;&lt;/span&gt;&lt;br&gt;&lt;div&gt;• id, name, version, status &lt;br&gt;• source owner, consumer owner, data steward&lt;br&gt;• purpose, limitations, usage&lt;br&gt;• masterModelVersion&lt;/div&gt;" vertex="1">
+          <mxGeometry height="170" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="datasets" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;swimlaneFillColor=#fff8dc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="2 &amp;nbsp;·&amp;nbsp; Datasets" vertex="1">
+          <mxGeometry height="200" width="280" x="400" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="datasets_b" parent="datasets" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontStyle=0;" value="&lt;i style=&quot;color: rgb(0, 0, 0); font-size: 14px; background-color: rgb(51, 153, 255);&quot;&gt;Analyst&lt;/i&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;• &lt;b&gt;Dataset ID&lt;/b&gt;, type , role  (consumed / lineage-only)&lt;br&gt;• physical name, location, format&lt;br&gt;• delivery , schedule, key, upstream dataset &lt;br&gt;• change pattern , time fields, end signal , lateness, history depth&lt;/div&gt;" vertex="1">
+          <mxGeometry height="170" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sla" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;swimlaneFillColor=#fff8dc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="7 &amp;nbsp;·&amp;nbsp; SLA" vertex="1">
+          <mxGeometry height="200" width="280" x="760" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="sla_b" parent="sla" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;" value="&lt;i&gt;&lt;font color=&#39;#475569&#39;&gt;Source owner&lt;/font&gt;&lt;/i&gt;&lt;br&gt;• Dataset ID &lt;br&gt;• property, value, unit&lt;br&gt;• measured on&lt;br&gt;• alert when (becomes a monitoring rule)" vertex="1">
+          <mxGeometry height="170" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lists" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#7f7f7f;strokeColor=#7f7f7f;fontColor=#ffffff;swimlaneFillColor=#e7e6e6;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="Lists" vertex="1">
+          <mxGeometry height="200" width="280" x="1120" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="lists_b" parent="lists" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;" value="&lt;i&gt;&lt;font color=&#39;#475569&#39;&gt;Maintained by data architecture&lt;/font&gt;&lt;/i&gt;&lt;br&gt;• Fixed dropdown values: type, role, classification, temporal policy, rule type, severity, action on breach …&lt;br&gt;• Feeds every  column that has no arrow in this diagram" vertex="1">
+          <mxGeometry height="170" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="quality" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;swimlaneFillColor=#fff8dc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="6 &amp;nbsp;·&amp;nbsp; Quality" vertex="1">
+          <mxGeometry height="250" width="280" x="40" y="485" as="geometry" />
+        </mxCell>
+        <mxCell id="quality_b" parent="quality" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;" value="&lt;i style=&quot;color: rgb(0, 0, 0); font-size: 14px; background-color: rgb(51, 153, 255);&quot;&gt;Analyst&lt;/i&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;• Dataset ID , Field  (blank = whole dataset)&lt;br&gt;• dimension , rule type , parameters&lt;br&gt;• check, in plain language&lt;br&gt;• threshold, severity &lt;br&gt;• action on breach &lt;/div&gt;" vertex="1">
+          <mxGeometry height="220" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="schema" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;swimlaneFillColor=#fff8dc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="3 &amp;nbsp;·&amp;nbsp; Schema" vertex="1">
+          <mxGeometry height="250" width="280" x="400" y="485" as="geometry" />
+        </mxCell>
+        <mxCell id="schema_b" parent="schema" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;" value="&lt;i&gt;&lt;font color=&#39;#475569&#39;&gt;Source owner&lt;/font&gt;&lt;/i&gt;&lt;br&gt;• Dataset ID &lt;br&gt;• &lt;b&gt;Field&lt;/b&gt;, logical type , physical type&lt;br&gt;• required , unique , primary key &lt;br&gt;• classification &lt;br&gt;• description, example, valid values&lt;br&gt;• upstream column" vertex="1">
+          <mxGeometry height="220" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="mapping" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;swimlaneFillColor=#fff8dc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="5 &amp;nbsp;·&amp;nbsp; Mapping" vertex="1">
+          <mxGeometry height="250" width="280" x="760" y="485" as="geometry" />
+        </mxCell>
+        <mxCell id="mapping_b" parent="mapping" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;" value="&lt;i&gt;&lt;font color=&#39;#475569&#39;&gt;Graph engineer with analyst&lt;/font&gt;&lt;/i&gt;&lt;br&gt;• Mapping ID, Dataset ID &lt;br&gt;• Source field  (blank = constant)&lt;br&gt;• Target &lt;br&gt;• Transform , transform parameters&lt;br&gt;• condition&lt;br&gt;• temporal policy , validFrom source, validTo rule , cardinality , date basis &lt;br&gt;• notes" vertex="1">
+          <mxGeometry height="220" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="graphmodel" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#7f7f7f;strokeColor=#7f7f7f;fontColor=#ffffff;swimlaneFillColor=#e7e6e6;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="GraphModel" vertex="1">
+          <mxGeometry height="250" width="280" x="1120" y="485" as="geometry" />
+        </mxCell>
+        <mxCell id="graphmodel_b" parent="graphmodel" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;" value="&lt;i&gt;&lt;font color=&#39;#475569&#39;&gt;Exported from spec/model/ — never edited here&lt;/font&gt;&lt;/i&gt;&lt;br&gt;• &lt;b&gt;Target&lt;/b&gt;: key, property, label, relationship, or not-loaded&lt;br&gt;• kind, type, key, classification&lt;br&gt;• owning subject, description&lt;br&gt;• Version must equal Contract.masterModelVersion" vertex="1">
+          <mxGeometry height="220" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="access" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;swimlaneFillColor=#fff8dc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="8 &amp;nbsp;·&amp;nbsp; Access" vertex="1">
+          <mxGeometry height="190" width="280" x="40" y="805" as="geometry" />
+        </mxCell>
+        <mxCell id="access_b" parent="access" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;" value="&lt;i&gt;&lt;font color=&#39;#475569&#39;&gt;Data steward&lt;/font&gt;&lt;/i&gt;&lt;br&gt;• business role, Neo4j role&lt;br&gt;• access  for each classification: public, internal, pii, pii-sensitive&lt;br&gt;• approver" vertex="1">
+          <mxGeometry height="160" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="changelog" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;swimlaneFillColor=#fff8dc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="9 &amp;nbsp;·&amp;nbsp; ChangeLog" vertex="1">
+          <mxGeometry height="190" width="280" x="400" y="805" as="geometry" />
+        </mxCell>
+        <mxCell id="changelog_b" parent="changelog" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;" value="&lt;i&gt;&lt;font color=&#39;#475569&#39;&gt;Whoever made the change&lt;/font&gt;&lt;/i&gt;&lt;br&gt;• version, date, author&lt;br&gt;• breaking? &lt;br&gt;• what changed" vertex="1">
+          <mxGeometry height="160" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="codemaps" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;swimlaneFillColor=#fff8dc;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="4 &amp;nbsp;·&amp;nbsp; CodeMaps" vertex="1">
+          <mxGeometry height="190" width="280" x="760" y="805" as="geometry" />
+        </mxCell>
+        <mxCell id="codemaps_b" parent="codemaps" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;" value="&lt;i&gt;&lt;font color=&#39;#475569&#39;&gt;Analyst with data steward&lt;/font&gt;&lt;/i&gt;&lt;br&gt;• &lt;b&gt;Map name&lt;/b&gt;&lt;br&gt;• source value → target value&lt;br&gt;• meaning&lt;br&gt;• An unlisted source code fails the row" vertex="1">
+          <mxGeometry height="160" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="transforms" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;fillColor=#7f7f7f;strokeColor=#7f7f7f;fontColor=#ffffff;swimlaneFillColor=#e7e6e6;fontSize=13;fontStyle=1;collapsible=0;rounded=1;arcSize=6;fontFamily=Helvetica;" value="Transforms" vertex="1">
+          <mxGeometry height="190" width="280" x="1120" y="805" as="geometry" />
+        </mxCell>
+        <mxCell id="transforms_b" parent="transforms" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;spacingTop=4;fontSize=11;fontColor=#1e293b;strokeColor=none;fillColor=none;fontFamily=Helvetica;" value="&lt;i&gt;&lt;font color=&#39;#475569&#39;&gt;Maintained by graph engineering&lt;/font&gt;&lt;/i&gt;&lt;br&gt;• &lt;b&gt;Transform&lt;/b&gt; name, parameters&lt;br&gt;• input type, output type&lt;br&gt;• what it does, example in and out&lt;br&gt;• New transform = request, not a typed name" vertex="1">
+          <mxGeometry height="160" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="datasets" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;fontSize=10;fontStyle=1;fontColor=#1d4ed8;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="schema" value="Dataset ID">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="datasets" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;fontSize=10;fontStyle=1;fontColor=#1d4ed8;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.85;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="mapping" value="Dataset ID · end signals">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="638" y="450" />
+              <mxPoint x="830" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="datasets" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;fontSize=10;fontStyle=1;fontColor=#1d4ed8;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.15;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" target="quality" value="Dataset ID">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="442" y="450" />
+              <mxPoint x="250" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="datasets" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;fontSize=10;fontStyle=1;fontColor=#1d4ed8;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="sla" value="Dataset ID">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="schema" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;fontSize=10;fontStyle=1;fontColor=#1d4ed8;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="mapping" value="Source field">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="schema" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;fontSize=10;fontStyle=1;fontColor=#1d4ed8;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="quality" value="Field">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="graphmodel" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;fontSize=10;fontStyle=1;fontColor=#1d4ed8;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0;exitY=0.35;exitDx=0;exitDy=0;entryX=1;entryY=0.35;entryDx=0;entryDy=0;" target="mapping" value="Target">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="transforms" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;fontSize=10;fontStyle=1;fontColor=#1d4ed8;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" target="mapping" value="Transform">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1072" y="900" />
+              <mxPoint x="1072" y="672.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="codemaps" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#64748b;fontSize=10;fontStyle=1;fontColor=#475569;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;dashed=1;" target="mapping" value="map = name">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="out" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;align=left;spacingLeft=10;spacingRight=10;fontSize=11;fontColor=#1e293b;fontFamily=Helvetica;" value="&lt;b&gt;Step 10 output:&lt;/b&gt; contractctl import writes spec/subjects/&amp;lt;subject&amp;gt;/contracts/&amp;lt;dataset&amp;gt;.yaml and mapping.yaml. Commit the workbook and the YAML together; the pipeline fails if they disagree." vertex="1">
+          <mxGeometry height="46" width="1000" x="40" y="1035" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_h" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#475569;fontFamily=Helvetica;" value="&lt;b&gt;Legend&lt;/b&gt;" vertex="1">
+          <mxGeometry height="26" width="60" x="40" y="1101" as="geometry" />
+        </mxCell>
+        <mxCell id="lg1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8dc;strokeColor=#1f3864;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;" value="Sheet you fill in" vertex="1">
+          <mxGeometry height="26" width="120" x="110" y="1101" as="geometry" />
+        </mxCell>
+        <mxCell id="lg2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e6e6;strokeColor=#7f7f7f;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;" value="Read-only reference" vertex="1">
+          <mxGeometry height="26" width="130" x="245" y="1101" as="geometry" />
+        </mxCell>
+        <mxCell id="lg3" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;" value=" = dropdown; typing another value is rejected" vertex="1">
+          <mxGeometry height="26" width="250" x="390" y="1101" as="geometry" />
+        </mxCell>
+        <mxCell id="lg4a" parent="1" style="shape=waypoint;fillColor=none;strokeColor=none;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="660" y="1104" as="geometry" />
+        </mxCell>
+        <mxCell id="lg4b" parent="1" style="shape=waypoint;fillColor=none;strokeColor=none;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="730" y="1104" as="geometry" />
+        </mxCell>
+        <mxCell id="lg4" edge="1" parent="1" source="lg4a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;fontSize=10;fontStyle=1;fontColor=#1d4ed8;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="lg4b" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lg4t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;" value="dropdown values come from this sheet" vertex="1">
+          <mxGeometry height="26" width="200" x="755" y="1101" as="geometry" />
+        </mxCell>
+        <mxCell id="lg5a" parent="1" style="shape=waypoint;fillColor=none;strokeColor=none;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="970" y="1104" as="geometry" />
+        </mxCell>
+        <mxCell id="lg5b" parent="1" style="shape=waypoint;fillColor=none;strokeColor=none;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="1040" y="1104" as="geometry" />
+        </mxCell>
+        <mxCell id="lg5" edge="1" parent="1" source="lg5a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#64748b;fontSize=10;fontStyle=1;fontColor=#475569;labelBackgroundColor=#ffffff;fontFamily=Helvetica;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" target="lg5b" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lg5t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#1e293b;fontFamily=Helvetica;" value="referred to by name (checked by lint)" vertex="1">
+          <mxGeometry height="26" width="220" x="1065" y="1101" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -3,7 +3,7 @@
     Creates the Network Search repository folder structure.
 
 .DESCRIPTION
-    Mirrors docs/deployment/repo-structure.txt. Safe to re-run: existing
+    Mirrors docs/13-deployment/repo-structure.txt. Safe to re-run: existing
     folders and files are never overwritten.
 
     Git does not track empty folders, so a .gitkeep file is placed in every
@@ -15,13 +15,13 @@
 
 .PARAMETER MaxDepth
     How many folder levels to create. Defaults to 2 (for example
-    src/ingestion, but not infrastructure/terraform/environments). Use 0 to
+    spec/contracts, but not spec/contracts/crm). Use 0 to
     create the full structure. Deeper folders are meant to be added as
     content arrives.
 
 .PARAMETER WithFiles
     Also create the files named in the structure (README.md, the docs/*.md
-    pages, workflow YAMLs, cypher scripts) as empty placeholders. Files whose
+    pages, workflow YAMLs, spec schemas and templates) as empty placeholders. Files whose
     folder is deeper than MaxDepth are skipped.
 
 .EXAMPLE
@@ -42,75 +42,75 @@ $ErrorActionPreference = 'Stop'
 
 $folders = @'
 .github
-
 .github/workflows
 .github/ISSUE_TEMPLATE
 
 docs
-
 docs/01-overview
-
 docs/02-architecture
 docs/02-architecture/diagrams
-
 docs/03-graph-fundamentals
-
 docs/04-modeling-guidelines
-
 docs/05-data
-
 docs/06-ingestion
-
 docs/07-risk-and-fraud
-
 docs/08-hume
-
 docs/09-operations
 docs/09-operations/runbooks
-
 docs/10-security-governance
-
 docs/11-testing
-
 docs/12-decisions
-
 docs/13-deployment
 
-model
+spec
+spec/model
+spec/model/domain
+spec/model/domain/party
+spec/model/domain/account
+spec/model/domain/service
+spec/model/domain/transaction
+spec/model/domain/device
+spec/model/domain/address
+spec/model/domain/organisation
+spec/model/domain/risk
+spec/model/diagrams
+spec/contracts
+spec/contracts/crm
+spec/contracts/crm/customer
+spec/contracts/core-banking
+spec/contracts/core-banking/account
+spec/contracts/core-banking/transaction
+spec/contracts/external-sources
+spec/products
+spec/products/risk-scores
+spec/products/alerts
+spec/products/cases
+spec/schemas
+spec/transforms
+spec/meta
+spec/templates
 
-model/graph-schema
-model/graph-schema/diagrams
-model/domain
-model/domain/party
-model/domain/account
-model/domain/service
-model/domain/transaction
-model/domain/device
-model/domain/address
-model/domain/organisation
-model/domain/risk
-model/mappings
-model/mappings/warehouse
-model/mappings/kafka
-model/mappings/external-sources
-
-data-contracts
-
-data-contracts/warehouse
-data-contracts/warehouse/customer
-data-contracts/warehouse/account
-data-contracts/warehouse/service
-data-contracts/warehouse/transaction
-data-contracts/kafka
-data-contracts/kafka/customer-events
-data-contracts/kafka/account-events
-data-contracts/kafka/transaction-events
-data-contracts/kafka/service-events
-data-contracts/external-sources
-data-contracts/schemas
+generated
+generated/cypher
+generated/cypher/migrations
+generated/cypher/loaders
+generated/cypher/reconciliation
+generated/python
+generated/jobs
+generated/jobs/day0
+generated/jobs/cdc
+generated/kafka-connect
+generated/rbac
+generated/dq-checks
+generated/monitoring
+generated/monitoring/alerts
+generated/monitoring/dashboards
+generated/docs
+generated/docs/data-dictionary
+generated/docs/lineage
+generated/test-data
 
 src
-
 src/ingestion
 src/ingestion/day0
 src/ingestion/kafka
@@ -119,7 +119,6 @@ src/ingestion/validation
 src/ingestion/entity-resolution
 src/ingestion/dead-letter
 src/graph
-src/graph/loaders
 src/graph/queries
 src/graph/algorithms
 src/graph/utilities
@@ -133,34 +132,17 @@ src/investigation/search
 src/investigation/case-management
 src/common
 
-cypher
-
-cypher/schema
-cypher/migrations
-cypher/ingestion
-cypher/queries
-cypher/fraud-patterns
-cypher/risk-features
-cypher/investigation
-cypher/administration
-cypher/diagnostics
-
 orchestration
-
 orchestration/hume
-orchestration/hume/orchestra
-orchestration/hume/workflows
-orchestration/hume/configurations
 orchestration/pipelines
 
 infrastructure
-
 infrastructure/terraform
 infrastructure/terraform/modules
 infrastructure/terraform/environments
 infrastructure/terraform/environments/dev
-infrastructure/terraform/environments/test
-infrastructure/terraform/environments/staging
+infrastructure/terraform/environments/sit
+infrastructure/terraform/environments/nft
 infrastructure/terraform/environments/prod
 infrastructure/helm
 infrastructure/kubernetes
@@ -168,14 +150,12 @@ infrastructure/docker
 infrastructure/kafka-connect
 
 config
-
 config/dev
-config/test
-config/staging
+config/sit
+config/nft
 config/prod
 
 tests
-
 tests/unit
 tests/integration
 tests/graph
@@ -187,20 +167,7 @@ tests/security
 
 test-data
 
-test-data/synthetic
-test-data/graph-fixtures
-test-data/kafka-events
-test-data/expected-results
-
-notebooks
-
-notebooks/exploration
-notebooks/graph-analysis
-notebooks/fraud-pattern-analysis
-notebooks/performance
-
 scripts
-
 scripts/bootstrap
 scripts/local-dev
 scripts/migration
@@ -209,24 +176,18 @@ scripts/data-validation
 scripts/utilities
 
 monitoring
-
 monitoring/dashboards
 monitoring/alerts
 monitoring/metrics
 monitoring/log-config
 
-examples
-
-examples/cypher
-examples/python
-examples/kafka
-examples/graph-model
-examples/investigations
-
 tools
-
-tools/schema-validation
-tools/data-generation
+tools/contractctl
+tools/contractctl/commands
+tools/contractctl/generators
+tools/contractctl/templates
+tools/contractctl/rules
+tools/contractctl/tests
 '@ -split "`r?`n" | ForEach-Object { $_.Trim() } | Where-Object { $_ }
 
 $files = @'
@@ -239,36 +200,26 @@ CHANGELOG.md
 .pre-commit-config.yaml
 
 .github/workflows/ci.yml
+.github/workflows/contract-ci.yml
+.github/workflows/release.yml
+.github/workflows/deploy.yml
 .github/workflows/security-scan.yml
 .github/workflows/terraform-plan.yml
-.github/workflows/release.yml
 .github/pull_request_template.md
 
 docs/01-overview/solution-overview.md
-docs/01-overview/business-context.md
-docs/01-overview/scope.md
-docs/01-overview/use-cases.md
-docs/01-overview/glossary.md
-
 docs/02-architecture/solution-architecture.md
-docs/02-architecture/data-flow.md
 docs/02-architecture/integration-architecture.md
 docs/02-architecture/security-architecture.md
-
-docs/03-graph-fundamentals/neo4j-basics.md
-docs/03-graph-fundamentals/cypher-guidelines.md
-docs/03-graph-fundamentals/graph-patterns.md
-
+docs/03-graph-fundamentals/graph-database-basics.md
+docs/03-graph-fundamentals/graph-algorithms.md
 docs/04-modeling-guidelines/modeling-principles.md
-
-docs/05-data/source-inventory.md
-docs/05-data/source-definitions.md
-docs/05-data/canonical-definitions.md
-docs/05-data/entity-resolution.md
-docs/05-data/data-lineage.md
-docs/05-data/data-quality.md
-docs/05-data/retention.md
-
+docs/05-data/data-contract-guideline.md
+docs/05-data/canonical-model.md
+docs/05-data/source-contract.md
+docs/05-data/mapping-guide.md
+docs/05-data/product-contract.md
+docs/05-data/contract-versioning.md
 docs/06-ingestion/day0-load.md
 docs/06-ingestion/incremental-load.md
 docs/06-ingestion/kafka-ingestion.md
@@ -276,54 +227,40 @@ docs/06-ingestion/replay-strategy.md
 docs/06-ingestion/reconciliation.md
 docs/06-ingestion/idempotency.md
 docs/06-ingestion/failure-handling.md
-
 docs/07-risk-and-fraud/risk-scoring.md
-docs/07-risk-and-fraud/fraud-patterns.md
-docs/07-risk-and-fraud/network-search-patterns.md
-docs/07-risk-and-fraud/feature-engineering.md
-docs/07-risk-and-fraud/explainability.md
-docs/07-risk-and-fraud/investigation-use-cases.md
-
 docs/08-hume/orchestra-design.md
 docs/08-hume/investigation-workflow.md
 docs/08-hume/integration.md
 docs/08-hume/workflow-patterns.md
-
 docs/09-operations/monitoring.md
-docs/09-operations/alerting.md
 docs/09-operations/backup-restore.md
 docs/09-operations/disaster-recovery.md
 docs/09-operations/capacity-management.md
 docs/09-operations/performance-tuning.md
-
 docs/10-security-governance/access-control.md
-docs/10-security-governance/pii-handling.md
-docs/10-security-governance/encryption.md
-docs/10-security-governance/audit.md
 docs/10-security-governance/data-classification.md
-docs/10-security-governance/segregation-of-duties.md
-docs/10-security-governance/regulatory-considerations.md
-
 docs/11-testing/test-strategy.md
 docs/11-testing/data-testing.md
 docs/11-testing/graph-testing.md
 docs/11-testing/integration-testing.md
 docs/11-testing/performance-testing.md
 docs/11-testing/reconciliation-testing.md
-
-docs/12-decisions/adr/ADR-001-use-neo4j.md
-docs/12-decisions/adr/ADR-002-graph-model.md
-docs/12-decisions/adr/ADR-003-event-ingestion.md
-
 docs/13-deployment/repo-structure.txt
+docs/13-deployment/contract-pipeline.md
 
-cypher/schema/bootstrap.cypher
-cypher/migrations/V001__initial_schema.cypher
-cypher/migrations/V002__add_transaction_indexes.cypher
+spec/model/access.yaml
+spec/transforms/transforms.yaml
+spec/meta/model.schema.json
+spec/meta/contract.schema.json
+spec/meta/product.schema.json
+spec/templates/dataset.contract.xlsx
+spec/templates/product.yaml
+
+generated/README.md
 
 test-data/README.md
 
-notebooks/README.md
+tools/contractctl/README.md
 '@ -split "`r?`n" | ForEach-Object { $_.Trim() } | Where-Object { $_ }
 
 if ($MaxDepth -gt 0) {
