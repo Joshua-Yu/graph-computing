@@ -5,7 +5,12 @@ Usage: python json_layout.py events.jsonl [--schema registry.json] [--csv out.cs
 events.jsonl holds one sample event per line. The more events (inserts, updates,
 deletes, persons, organisations), the better Required and the types will be.
 If --schema is given (the topic's JSON Schema from the registry), it is the
-authority for paths, types and required; samples only add examples and stats.
+authority for paths, types and required; samples only add examples and stats,
+and every field whose sample values contradict the schema is reported.
+
+Example is filled with the first non-null value seen. If the samples come from
+production, replace those values with invented ones before the rows go into a
+contract, or run with --no-examples.
 """
 import argparse, csv, json, re, sys
 from collections import defaultdict
@@ -127,7 +132,8 @@ def profile(events):
         # Required: present and non-null whenever its parent object is present.
         required = "Y" if s["nonnull"] == denom and denom else "N"
         types = s["types"] or {"string"}
-        # Mixed int/float -> number; anything else mixed -> flag it for review.
+        # Mixed int/float -> number; anything else mixed (e.g. a date field that
+        # sometimes holds free text) -> flag it for review.
         if types == {"integer", "number"}:
             types = {"number"}
         logical = types.pop() if len(types) == 1 else "REVIEW: " + "/".join(sorted(s["types"]))
@@ -141,7 +147,7 @@ def profile(events):
             "Unique": "N", "Primary key": "N",
             "Classification": "",  # never inferred: source owner and steward decide
             "Description": "",
-            "Example": "",  # deliberately blank: examples in the repo must be invented
+            "Example": next(iter(s["values"]), ""),
             "Valid values": valid or "",
             "Upstream column": "",
             "_leaf": leaf,
@@ -187,12 +193,34 @@ def from_json_schema(schema, prefix="", required_here=True, out=None):
     return out
 
 
+# Sample type that satisfies a declared type: equal, or a refinement of it.
+COMPATIBLE = {"string": {"string", "date", "timestamp"}, "number": {"number", "integer", "timestamp"},
+              "timestamp": {"timestamp"}, "date": {"date"}, "integer": {"integer", "timestamp"},
+              "boolean": {"boolean"}, "array": {"array"}, "object": {"object"}}
+
+
+def check_against_schema(r, s):
+    """Compare one declared field with what the samples show. Returns problems found."""
+    problems = []
+    declared, seen = r["Logical type"], s["Logical type"]
+    if seen.startswith("REVIEW"):
+        problems.append(f"samples hold mixed types ({seen[8:]}), schema says {declared}")
+    elif s["Physical type"].startswith("JSON null"):
+        pass  # always null in samples: nothing to compare
+    elif seen not in COMPATIBLE.get(declared, {declared}):
+        problems.append(f"schema says {declared}, samples are {seen}")
+    if r["Required"] == "Y" and s["Required"] == "N":
+        problems.append(f"schema says required, but non-null in only {s['_fill']} samples")
+    return problems
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("events")
     ap.add_argument("--schema")
     ap.add_argument("--csv")
     ap.add_argument("--containers", action="store_true", help="also list object/array paths")
+    ap.add_argument("--no-examples", action="store_true", help="leave Example blank")
     a = ap.parse_args()
 
     with open(a.events) as f:
@@ -206,8 +234,14 @@ def main():
         for r in rows:  # fill gaps the schema leaves (e.g. no format on a date string)
             s = sampled.get(r["Field"])
             if s:
-                r["_fill"], r["_array"] = s["_fill"], s.get("_array", "")
-                if r["Logical type"] == "string" and s["Logical type"] in ("date", "timestamp"):
+                r["_fill"], r["_array"], r["Example"] = s["_fill"], s.get("_array", ""), s["Example"]
+                problems = check_against_schema(r, s)
+                for msg in problems:
+                    print(f"TYPE MISMATCH: {r['Field']}: {msg}", file=sys.stderr)
+                r["_check"] = "; ".join(problems) or "ok"
+                refines = (r["Logical type"] == "string" and s["Logical type"] in ("date", "timestamp")) or \
+                    (r["Logical type"] in ("integer", "number") and s["Logical type"] == "timestamp")
+                if refines:
                     r["Logical type"], r["Physical type"] = s["Logical type"], s["Physical type"]
                 if not r["Valid values"]:
                     r["Valid values"] = s["Valid values"]
@@ -215,11 +249,18 @@ def main():
             print(f"WARNING: {p} appears in samples but not in the registry schema", file=sys.stderr)
     else:
         rows = list(sampled.values())
+        for r in rows:
+            if r["Logical type"].startswith("REVIEW"):
+                print(f"TYPE MISMATCH: {r['Field']}: samples hold mixed types ({r['Logical type'][8:]})",
+                      file=sys.stderr)
+    if a.no_examples:
+        for r in rows:
+            r["Example"] = ""
 
     rows = [r for r in rows if r["_leaf"] or a.containers]
     rows.sort(key=lambda r: r["Field"])
     cols = ["Field", "Logical type", "Physical type", "Required", "Unique", "Primary key", "Classification",
-            "Description", "Example", "Valid values", "Upstream column", "_fill", "_array"]
+            "Description", "Example", "Valid values", "Upstream column", "_fill", "_array", "_check"]
     out = open(a.csv, "w", newline="") if a.csv else sys.stdout
     w = csv.DictWriter(out, fieldnames=cols, extrasaction="ignore")
     w.writeheader()
