@@ -1,0 +1,405 @@
+<mxfile host="app.diagrams.net" pages="2">
+  <diagram id="update_patterns" name="Update patterns">
+    <mxGraphModel dx="704" dy="472" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1760" pageHeight="2040" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontColor=#1f3864;fontFamily=Helvetica;" value="Nexus Network Search - Graph Update Patterns (v0.2)&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Last udpated: 2026-10-22&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px; font-weight: normal;&quot;&gt;Notes: sample Cypher statements are still WIP.&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="900" x="40" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontFamily=Helvetica;" value="" vertex="1">
+          <mxGeometry height="440" width="820" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=12;fontSize=15;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P1 · Node - Singleton: created once, never updated, only linked" vertex="1">
+          <mxGeometry height="34" width="820" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#334155;fontFamily=Helvetica;" value="&lt;b&gt;Examples:&lt;/b&gt; Party; also every identity node keyed on its value: Phone, Email, IdentityDocument" vertex="1">
+          <mxGeometry height="32" width="796" x="52" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party" vertex="1">
+          <mxGeometry height="80" width="80" x="82" y="218" as="geometry" />
+        </mxCell>
+        <mxCell id="c7" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party" vertex="1">
+          <mxGeometry height="80" width="80" x="332" y="218" as="geometry" />
+        </mxCell>
+        <mxCell id="c8" edge="1" parent="1" source="c6" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#7c3aed;dashed=1;strokeWidth=1.5;" target="c7" value="&lt;b&gt;POSSIBLY_SAME_AS&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 8px;&#39;&gt;{score, method, matchedAt}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c9" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=4;fontSize=9;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="{&lt;b&gt;partyId&lt;/b&gt; (key), crmId,&lt;br&gt;provenance}" vertex="1">
+          <mxGeometry height="40" width="130" x="62" y="306" as="geometry" />
+        </mxCell>
+        <mxCell id="c10" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#475569;fontFamily=Helvetica;" value="Entity resolution adds a link. Nodes are never merged and never deleted except by retention or privacy erasure." vertex="1">
+          <mxGeometry height="40" width="390" x="52" y="358" as="geometry" />
+        </mxCell>
+        <mxCell id="c11" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#1e293b;" value="&lt;b&gt;Write rule&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;• One business key: &lt;b&gt;partyId&lt;/b&gt;. crmId is an indexed attribute, resolved to partyId upstream&lt;br&gt;• Match and then add if not existing (MERGE).&lt;br&gt;• Identity nodes (Phone, Email, IdentityDocument): the value is the key, so a changed value is a new node, never an edit&lt;/div&gt;" vertex="1">
+          <mxGeometry height="222" width="388" x="460" y="178" as="geometry" />
+        </mxCell>
+        <mxCell id="c12" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=9;fontFamily=Courier New;fillColor=#0f172a;strokeColor=#0f172a;fontColor=#e2e8f0;" value="MERGE&amp;nbsp;(p:Party&amp;nbsp;{partyId:&amp;nbsp;$partyId})&lt;br&gt;&amp;nbsp;&amp;nbsp;ON&amp;nbsp;CREATE&amp;nbsp;SET&amp;nbsp;p.crmId&amp;nbsp;=&amp;nbsp;$crmId,&amp;nbsp;p.sourceSystem&amp;nbsp;=&amp;nbsp;$sourceSystem,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;p.ingestedAt&amp;nbsp;=&amp;nbsp;datetime(),&amp;nbsp;p.loadId&amp;nbsp;=&amp;nbsp;$loadId&lt;br&gt;//&amp;nbsp;no&amp;nbsp;ON&amp;nbsp;MATCH:&amp;nbsp;identity&amp;nbsp;never&amp;nbsp;changes&lt;br&gt;//&amp;nbsp;Infinigraph&amp;nbsp;(D5):&amp;nbsp;key&amp;nbsp;known&amp;nbsp;to&amp;nbsp;be&amp;nbsp;new&amp;nbsp;upstream&amp;nbsp;-&amp;gt;&amp;nbsp;CREATE;&amp;nbsp;known&amp;nbsp;-&amp;gt;&amp;nbsp;skip" vertex="1">
+          <mxGeometry height="124" width="796" x="52" y="408" as="geometry" />
+        </mxCell>
+        <mxCell id="c13" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontFamily=Helvetica;" value="" vertex="1">
+          <mxGeometry height="440" width="820" x="880" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c14" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=12;fontSize=15;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P2 · Relationship - Slow change, one valid instance per scope: open the new, close the old" vertex="1">
+          <mxGeometry height="34" width="820" x="880" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c15" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#334155;fontFamily=Helvetica;" value="&lt;b&gt;Examples:&lt;/b&gt; PartyName (per party); driver licence (per party + issuing state); passport (per party + country)." vertex="1">
+          <mxGeometry height="32" width="796" x="892" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="c16" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party" vertex="1">
+          <mxGeometry height="80" width="80" x="912" y="248" as="geometry" />
+        </mxCell>
+        <mxCell id="c17" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#f79767;strokeColor=#f36924;fontColor=#ffffff;" value="PartyName&lt;br&gt;v2" vertex="1">
+          <mxGeometry height="70" width="70" x="1187" y="183" as="geometry" />
+        </mxCell>
+        <mxCell id="c18" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#e2e8f0;strokeColor=#94a3b8;fontColor=#475569;dashed=1;" value="PartyName&lt;br&gt;v1" vertex="1">
+          <mxGeometry height="70" width="70" x="1187" y="328" as="geometry" />
+        </mxCell>
+        <mxCell id="c19" edge="1" parent="1" source="c16" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#16a34a;strokeWidth=2;" target="c17" value="&lt;span style=&quot;color: rgb(0, 102, 0);&quot;&gt;&lt;b&gt;HAS_NAME&lt;/b&gt;&lt;br&gt;&lt;/span&gt;&lt;font style=&quot;font-size: 8px;&quot;&gt;{validFrom: 2026-10-01}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c20" edge="1" parent="1" source="c16" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#94a3b8;dashed=1;strokeWidth=1.5;" target="c18" value="&lt;span style=&quot;color: rgb(153, 0, 0);&quot;&gt;&lt;b&gt;HAD_NAME&lt;/b&gt;&lt;br&gt;&lt;/span&gt;&lt;font style=&quot;font-size: 8px;&quot;&gt;{validFrom: 2019-03-04, validTo: 2026-10-01}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c21" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#475569;fontFamily=Helvetica;" value="Green: written by this change. Grey dashed: retyped, nothing deleted." vertex="1">
+          <mxGeometry height="20" width="400" x="892" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="c22" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#1e293b;" value="&lt;b&gt;Write rule&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;• Define the &lt;b&gt;scope&lt;/b&gt; of &quot;one current&quot; per &lt;b&gt;&lt;i&gt;scenario&lt;/i&gt;&lt;/b&gt;. Dual citizens hold two valid passports: the scope is party + issuing country.&lt;br&gt;• Closing the old and opening the new happen in &lt;b&gt;one transaction&lt;/b&gt;; the old validTo = the new validFrom&lt;/div&gt;&lt;div&gt;• Update of target node (`PartyName v2` in this case) follows P1.&lt;br&gt;• Guard on order: ignore an event older than the open period (a late event becomes a closed historical period)&lt;br&gt;• Same value again: no new instance&lt;br&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="222" width="388" x="1300" y="178" as="geometry" />
+        </mxCell>
+        <mxCell id="c23" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=9;fontFamily=Courier New;fillColor=#0f172a;strokeColor=#0f172a;fontColor=#e2e8f0;" value="MATCH&amp;nbsp;(p:Party&amp;nbsp;{partyId:&amp;nbsp;$partyId})&lt;br&gt;OPTIONAL&amp;nbsp;MATCH&amp;nbsp;(p)-[r:HAS_NAME]-&amp;gt;(old)&lt;br&gt;WITH&amp;nbsp;p,&amp;nbsp;r,&amp;nbsp;old&amp;nbsp;WHERE&amp;nbsp;r&amp;nbsp;IS&amp;nbsp;NULL&amp;nbsp;OR&amp;nbsp;r.validFrom&amp;nbsp;&amp;lt;&amp;nbsp;date($from)&amp;nbsp;&amp;nbsp;//&amp;nbsp;a&amp;nbsp;late&amp;nbsp;event&amp;nbsp;is&amp;nbsp;written&amp;nbsp;as&amp;nbsp;HAD_NAME&amp;nbsp;instead&lt;br&gt;FOREACH&amp;nbsp;(_&amp;nbsp;IN&amp;nbsp;CASE&amp;nbsp;WHEN&amp;nbsp;r&amp;nbsp;IS&amp;nbsp;NULL&amp;nbsp;THEN&amp;nbsp;[]&amp;nbsp;ELSE&amp;nbsp;[1]&amp;nbsp;END&amp;nbsp;|&lt;br&gt;&amp;nbsp;&amp;nbsp;CREATE&amp;nbsp;(p)-[:HAD_NAME&amp;nbsp;{validFrom:&amp;nbsp;r.validFrom,&amp;nbsp;validTo:&amp;nbsp;date($from)}]-&amp;gt;(old)&lt;br&gt;&amp;nbsp;&amp;nbsp;DELETE&amp;nbsp;r)&lt;br&gt;CREATE&amp;nbsp;(p)-[:HAS_NAME&amp;nbsp;{validFrom:&amp;nbsp;date($from)}]-&amp;gt;(:PartyName&amp;nbsp;{nameKey:&amp;nbsp;$nameKey,&amp;nbsp;fullName:&amp;nbsp;$fullName})&lt;br&gt;SET&amp;nbsp;p.displayName&amp;nbsp;=&amp;nbsp;$fullName" vertex="1">
+          <mxGeometry height="124" width="796" x="892" y="408" as="geometry" />
+        </mxCell>
+        <mxCell id="c24" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontFamily=Helvetica;" value="" vertex="1">
+          <mxGeometry height="440" width="820" x="40" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="c25" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=12;fontSize=15;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P3 · Relationship - Slow change, several valid at once: open and close each one independently" vertex="1">
+          <mxGeometry height="34" width="820" x="40" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="c26" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#334155;fontFamily=Helvetica;" value="&lt;b&gt;Examples:&lt;/b&gt; HAS_EMAIL, HAS_PHONE, HAS_ADDRESS (several usages), ABN via IDENTIFIED_BY, multi-valued PartyStatus (CITIZENSHIP)" vertex="1">
+          <mxGeometry height="32" width="796" x="52" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="c27" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party" vertex="1">
+          <mxGeometry height="80" width="80" x="72" y="728" as="geometry" />
+        </mxCell>
+        <mxCell id="c28" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Phone A" vertex="1">
+          <mxGeometry height="56" width="56" x="354" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="c29" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Phone B" vertex="1">
+          <mxGeometry height="56" width="56" x="354" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="c30" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#e2e8f0;strokeColor=#94a3b8;fontColor=#475569;dashed=1;" value="Phone C" vertex="1">
+          <mxGeometry height="56" width="56" x="354" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="c31" edge="1" parent="1" source="c27" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="c28" value="&lt;b&gt;HAS_PHONE&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 8px;&#39;&gt;{usage: MOBILE, validFrom}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c32" edge="1" parent="1" source="c27" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#16a34a;strokeWidth=2;" target="c29" value="&lt;b&gt;HAS_PHONE&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 8px;&#39;&gt;{usage: WORK, validFrom}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c33" edge="1" parent="1" source="c27" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#94a3b8;dashed=1;strokeWidth=1.5;" target="c30" value="&lt;b&gt;HAD_PHONE&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 8px;&#39;&gt;{validFrom, validTo}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c34" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#1e293b;" value="&lt;b&gt;Write rule&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;• Opening one never closes another. &lt;b&gt;Only close what the source says has ended&lt;/b&gt;: an inferred closure hides evidence&lt;br&gt;• Relationship identity: party + target node + validFrom, so a replayed event is a no-op&lt;br&gt;• Delta source (CDC): apply each open or close event as it comes&lt;br&gt;• Snapshot source (full list per party): diff against the open set; close the missing ones with validTo = snapshot date&lt;br&gt;• The target node itself follows P1: the phone number never changes&lt;/div&gt;" vertex="1">
+          <mxGeometry height="222" width="388" x="460" y="658" as="geometry" />
+        </mxCell>
+        <mxCell id="c35" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=9;fontFamily=Courier New;fillColor=#0f172a;strokeColor=#0f172a;fontColor=#e2e8f0;" value="//&amp;nbsp;open&lt;br&gt;MATCH&amp;nbsp;(p:Party&amp;nbsp;{partyId:&amp;nbsp;$partyId}),&amp;nbsp;(ph:Phone&amp;nbsp;{number:&amp;nbsp;$e164})&lt;br&gt;MERGE&amp;nbsp;(p)-[r:HAS_PHONE&amp;nbsp;{validFrom:&amp;nbsp;date($from)}]-&amp;gt;(ph)&lt;br&gt;&amp;nbsp;&amp;nbsp;ON&amp;nbsp;CREATE&amp;nbsp;SET&amp;nbsp;r.usage&amp;nbsp;=&amp;nbsp;$usage,&amp;nbsp;r.sourceSystem&amp;nbsp;=&amp;nbsp;$sourceSystem&lt;br&gt;//&amp;nbsp;close:&amp;nbsp;the&amp;nbsp;one&amp;nbsp;named&amp;nbsp;by&amp;nbsp;the&amp;nbsp;event,&amp;nbsp;nothing&amp;nbsp;else&lt;br&gt;MATCH&amp;nbsp;(p:Party&amp;nbsp;{partyId:&amp;nbsp;$partyId})-[r:HAS_PHONE]-&amp;gt;(ph:Phone&amp;nbsp;{number:&amp;nbsp;$e164})&lt;br&gt;CREATE&amp;nbsp;(p)-[:HAD_PHONE&amp;nbsp;{validFrom:&amp;nbsp;r.validFrom,&amp;nbsp;validTo:&amp;nbsp;date($to),&amp;nbsp;usage:&amp;nbsp;r.usage}]-&amp;gt;(ph)&amp;nbsp;DELETE&amp;nbsp;r" vertex="1">
+          <mxGeometry height="124" width="796" x="52" y="888" as="geometry" />
+        </mxCell>
+        <mxCell id="c36" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontFamily=Helvetica;" value="" vertex="1">
+          <mxGeometry height="440" width="820" x="880" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="c37" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=12;fontSize=15;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#FF9999;fontFamily=Helvetica;" value="P4 · Relationship - Fast change, smallappend only: every event is a new node, never edited" vertex="1">
+          <mxGeometry height="34" width="820" x="880" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="c38" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#334155;fontFamily=Helvetica;" value="&lt;b&gt;Examples:&lt;/b&gt; Transaction; Alert and risk flags raised by rules or models; device login events if kept individually" vertex="1">
+          <mxGeometry height="32" width="796" x="892" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="c39" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Account&lt;br&gt;A" vertex="1">
+          <mxGeometry height="70" width="70" x="907" y="733" as="geometry" />
+        </mxCell>
+        <mxCell id="c40" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#57c7e3;strokeColor=#23b3d7;fontColor=#1e293b;" value="Txn" vertex="1">
+          <mxGeometry height="46" width="46" x="1069" y="675" as="geometry" />
+        </mxCell>
+        <mxCell id="c41" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#57c7e3;strokeColor=#23b3d7;fontColor=#1e293b;" value="Txn" vertex="1">
+          <mxGeometry height="46" width="46" x="1069" y="745" as="geometry" />
+        </mxCell>
+        <mxCell id="c42" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#57c7e3;strokeColor=#16a34a;strokeWidth=3;fontColor=#1e293b;" value="Txn&lt;br&gt;new" vertex="1">
+          <mxGeometry height="46" width="46" x="1069" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="c43" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Account&lt;br&gt;B" vertex="1">
+          <mxGeometry height="70" width="70" x="1202" y="733" as="geometry" />
+        </mxCell>
+        <mxCell id="c44" edge="1" parent="1" source="c39" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="c40" value="&lt;b&gt;SENT&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c45" edge="1" parent="1" source="c39" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="c41" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c46" edge="1" parent="1" source="c39" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#16a34a;strokeWidth=2;" target="c42" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c47" edge="1" parent="1" source="c40" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="c43" value="&lt;b&gt;CREDITED_TO&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c48" edge="1" parent="1" source="c41" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="c43" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c49" edge="1" parent="1" source="c42" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#16a34a;strokeWidth=2;" target="c43" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c50" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#1e293b;" value="&lt;b&gt;Write rule&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;• CREATE once per event key (transactionId, alertId); a redelivered event is a no-op&lt;br&gt;• Never update: a correction or reversal is a new event that points to the original&lt;br&gt;• Order does not matter: events carry their own timestamp (bookedAt)&lt;br&gt;• Removed only by the rolling-window eviction job, never by the load&lt;br&gt;• Not for a value that supersedes the previous one: a RiskScore is P2 even when scored hourly&lt;/div&gt;" vertex="1">
+          <mxGeometry height="222" width="388" x="1300" y="658" as="geometry" />
+        </mxCell>
+        <mxCell id="c51" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=9;fontFamily=Courier New;fillColor=#0f172a;strokeColor=#0f172a;fontColor=#e2e8f0;" value="MATCH&amp;nbsp;(a:Account&amp;nbsp;{accountId:&amp;nbsp;$from}),&amp;nbsp;(b:Account&amp;nbsp;{accountId:&amp;nbsp;$to})&lt;br&gt;MERGE&amp;nbsp;(t:Transaction&amp;nbsp;{transactionId:&amp;nbsp;$txId})&lt;br&gt;&amp;nbsp;&amp;nbsp;ON&amp;nbsp;CREATE&amp;nbsp;SET&amp;nbsp;t.amountMinor&amp;nbsp;=&amp;nbsp;$amountMinor,&amp;nbsp;t.currency&amp;nbsp;=&amp;nbsp;$ccy,&amp;nbsp;t.bookedAt&amp;nbsp;=&amp;nbsp;datetime($bookedAt),&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;t.isNew&amp;nbsp;=&amp;nbsp;true&lt;br&gt;WITH&amp;nbsp;a,&amp;nbsp;b,&amp;nbsp;t&amp;nbsp;WHERE&amp;nbsp;t.isNew&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;//&amp;nbsp;only&amp;nbsp;the&amp;nbsp;first&amp;nbsp;delivery&amp;nbsp;continues&lt;br&gt;CREATE&amp;nbsp;(a)-[:SENT]-&amp;gt;(t)-[:CREDITED_TO]-&amp;gt;(b)&lt;br&gt;REMOVE&amp;nbsp;t.isNew&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;//&amp;nbsp;P7&amp;nbsp;summary&amp;nbsp;is&amp;nbsp;updated&amp;nbsp;in&amp;nbsp;this&amp;nbsp;same&amp;nbsp;transaction" vertex="1">
+          <mxGeometry height="124" width="796" x="892" y="888" as="geometry" />
+        </mxCell>
+        <mxCell id="c52" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontFamily=Helvetica;" value="" vertex="1">
+          <mxGeometry height="440" width="820" x="40" y="1540" as="geometry" />
+        </mxCell>
+        <mxCell id="c53" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=12;fontSize=15;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#FFFFFF;fontFamily=Helvetica;" value="P7 · Relationship - Fast change, summary only: one relationship updated in place" vertex="1">
+          <mxGeometry height="34" width="820" x="40" y="1540" as="geometry" />
+        </mxCell>
+        <mxCell id="c54" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#334155;fontFamily=Helvetica;" value="&lt;b&gt;Examples:&lt;/b&gt; TRANSFERRED_TO between accounts; USED_DEVICE (sessionCount, lastSeenAt); SEEN_AT between device and IP" vertex="1">
+          <mxGeometry height="32" width="796" x="52" y="1580" as="geometry" />
+        </mxCell>
+        <mxCell id="c55" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Account&lt;br&gt;A" vertex="1">
+          <mxGeometry height="70" width="70" x="77" y="1653" as="geometry" />
+        </mxCell>
+        <mxCell id="c56" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Account&lt;br&gt;B" vertex="1">
+          <mxGeometry height="70" width="70" x="347" y="1653" as="geometry" />
+        </mxCell>
+        <mxCell id="c57" edge="1" parent="1" source="c55" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#16a34a;strokeWidth=2;" target="c56" value="&lt;b&gt;TRANSFERRED_TO&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 8px;&#39;&gt;{txCount: 12 → 13, totalAmountMinor += amount,&lt;br&gt;firstAt, lastAt = max(lastAt, bookedAt)}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c58" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party" vertex="1">
+          <mxGeometry height="50" width="50" x="87" y="1778" as="geometry" />
+        </mxCell>
+        <mxCell id="c59" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Device" vertex="1">
+          <mxGeometry height="50" width="50" x="357" y="1778" as="geometry" />
+        </mxCell>
+        <mxCell id="c60" edge="1" parent="1" source="c58" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#16a34a;strokeWidth=2;" target="c59" value="&lt;b&gt;USED_DEVICE&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 8px;&#39;&gt;{firstSeenAt, lastSeenAt, sessionCount += 1}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c61" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#1e293b;" value="&lt;b&gt;Write rule&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;• One relationship per pair, MERGE on the pair, then increment&lt;br&gt;• &lt;b&gt;Increment only when the underlying event is new&lt;/b&gt; (inside the P4 transaction), or a replay double-counts&lt;br&gt;• Lifetime aggregations. Rolling windows (e.g. last 30 days) is done separately.&lt;br&gt;• Must be rebuildable from P4 events or the archive&lt;br&gt;• High-degree accounts serialise on this one relationship: batch per pair&lt;/div&gt;" vertex="1">
+          <mxGeometry height="222" width="388" x="460" y="1618" as="geometry" />
+        </mxCell>
+        <mxCell id="c62" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=9;fontFamily=Courier New;fillColor=#0f172a;strokeColor=#0f172a;fontColor=#e2e8f0;" value="//&amp;nbsp;runs&amp;nbsp;inside&amp;nbsp;the&amp;nbsp;P4&amp;nbsp;transaction,&amp;nbsp;after&amp;nbsp;CREATE&amp;nbsp;(a)-[:SENT]-&amp;gt;(t)&lt;br&gt;MERGE&amp;nbsp;(a)-[s:TRANSFERRED_TO]-&amp;gt;(b)&lt;br&gt;&amp;nbsp;&amp;nbsp;ON&amp;nbsp;CREATE&amp;nbsp;SET&amp;nbsp;s.txCount&amp;nbsp;=&amp;nbsp;0,&amp;nbsp;s.totalAmountMinor&amp;nbsp;=&amp;nbsp;0,&amp;nbsp;s.currency&amp;nbsp;=&amp;nbsp;$ccy,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;s.firstAt&amp;nbsp;=&amp;nbsp;t.bookedAt&lt;br&gt;SET&amp;nbsp;s.txCount&amp;nbsp;=&amp;nbsp;s.txCount&amp;nbsp;+&amp;nbsp;1,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;s.totalAmountMinor&amp;nbsp;=&amp;nbsp;s.totalAmountMinor&amp;nbsp;+&amp;nbsp;t.amountMinor,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;s.lastAt&amp;nbsp;=&amp;nbsp;CASE&amp;nbsp;WHEN&amp;nbsp;s.lastAt&amp;nbsp;IS&amp;nbsp;NULL&amp;nbsp;OR&amp;nbsp;t.bookedAt&amp;nbsp;&amp;gt;&amp;nbsp;s.lastAt&amp;nbsp;THEN&amp;nbsp;t.bookedAt&amp;nbsp;ELSE&amp;nbsp;s.lastAt&amp;nbsp;END" vertex="1">
+          <mxGeometry height="102" width="796" x="52" y="1870" as="geometry" />
+        </mxCell>
+        <mxCell id="c63" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontFamily=Helvetica;" value="" vertex="1">
+          <mxGeometry height="440" width="820" x="880" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="c64" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=12;fontSize=15;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P6 · Reference data: current snapshot, overwritten in place, no history" vertex="1">
+          <mxGeometry height="34" width="820" x="880" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="c65" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#334155;fontFamily=Helvetica;" value="&lt;b&gt;Examples:&lt;/b&gt; Product code and name; G-NAF / DPID address attributes; country and currency codes" vertex="1">
+          <mxGeometry height="32" width="796" x="892" y="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="c66" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Product" vertex="1">
+          <mxGeometry height="66" width="66" x="919" y="1165" as="geometry" />
+        </mxCell>
+        <mxCell id="c67" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=4;fontSize=9;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;" value="{productId: &#39;Product 1&#39;, productName: &#39;Everyday Offset&#39;}&lt;br&gt;name looked up" vertex="1">
+          <mxGeometry height="32" width="233" x="897" y="1236" as="geometry" />
+        </mxCell>
+        <mxCell id="c68" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#d9c8ae;strokeColor=#a8875a;fontColor=#1e293b;" value="Product 1" vertex="1">
+          <mxGeometry height="76" width="76" x="1174" y="1250" as="geometry" />
+        </mxCell>
+        <mxCell id="c70" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party" vertex="1">
+          <mxGeometry height="50" width="50" x="927" y="1293" as="geometry" />
+        </mxCell>
+        <mxCell id="c71" edge="1" parent="1" source="c70" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="c68" value="&lt;b&gt;HAS_PRODUCT&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 8px;&quot;&gt;{P3 link}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c72" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#1e293b;" value="&lt;b&gt;Write rule&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;• &lt;b&gt;Low-cardinality code lists stay properties&lt;/b&gt; (productCode); as nodes they become supernodes. Display names come from the reference table or Hume&lt;br&gt;• &lt;b&gt;High-cardinality reference entities are nodes&lt;/b&gt; (Address vs. DPID): attributes overwritten from each release, no history&lt;br&gt;• A retired code is never deleted while referenced: set isRetired and keep the node&lt;br&gt;• History lives in the party&#39;s links (P2, P3), not in the reference node&lt;br&gt;• Full load: upsert all, then flag what is absent&lt;/div&gt;" vertex="1">
+          <mxGeometry height="222" width="388" x="1300" y="1138" as="geometry" />
+        </mxCell>
+        <mxCell id="c73" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=9;fontFamily=Courier New;fillColor=#0f172a;strokeColor=#0f172a;fontColor=#e2e8f0;" value="UNWIND&amp;nbsp;$release&amp;nbsp;AS&amp;nbsp;row&lt;br&gt;MATCH&amp;nbsp;(ad:Address&amp;nbsp;{gnafPid:&amp;nbsp;row.gnafPid})&lt;br&gt;SET&amp;nbsp;ad.locality&amp;nbsp;=&amp;nbsp;row.locality,&amp;nbsp;ad.postcode&amp;nbsp;=&amp;nbsp;row.postcode,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ad.referenceVersion&amp;nbsp;=&amp;nbsp;$releaseId,&amp;nbsp;ad.ingestedAt&amp;nbsp;=&amp;nbsp;datetime()&lt;br&gt;//&amp;nbsp;after&amp;nbsp;the&amp;nbsp;release:&amp;nbsp;addresses&amp;nbsp;not&amp;nbsp;in&amp;nbsp;it&lt;br&gt;MATCH&amp;nbsp;(ad:Address)&amp;nbsp;WHERE&amp;nbsp;ad.gnafPid&amp;nbsp;IS&amp;nbsp;NOT&amp;nbsp;NULL&amp;nbsp;AND&amp;nbsp;ad.referenceVersion&amp;nbsp;&amp;lt;&amp;gt;&amp;nbsp;$releaseId&lt;br&gt;SET&amp;nbsp;ad.isRetired&amp;nbsp;=&amp;nbsp;true" vertex="1">
+          <mxGeometry height="102" width="796" x="892" y="1390" as="geometry" />
+        </mxCell>
+        <mxCell id="c74" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontFamily=Helvetica;" value="" vertex="1">
+          <mxGeometry height="440" width="820" x="40" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="c75" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=12;fontSize=15;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P5 · Fast change, high volume: append only, grouped per owner node and group key" vertex="1">
+          <mxGeometry height="34" width="820" x="40" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="c76" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#334155;fontFamily=Helvetica;" value="&lt;b&gt;Examples:&lt;/b&gt; Transaction for every account (uniform, e.g. by month); device sessions if kept individually" vertex="1">
+          <mxGeometry height="32" width="796" x="52" y="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="c77" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Account&lt;br&gt;A" vertex="1">
+          <mxGeometry height="70" width="70" x="62" y="1213" as="geometry" />
+        </mxCell>
+        <mxCell id="c78" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#57c7e3;strokeColor=#23b3d7;fontColor=#1e293b;" value="Txn Group&lt;br&gt;2026-09" vertex="1">
+          <mxGeometry height="62" width="62" x="196" y="1152" as="geometry" />
+        </mxCell>
+        <mxCell id="c79" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#57c7e3;strokeColor=#23b3d7;fontColor=#1e293b;" value="Txn Group&lt;br&gt;2026-10" vertex="1">
+          <mxGeometry height="62" width="62" x="196" y="1282" as="geometry" />
+        </mxCell>
+        <mxCell id="c80" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#57c7e3;strokeColor=#23b3d7;fontColor=#1e293b;" value="Txn" vertex="1">
+          <mxGeometry height="40" width="40" x="377" y="1248" as="geometry" />
+        </mxCell>
+        <mxCell id="c81" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#57c7e3;strokeColor=#16a34a;strokeWidth=3;fontColor=#1e293b;" value="Txn&lt;br&gt;new" vertex="1">
+          <mxGeometry height="40" width="40" x="377" y="1323" as="geometry" />
+        </mxCell>
+        <mxCell id="c82" edge="1" parent="1" source="c77" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="c78" value="&lt;b&gt;HAS_TXN_GROUP&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c83" edge="1" parent="1" source="c77" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="c79" value="&lt;b&gt;HAS_TXN_GROUP&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c84" edge="1" parent="1" source="c79" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="c80" value="&lt;b&gt;SENT&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c85" edge="1" parent="1" source="c79" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#16a34a;strokeWidth=2;" target="c81" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c86" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#475569;fontFamily=Helvetica;" value="Account degree = periods in the window. Counterparty side: (t)-[:CREDITED_TO]-&gt;(its own group)." vertex="1">
+          <mxGeometry height="20" width="400" x="52" y="1366" as="geometry" />
+        </mxCell>
+        <mxCell id="c87" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#1e293b;" value="&lt;b&gt;Write rule&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;• Group key: accountId + period (&#39;ACC123|2026-10&#39;). Created once (P1), ideally pre-created by a job at period start so writes are MATCH only&lt;br&gt;• Transaction itself is P4: CREATE once, never edited&lt;br&gt;• Uniform for all accounts: one query shape, no rewiring when an account crosses a threshold. Finer grain (day) for InternalAccount&lt;br&gt;• Eviction drops whole group when all its members are out of the required time window.&amp;nbsp;&lt;br&gt;• Lock contention moves off the hub account; on Infinigraph a hub&#39;s edge properties spread across shards, one group each&lt;/div&gt;" vertex="1">
+          <mxGeometry height="222" width="388" x="460" y="1138" as="geometry" />
+        </mxCell>
+        <mxCell id="c88" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=9;fontFamily=Courier New;fillColor=#0f172a;strokeColor=#0f172a;fontColor=#e2e8f0;" value="MATCH&amp;nbsp;(a:Account&amp;nbsp;{accountId:&amp;nbsp;$from}),&amp;nbsp;(b:Account&amp;nbsp;{accountId:&amp;nbsp;$to})&lt;br&gt;MERGE&amp;nbsp;(ga:TransactionGroup&amp;nbsp;{groupKey:&amp;nbsp;$from&amp;nbsp;+&amp;nbsp;&#39;|&#39;&amp;nbsp;+&amp;nbsp;$period})&amp;nbsp;ON&amp;nbsp;CREATE&amp;nbsp;SET&amp;nbsp;ga.period&amp;nbsp;=&amp;nbsp;$period&lt;br&gt;MERGE&amp;nbsp;(gb:TransactionGroup&amp;nbsp;{groupKey:&amp;nbsp;$to&amp;nbsp;+&amp;nbsp;&#39;|&#39;&amp;nbsp;+&amp;nbsp;$period})&amp;nbsp;&amp;nbsp;&amp;nbsp;ON&amp;nbsp;CREATE&amp;nbsp;SET&amp;nbsp;gb.period&amp;nbsp;=&amp;nbsp;$period&lt;br&gt;MERGE&amp;nbsp;(a)-[:HAS_TXN_GROUP]-&amp;gt;(ga)&amp;nbsp;MERGE&amp;nbsp;(b)-[:HAS_TXN_GROUP]-&amp;gt;(gb)&lt;br&gt;MERGE&amp;nbsp;(t:Transaction&amp;nbsp;{transactionId:&amp;nbsp;$txId})&lt;br&gt;&amp;nbsp;&amp;nbsp;ON&amp;nbsp;CREATE&amp;nbsp;SET&amp;nbsp;t.amountMinor&amp;nbsp;=&amp;nbsp;$amountMinor,&amp;nbsp;t.bookedAt&amp;nbsp;=&amp;nbsp;datetime($bookedAt),&amp;nbsp;t.isNew&amp;nbsp;=&amp;nbsp;true&lt;br&gt;WITH&amp;nbsp;ga,&amp;nbsp;gb,&amp;nbsp;t&amp;nbsp;WHERE&amp;nbsp;t.isNew&lt;br&gt;CREATE&amp;nbsp;(ga)-[:SENT]-&amp;gt;(t)-[:CREDITED_TO]-&amp;gt;(gb)&amp;nbsp;REMOVE&amp;nbsp;t.isNew" vertex="1">
+          <mxGeometry height="124" width="796" x="52" y="1368" as="geometry" />
+        </mxCell>
+        <mxCell id="c89" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontFamily=Helvetica;" value="" vertex="1">
+          <mxGeometry height="440" width="820" x="1960" y="1550" as="geometry" />
+        </mxCell>
+        <mxCell id="c90" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=12;fontSize=15;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="Current status: a relationship type, never a CurrentAddress label" vertex="1">
+          <mxGeometry height="34" width="820" x="1960" y="1550" as="geometry" />
+        </mxCell>
+        <mxCell id="c91" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#334155;fontFamily=Helvetica;" value="&lt;b&gt;Examples:&lt;/b&gt; Applies to every P2 and P3 relationship: HAS_ / HAD_ already carries current or ended" vertex="1">
+          <mxGeometry height="32" width="796" x="1972" y="1590" as="geometry" />
+        </mxCell>
+        <mxCell id="c92" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party&lt;br&gt;A" vertex="1">
+          <mxGeometry height="66" width="66" x="1999" y="1655" as="geometry" />
+        </mxCell>
+        <mxCell id="c93" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#1f3864;strokeColor=#14254a;fontColor=#ffffff;" value="Party&lt;br&gt;B" vertex="1">
+          <mxGeometry height="66" width="66" x="1999" y="1785" as="geometry" />
+        </mxCell>
+        <mxCell id="c94" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontSize=10;fontStyle=1;strokeWidth=2;fontFamily=Helvetica;fillColor=#4c8eda;strokeColor=#2870c2;fontColor=#ffffff;" value="Address" vertex="1">
+          <mxGeometry height="80" width="80" x="2252" y="1713" as="geometry" />
+        </mxCell>
+        <mxCell id="c95" edge="1" parent="1" source="c92" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#1f3864;strokeWidth=1.5;" target="c94" value="&lt;b&gt;HAS_ADDRESS&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 8px;&#39;&gt;{current for A}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c96" edge="1" parent="1" source="c93" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#94a3b8;dashed=1;strokeWidth=1.5;" target="c94" value="&lt;b&gt;HAD_ADDRESS&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size: 8px;&#39;&gt;{former for B}&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c97" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#475569;fontFamily=Helvetica;" value="The same Address is current and former at once. A label on it is wrong for one of them." vertex="1">
+          <mxGeometry height="20" width="400" x="1972" y="1856" as="geometry" />
+        </mxCell>
+        <mxCell id="c98" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=10;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#1e293b;" value="&lt;b&gt;Rule&lt;/b&gt;&lt;br&gt;&amp;bull; &lt;b&gt;Shared nodes&lt;/b&gt; (Address, Phone, Email, IdentityDocument): current is a fact of the link, so it cannot be a label on the node&lt;br&gt;&amp;bull; &lt;b&gt;Per-party nodes&lt;/b&gt; (PartyName, PartyStatus, RiskScore): a Current label would be correct but duplicates the type: two writes that drift (the guideline bans isCurrent for the same reason)&lt;br&gt;&amp;bull; &lt;b&gt;UI:&lt;/b&gt; style by relationship type, HAS_ solid and HAD_ dashed, as in these diagrams&lt;br&gt;&amp;bull; &lt;b&gt;Infinigraph:&lt;/b&gt; the type is already free to filter on the graph shard; a label adds nothing" vertex="1">
+          <mxGeometry height="222" width="388" x="2380" y="1628" as="geometry" />
+        </mxCell>
+        <mxCell id="c99" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=8;fontSize=9;fontFamily=Courier New;fillColor=#0f172a;strokeColor=#0f172a;fontColor=#e2e8f0;" value="//&amp;nbsp;current&amp;nbsp;addresses:&amp;nbsp;the&amp;nbsp;type&amp;nbsp;is&amp;nbsp;the&amp;nbsp;filter&lt;br&gt;MATCH&amp;nbsp;(p:Party&amp;nbsp;{partyId:&amp;nbsp;$partyId})-[:HAS_ADDRESS]-&amp;gt;(a:Address)&amp;nbsp;RETURN&amp;nbsp;a&lt;br&gt;&lt;br&gt;//&amp;nbsp;every&amp;nbsp;address&amp;nbsp;ever&amp;nbsp;held&lt;br&gt;MATCH&amp;nbsp;(p:Party&amp;nbsp;{partyId:&amp;nbsp;$partyId})-[r:HAS_ADDRESS|HAD_ADDRESS]-&amp;gt;(a:Address)&lt;br&gt;RETURN&amp;nbsp;a,&amp;nbsp;r.validFrom,&amp;nbsp;r.validTo,&amp;nbsp;type(r)&amp;nbsp;=&amp;nbsp;&#39;HAS_ADDRESS&#39;&amp;nbsp;AS&amp;nbsp;isCurrent" vertex="1">
+          <mxGeometry height="124" width="796" x="1972" y="1858" as="geometry" />
+        </mxCell>
+        <mxCell id="C9jO9Z9xZguSy_90JvZP-2" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;fontFamily=Helvetica;" value="" vertex="1">
+          <mxGeometry height="440" width="820" x="880" y="1540" as="geometry" />
+        </mxCell>
+        <mxCell id="C9jO9Z9xZguSy_90JvZP-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=12;fontSize=15;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P8: Provenance" vertex="1">
+          <mxGeometry height="34" width="820" x="880" y="1540" as="geometry" />
+        </mxCell>
+        <mxCell id="C9jO9Z9xZguSy_90JvZP-1" parent="1" style="text;whiteSpace=wrap;html=1;fontSize=20;" value="&lt;p style=&quot;white-space: pre-wrap; margin-top: 0.1em; margin-bottom: 0.2em; unicode-bidi: plaintext; color: rgb(97, 97, 97); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, sans-serif; font-size: 21px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(243, 243, 243); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;Every node and every sourced relationship carries:&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;table style=&quot;border-collapse: collapse; border: 1px solid var(--app-input-border); color: rgb(97, 97, 97); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, sans-serif; font-size: 21px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(243, 243, 243); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th style=&quot;unicode-bidi: plaintext; border: 1px solid var(--app-input-border); padding: 2px;&quot;&gt;Property&lt;/th&gt;&lt;th style=&quot;unicode-bidi: plaintext; border: 1px solid var(--app-input-border); padding: 2px;&quot;&gt;Meaning&lt;/th&gt;&lt;th style=&quot;unicode-bidi: plaintext; border: 1px solid var(--app-input-border); padding: 2px;&quot;&gt;&lt;br&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;unicode-bidi: plaintext; border: 1px solid var(--app-input-border); padding: 2px;&quot;&gt;&lt;code style=&quot;font-family: var(--app-monospace-font-family); color: var(--app-inline-code-foreground); background: var(--app-inline-code-background); padding: 2px 4px; border-radius: 3px; word-break: break-word; font-size: 0.9em;&quot;&gt;sourceSystem&lt;/code&gt;&lt;/td&gt;&lt;td style=&quot;unicode-bidi: plaintext; border: 1px solid var(--app-input-border); padding: 2px;&quot;&gt;System of record the fact came from (&lt;code style=&quot;font-family: var(--app-monospace-font-family); color: var(--app-inline-code-foreground); background: var(--app-inline-code-background); padding: 2px 4px; border-radius: 3px; word-break: break-word; font-size: 0.9em;&quot;&gt;CRM&lt;/code&gt;,&lt;span&gt;&amp;nbsp;&lt;/span&gt;&lt;code style=&quot;font-family: var(--app-monospace-font-family); color: var(--app-inline-code-foreground); background: var(--app-inline-code-background); padding: 2px 4px; border-radius: 3px; word-break: break-word; font-size: 0.9em;&quot;&gt;CORE_BANKING&lt;/code&gt;)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;unicode-bidi: plaintext; border: 1px solid var(--app-input-border); padding: 2px;&quot;&gt;&lt;code style=&quot;font-family: var(--app-monospace-font-family); color: var(--app-inline-code-foreground); background: var(--app-inline-code-background); padding: 2px 4px; border-radius: 3px; word-break: break-word; font-size: 0.9em;&quot;&gt;sourceUpdatedAt&lt;/code&gt;&lt;/td&gt;&lt;td style=&quot;unicode-bidi: plaintext; border: 1px solid var(--app-input-border); padding: 2px;&quot;&gt;When the source says the fact last changed&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;unicode-bidi: plaintext; border: 1px solid var(--app-input-border); padding: 2px;&quot;&gt;&lt;code style=&quot;font-family: var(--app-monospace-font-family); color: var(--app-inline-code-foreground); background: var(--app-inline-code-background); padding: 2px 4px; border-radius: 3px; word-break: break-word; font-size: 0.9em;&quot;&gt;ingestedAt&lt;/code&gt;&lt;/td&gt;&lt;td style=&quot;unicode-bidi: plaintext; border: 1px solid var(--app-input-border); padding: 2px;&quot;&gt;When the graph last wrote it&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;unicode-bidi: plaintext; border: 1px solid var(--app-input-border); padding: 2px;&quot;&gt;&lt;code style=&quot;font-family: var(--app-monospace-font-family); color: var(--app-inline-code-foreground); background: var(--app-inline-code-background); padding: 2px 4px; border-radius: 3px; word-break: break-word; font-size: 0.9em;&quot;&gt;loadId&lt;/code&gt;&lt;/td&gt;&lt;td style=&quot;unicode-bidi: plaintext; border: 1px solid var(--app-input-border); padding: 2px;&quot;&gt;The Day 0 batch ID, or the Kafka topic-partition-offset&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;white-space: pre-wrap; margin-top: 0.1em; margin-bottom: 0.2em; unicode-bidi: plaintext; color: rgb(97, 97, 97); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, sans-serif; font-size: 21px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(243, 243, 243); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;br&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="278" width="741" x="919" y="1622" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="choose_pattern" name="Choosing a pattern">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1760" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontColor=#1f3864;fontFamily=Helvetica;" value="Choosing a pattern, and which pattern each element follows" vertex="1">
+          <mxGeometry x="40" y="15" width="1200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;whiteSpace=wrap;fontFamily=Helvetica;" value="Decide separately for the node and for each relationship type that reaches it." vertex="1">
+          <mxGeometry x="40" y="48" width="1200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="d1" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;fillColor=#eef2ff;strokeColor=#1f3864;fontColor=#1e293b;fontFamily=Helvetica;" value="Owned outside as&lt;br&gt;reference data?" vertex="1">
+          <mxGeometry x="140" y="100" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="d2" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;fillColor=#eef2ff;strokeColor=#1f3864;fontColor=#1e293b;fontFamily=Helvetica;" value="Does it change&lt;br&gt;after creation?" vertex="1">
+          <mxGeometry x="140" y="260" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="d3" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;fillColor=#eef2ff;strokeColor=#1f3864;fontColor=#1e293b;fontFamily=Helvetica;" value="Many changes per&lt;br&gt;entity per day?" vertex="1">
+          <mxGeometry x="140" y="420" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="d4" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;fillColor=#eef2ff;strokeColor=#1f3864;fontColor=#1e293b;fontFamily=Helvetica;" value="Is each event&lt;br&gt;needed on its own?" vertex="1">
+          <mxGeometry x="140" y="580" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="d5" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;fillColor=#eef2ff;strokeColor=#1f3864;fontColor=#1e293b;fontFamily=Helvetica;" value="Can several be valid&lt;br&gt;at once in its scope?" vertex="1">
+          <mxGeometry x="440" y="420" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="r6" parent="1" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P6 Reference" vertex="1">
+          <mxGeometry x="440" y="130" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" parent="1" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P1 Singleton" vertex="1">
+          <mxGeometry x="440" y="290" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="d6" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;fillColor=#eef2ff;strokeColor=#1f3864;fontColor=#1e293b;fontFamily=Helvetica;" value="High volume per&lt;br&gt;entity per period?" vertex="1">
+          <mxGeometry x="440" y="580" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" parent="1" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P4 Append only" vertex="1">
+          <mxGeometry x="450" y="760" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r7" parent="1" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P7 Grouped append" vertex="1">
+          <mxGeometry x="720" y="610" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r5" parent="1" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P5 Summary only" vertex="1">
+          <mxGeometry x="160" y="760" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" parent="1" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P2 One valid" vertex="1">
+          <mxGeometry x="720" y="380" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" parent="1" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#1f3864;strokeColor=#1f3864;fontColor=#ffffff;fontFamily=Helvetica;" value="P3 Several valid" vertex="1">
+          <mxGeometry x="720" y="470" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" parent="1" source="d1" target="r6" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;" value="yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" parent="1" source="d1" target="d2" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;" value="no">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" parent="1" source="d2" target="r1" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;" value="no">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" parent="1" source="d2" target="d3" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;" value="yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c7" parent="1" source="d3" target="d4" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;" value="yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c8" parent="1" source="d3" target="d5" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;" value="no">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c9" parent="1" source="d4" target="d6" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;" value="yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c10" parent="1" source="d6" target="r7" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;" value="yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c11" parent="1" source="d6" target="r4" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;" value="no">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c12" parent="1" source="d4" target="r5" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;" value="no, totals only">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c13" parent="1" source="d5" target="r2" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" value="no">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c14" parent="1" source="d5" target="r3" edge="1" style="html=1;rounded=0;endArrow=classic;endFill=1;fontSize=9;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontFamily=Helvetica;strokeColor=#475569;strokeWidth=1.2;fontSize=10;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" value="yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c15" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=10;fontSize=11;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#1e293b;" value="&lt;b&gt;A value that supersedes the previous one is P2, however often it changes.&lt;/b&gt; RiskScore is P2 (one current per model) with write-on-change, not P4.&lt;br&gt;&lt;br&gt;&lt;b&gt;P2 needs a scope.&lt;/b&gt; Write it down per type: name per party; licence per party + state; passport per party + country; AML status per party.&lt;br&gt;&lt;br&gt;&lt;b&gt;P3 never infers closure.&lt;/b&gt; If the source does not say a phone has ended, it stays open.&lt;br&gt;&lt;br&gt;&lt;b&gt;Transactions are P7 for every account.&lt;/b&gt; A threshold would give two query shapes and force rewiring when an account crosses it." vertex="1">
+          <mxGeometry x="40" y="840" width="880" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="c16" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontFamily=Helvetica;align=left;spacing=10;fontSize=11;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#1e293b;" value="&lt;b&gt;Element mapping&lt;/b&gt;&lt;br&gt;&lt;table style=&#39;font-size: 11px; border-collapse: collapse;&#39; cellpadding=&#39;4&#39;&gt;&lt;tr style=&#39;border-bottom: 1px solid #94a3b8;&#39;&gt;&lt;td&gt;&lt;b&gt;Node&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Node pattern&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Relationships from or to it&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;Party&lt;/td&gt;&lt;td&gt;P1&lt;/td&gt;&lt;td&gt;POSSIBLY_SAME_AS: P1 (derived link, added once)&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;Phone, Email&lt;/td&gt;&lt;td&gt;P1&lt;/td&gt;&lt;td&gt;HAS_PHONE, HAS_EMAIL: P3&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;IdentityDocument&lt;/td&gt;&lt;td&gt;P1&lt;/td&gt;&lt;td&gt;IDENTIFIED_BY: P2 for licence and passport (scoped), P3 for ABN and ACN&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;Address&lt;/td&gt;&lt;td&gt;P6&lt;/td&gt;&lt;td&gt;HAS_ADDRESS: P3 (one per usage only if the source guarantees it: then P2)&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;PartyName&lt;/td&gt;&lt;td&gt;P1&lt;/td&gt;&lt;td&gt;HAS_NAME: P2, scope party&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;PartyStatus&lt;/td&gt;&lt;td&gt;P1&lt;/td&gt;&lt;td&gt;HAS_STATUS: P2 for single-valued domains (AML, RESIDENCY), P3 for CITIZENSHIP, TAX_RESIDENCY&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;RiskScore&lt;/td&gt;&lt;td&gt;P1&lt;/td&gt;&lt;td&gt;HAS_RISK_SCORE: P2, scope party + model, write on change&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;TransactionGroup&lt;/td&gt;&lt;td&gt;P1&lt;/td&gt;&lt;td&gt;HAS_TXN_GROUP from Account: P1, once per account and period&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;Transaction&lt;/td&gt;&lt;td&gt;P4, grouped by P7&lt;/td&gt;&lt;td&gt;SENT from, CREDITED_TO to a TransactionGroup; INITIATED_FROM: created with the transaction&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;Alert&lt;/td&gt;&lt;td&gt;P4&lt;/td&gt;&lt;td&gt;RAISED_ON: P4&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;Account&lt;/td&gt;&lt;td&gt;P1&lt;/td&gt;&lt;td&gt;TRANSFERRED_TO: P5&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;Device, IpAddress&lt;/td&gt;&lt;td&gt;P1&lt;/td&gt;&lt;td&gt;USED_DEVICE, SEEN_AT: P5&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&#39;border-bottom: 1px solid #e2e8f0;&#39;&gt;&lt;td&gt;Product, country, currency codes&lt;/td&gt;&lt;td&gt;P6 as properties&lt;/td&gt;&lt;td&gt;none: not nodes&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br&gt;&lt;font style=&#39;font-size: 10px;&#39;&gt;Per-party history nodes (PartyName, PartyStatus, RiskScore) are P1 themselves: once written they never change. Their history is carried by the P2 / P3 relationship.&lt;/font&gt;" vertex="1">
+          <mxGeometry x="960" y="100" width="760" height="620" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
